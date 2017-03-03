@@ -1,0 +1,13 @@
+[core]
+	editor = vim
+  excludesfile = /Users/tetsu/.gitignore_global
+[user]
+	name = tksgi
+	email = tksgi12@gmail.com
+[color]
+	ui = true
+[alias]
+	co = checkout
+[init]
+	tmplatedir = .git_tmp
+
