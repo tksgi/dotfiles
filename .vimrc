@@ -14,6 +14,16 @@ set showcmd
 " マウスを有効にする
 set mouse=a
 set backspace=indent,eol,start
+" 保存時に行末スペース削除
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
+" tmp ディレクトリではバックアップを行わない
+set backupskip=/tmp/*,/private/tmp/*
+" :Eでカレントディレクトリを開く
+command -nargs=? E Explore <args>
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
@@ -28,7 +38,7 @@ set showmatch
 set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
-" 折り返し時に表示行単位での移動できるようにする 
+" 折り返し時に表示行単位での移動できるようにする
 nnoremap j gj
 nnoremap k gk
 "カーソルの回り込みができるようになる
@@ -60,6 +70,23 @@ set expandtab
 set tabstop=2
 " 行頭でのTab文字の表示幅
 set shiftwidth=2
+"タブ、空白、改行の可視化
+"set list
+"set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+"
+""全角スペースをハイライト表示
+function! ZenkakuSpace()
+  highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme       * call ZenkakuSpace()
+    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+  augroup END
+  call ZenkakuSpace()
+endif
 
 
 " 検索系
@@ -104,7 +131,11 @@ if dein#load_state('/Users/tetsu/.vim/bundle')
   call dein#add('Shougo/neocomplete.vim')
   "コメントON/OFFを手軽に実行
   call dein#add('tomtom/tcomment_vim')
-  
+  "履歴をたどる
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('vim-scripts/grep.vim')
+
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
@@ -191,6 +222,16 @@ nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 "       nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
 "   endif
 set tags+=.svn/tags
+
+"'Shougo/unite.vim'
+nnoremap ,ub :<C-u>Unite buffer<CR>
+nnoremap ,uc :<C-u>Unite file<CR>
+nnoremap ,uh :<C-u>Unite file_mru<CR>
+nnoremap ,uf  :<c-u>UniteWithBufferDir -buffer-name=files file -direction=botright <cr>
+noremap ,ur     :Unite -buffer-name=register register<CR>
+" history/yank を有効化する
+" let g:unite_source_history_yank_enable = 1
+" noremap ,uy     :Unite history/yank<CR>
 
 "htmlの閉じタグ補完
  augroup MyXML
