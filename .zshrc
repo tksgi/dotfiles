@@ -79,7 +79,10 @@ export CLICOLOR=true
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-sh ~/aarandom.sh
+~/aarandom.sh
 alias aaclear='sh ~/aarandom.sh'
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
+export PATH=$PATH:~/.composer/vendor/bin:/usr/local/sbin
+export PATH=$PATH:/Users/Tetsu/.nodebrew/current/bin
+export PATH=$PATH:/Users/Tetsu/Library/Android/sdk/platform-tools

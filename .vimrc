@@ -2,9 +2,12 @@
 "文字コードをUFT-8に設定
 set fenc=utf-8
 " バックアップファイルを作らない
-set nobackup
+" set nobackup
 " スワップファイルを作らない
-set noswapfile
+" set noswapfile
+" スワップファイルのディレクトリ設定
+set directory=~/.vim/tmp
+
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
 " バッファが編集中でもその他のファイルを開けるように
@@ -27,7 +30,7 @@ command -nargs=? E Explore <args>
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
+" set virtualedit=onemore
 " インデントはスマートインデント
 set smartindent
 " ビープ音を可視化
@@ -39,8 +42,8 @@ set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
 " 折り返し時に表示行単位での移動できるようにする
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 "カーソルの回り込みができるようになる
 set whichwrap=b,s,[,],<,>
 "括弧入力時の対応する括弧を表示
@@ -112,33 +115,41 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/Users/tetsu/.vim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath+=/Users/tetsu/.vim/dein
 
 " Required:
 if dein#load_state('/Users/tetsu/.vim/bundle')
   call dein#begin('/Users/tetsu/.vim/bundle')
 
-  " Let dein manage dein
+  " プラグインリスト
+  let s:toml_dir  = $HOME . '/.vim/dein/userconfig'
+  let s:toml      = s:toml_dir . '/plugin.toml'
+  let s:lazy_toml = s:toml_dir . '/lazy_plugin.toml'
+
+  "TOMLをキャッシュしておく
+  call dein#load_toml(s:toml,     {'lazy':0})
+  call dein#load_toml(s:lazy_toml,{'lazy':1})
+
   " Required:
-  call dein#add('/Users/tetsu/.vim/bundle/repos/github.com/Shougo/dein.vim')
+  call dein#add('/Users/tetsu/.vim/dein')
 
   " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('tpope/vim-fugitive')
-  "補完
-  call dein#add('Shougo/neocomplete.vim')
-  "コメントON/OFFを手軽に実行
-  call dein#add('tomtom/tcomment_vim')
-  "履歴をたどる
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('vim-scripts/grep.vim')
-
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
+  " call dein#add('Shougo/neosnippet.vim')
+  " call dein#add('Shougo/neosnippet-snippets')
+  " call dein#add('scrooloose/nerdtree')
+  " call dein#add('tpope/vim-fugitive')
+  " "補完
+  " call dein#add('Shougo/neocomplete.vim')
+  " "コメントON/OFFを手軽に実行
+  " call dein#add('tomtom/tcomment_vim')
+  " "履歴をたどる
+  " call dein#add('Shougo/unite.vim')
+  " call dein#add('Shougo/neomru.vim')
+  " call dein#add('vim-scripts/grep.vim')
+  "
+  " " You can specify revision/branch/tag.
+  " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+  "
   " Required:
   call dein#end()
   call dein#save_state()
