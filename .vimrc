@@ -251,3 +251,8 @@ noremap ,ur     :Unite -buffer-name=register register<CR>
    autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
  augroup END
 
+"vimgrep (:vim)用
+" nnoremap [q :cprevious<CR>   " 前へ
+" nnoremap ]q :cnext<CR>       " 次へ
+" nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+" nnoremap ]Q :<C-u>clast<CR>  " 最後へ
