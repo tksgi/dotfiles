@@ -27,3 +27,6 @@ repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
