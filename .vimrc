@@ -1,10 +1,11 @@
+" let $TMPDIR = "/Users/tetsu/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
 set fenc=utf-8
 " バックアップファイルを作らない
 " set nobackup
 " スワップファイルを作らない
-" set noswapfile
+set noswapfile
 " スワップファイルのディレクトリ設定
 set directory=~/.vim/tmp
 
@@ -52,7 +53,7 @@ set matchtime=1
 "コードの色分け
 syntax on
 "set number
-set statusline=%F%{fugitive#statusline()}
+"set statusline=%F%{fugitive#statusline()}
 set statusline+=%=
 set statusline+=%l-%v/%L
 "vimdiffの見た目
@@ -115,7 +116,7 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/Users/tetsu/.vim/dein
+set runtimepath+=/Users/tetsu/.vim/bundle/repos/github.com/Shougo/dein.vim
 
 " Required:
 if dein#load_state('/Users/tetsu/.vim/bundle')
@@ -131,8 +132,7 @@ if dein#load_state('/Users/tetsu/.vim/bundle')
   call dein#load_toml(s:lazy_toml,{'lazy':1})
 
   " Required:
-  call dein#add('/Users/tetsu/.vim/dein')
-
+  call dein#add('/Users/tetsu/.vim/bundle/repos/github.com/Shougo/dein.vim')
   " Add or remove your plugins here:
   " call dein#add('Shougo/neosnippet.vim')
   " call dein#add('Shougo/neosnippet-snippets')
@@ -184,27 +184,61 @@ let g:rsenseUseOmniFunc = 1
 " auto-ctagsを使ってファイル保存時にtagsファイルを更新
 let g:auto_ctags = 1
 
-" 起動時に有効化
-let g:neocomplcache_enable_at_startup = 1
+" NEOCOMPLETE設定
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" 大文字が入力されるまで大文字小文字の区別を無視する
-let g:neocomplcache_enable_smart_case = 1
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-" _(アンダースコア)区切りの補完を有効化
-let g:neocomplcache_enable_underbar_completion = 1
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-let g:neocomplcache_enable_camel_case_completion  =  1
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" 最初の補完候補を選択状態にする
-let g:neocomplcache_enable_auto_select = 1
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
-" ポップアップメニューで表示される候補の数
-let g:neocomplcache_max_list = 20
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 1
 
-" シンタックスをキャッシュするときの最小文字長
-let g:neocomplcache_min_syntax_length = 3
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
- " 補完の設定
+
+" 補完の設定
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
@@ -212,10 +246,64 @@ endif
 let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 
 if !exists('g:neocomplete#keyword_patterns')
-         let g:neocomplete#keyword_patterns = {}
- endif
- let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+let g:neocomplete#force_omni_input_patterns.c =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+let g:neocomplete#force_omni_input_patterns.cpp =
+      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+ " 'justmao945/vim-clang' {{{
+
+" disable auto completion for vim-clang
+let g:clang_auto = 0
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+" default 'longest' can not work with neocomplete
+let g:clang_c_completeopt   = 'menuone'
+let g:clang_cpp_completeopt = 'menuone'
+
+function! s:get_latest_clang(search_path)
+    let l:filelist = split(globpath(a:search_path, 'clang-*'), '\n')
+    let l:clang_exec_list = []
+    for l:file in l:filelist
+        if l:file =~ '^.*clang-\d\.\d$'
+            call add(l:clang_exec_list, l:file)
+        endif
+    endfor
+    if len(l:clang_exec_list)
+        return reverse(l:clang_exec_list)[0]
+    else
+        return 'clang'
+    endif
+endfunction
+
+function! s:get_latest_clang_format(search_path)
+    let l:filelist = split(globpath(a:search_path, 'clang-format-*'), '\n')
+    let l:clang_exec_list = []
+    for l:file in l:filelist
+        if l:file =~ '^.*clang-format-\d\.\d$'
+            call add(l:clang_exec_list, l:file)
+        endif
+    endfor
+    if len(l:clang_exec_list)
+        return reverse(l:clang_exec_list)[0]
+    else
+        return 'clang-format'
+    endif
+endfunction
+
+let g:clang_exec = s:get_latest_clang('/usr/bin')
+let g:clang_format_exec = s:get_latest_clang_format('/usr/bin')
+
+let g:clang_c_options = '-std=c11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+
+
+" }}}
 "括弧の補完
 " imap { {}<LEFT>
 " imap [ []<LEFT>
@@ -256,3 +344,21 @@ noremap ,ur     :Unite -buffer-name=register register<CR>
 " nnoremap ]q :cnext<CR>       " 次へ
 " nnoremap [Q :<C-u>cfirst<CR> " 最初へ
 " nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
+
+" Language_client_neovimの設定
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
