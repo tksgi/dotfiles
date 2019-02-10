@@ -1,6 +1,3 @@
-# 環境変数
-export LANG=ja_JP.UTF-8
-
 autoload colors
 colors
 
@@ -13,13 +10,16 @@ setopt hist_ignore_dups
 # 同じコマンドをヒストリに残さない
 setopt hist_ignore_all_dups
 # 同時に起動したzshの間でヒストリを共有
-# setopt share_history
+setopt share_history
 
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit -u
-if [ -e /usr/local/share/zsh-completions ]; then
-  fpath=(/usr/local/share/zsh-completions $fpath)
+if [ -e ~/.cache/zsh-completions ]; then
+  fpath=(~/.cache/zsh-completions $fpath)
+else
+  git clone git://github.com/zsh-users/zsh-completions.git ~/.cache/zsh-completions
+  fpath=(~/.cache/zsh-completions $fpath)
 fi
 #移動フォルダの履歴を記録(cd -[TAB])
 setopt auto_pushd
@@ -46,15 +46,6 @@ PROMPT="Dir: %F{red}%~%f
 RPROMPT='${vcs_info_msg_0_}'
 RPROMPT2='${vcs_info_msg_0_}'
 
-# alias
-alias ls='ls -aF'
-alias ll='ls -l'
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias vi='vim'
-alias cat='cat -n'
-alias less='less -NM'
 export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
 
@@ -79,10 +70,3 @@ export CLICOLOR=true
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-~/aarandom.sh
-alias aaclear='sh ~/aarandom.sh'
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
-export PATH=/usr/local/bin:$PATH
-export PATH=$PATH:~/.composer/vendor/bin:/usr/local/sbin
-export PATH=$PATH:/Users/Tetsu/.nodebrew/current/bin
-export PATH=$PATH:/Users/Tetsu/Library/Android/sdk/platform-tools

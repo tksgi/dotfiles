@@ -1,5 +1,5 @@
 #!/bin/zsh
-files=(`\find ~/.aa -type f -and -not -name \*.sh`)
+files=(`\find ~/dotfiles/aa -type f`)
 clear
 cat ${files[$((RANDOM%${#files[*]}))]}
 # more ${files[$((RANDOM%${#files[*]}))]}

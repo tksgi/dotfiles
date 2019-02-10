@@ -1,0 +1,80 @@
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+# hook_add = 'call hook#add#denite#load()'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = 'let NERDTreeShowHidden=1'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'vim-scripts/grep.vim'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = 'call hook#add#vim_airline#load()'
+depends = ['tagbar', 'vim-fugitive']
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
+hook_add = '''
+let g:airline_theme='monokai_tasty'
+'''
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+build = 'bash install.sh'
+hook_post_update = 'call hook#post_update#language_client_neovim#load()'
+hook_add         = 'call hook#add#language_client_neovim#load()'
+
+[[plugins]]
+repo = 'patstockwell/vim-monokai-tasty'
+
+[[plugins]]
+repo = 'gtags.vim'
+
+[[plugins]]
+repo = 'vim-scripts/gtags.vim'
+hook_add = '''
+" Options
+let g:Gtags_Auto_Map = 0
+let g:Gtags_OpenQuickfixWindow = 1
+" Keymap
+" Show definetion of function cousor word on quickfix
+nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+" Show reference of cousor word on quickfix
+nmap <silent> R :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+'''
+
+# [[plugins]]
+# repo = 'ozelentok/denite-gtags'
+# hook_add = '''
+# " Prefix key
+# nmap [denite] <Nop>
+# map <C-j> [denite]
+# " Keymap
+# nmap <silent> [denite]<C-D> :Denite -buffer-name=gtags_completion gtags_completion<cr>
+# '''
+
+[[plugins]]
+repo = 'ozelentok/deoplete-gtags'
+
+[[plugins]]
+repo = 'yuratomo/w3m.vim'

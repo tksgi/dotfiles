@@ -1,0 +1,58 @@
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = 'context_filetype.vim'
+hook_add = 'call hook#source#deoplete#load()'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = 'context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_source = ['denite.nvim']
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+on_source = ['denite.nvim']
+
+[[plugins]]
+repo = 'junegunn/fzf'
+dir = '~/.fzf'
+do = './install --all' 
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+on_i = 1
+
+[[plugins]]
+repo = 'carlitux/deoplete-ternjs'
+on_ft= ['javascript']
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+ 
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+'''
+
+[[plugins]]
+repo = 'tpope/vim-markdown'

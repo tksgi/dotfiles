@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/tetsu/.config/nvim'
+let g:netrw_dirhist_2='/Users/tetsu/.config'
+let g:netrw_dirhist_3='/Users/tetsu'
+let g:netrw_dirhist_4='/Users/tetsu/.aa'
+let g:netrw_dirhist_5='/Users/tetsu/.config/nvim'
+let g:netrw_dirhist_6='/Users/tetsu/.config/nvim/dein'
+let g:netrw_dirhist_7='/home/tetsu/.config/nvim/dein'
+let g:netrw_dirhist_8='/home/tetsu/.config/nvim'
+let g:netrw_dirhist_9='/home/tetsu/.config/nvim/dein'
