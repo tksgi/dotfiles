@@ -56,3 +56,7 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 [[plugins]]
 repo = 'tpope/vim-markdown'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+on_ft = ['ruby']

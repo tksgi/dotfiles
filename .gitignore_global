@@ -1,3 +1,6 @@
-*~        //これは最初から入ってる
-.DS_Store //これも最初から入ってる
+*~       
+.DS_Store 
 ctags
+GTAGS
+GPATH
+GRTAGS

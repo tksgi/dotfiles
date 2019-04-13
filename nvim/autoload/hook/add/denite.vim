@@ -1,6 +1,6 @@
 function! hook#add#denite#load() abort
   nnoremap [denite] <Nop>
-  nmap <C-c> [denite]
+  nmap <C-s> [denite]
 
   "現在開いているファイルのディレクトリ下のファイル一覧。
   nnoremap <silent> [denite]f :<C-u>DeniteBufferDir

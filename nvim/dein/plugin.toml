@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -48,9 +51,6 @@ hook_add         = 'call hook#add#language_client_neovim#load()'
 repo = 'patstockwell/vim-monokai-tasty'
 
 [[plugins]]
-repo = 'gtags.vim'
-
-[[plugins]]
 repo = 'vim-scripts/gtags.vim'
 hook_add = '''
 " Options
@@ -78,3 +78,6 @@ repo = 'ozelentok/deoplete-gtags'
 
 [[plugins]]
 repo = 'yuratomo/w3m.vim'
+
+[[plugins]]
+repo = 'simeji/winresizer'

@@ -1,17 +1,19 @@
 " windows設定
 if has("win64")
-	let g:python3_host_prog = 'c:\Users\ttets\AppData\Local\Programs\Python\Python37-32'
+  let g:python3_host_prog = 'c:\Users\ttets\AppData\Local\Programs\Python\Python37-32'
 endif
 " let $TMPDIR = "~/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
 set fenc=utf-8
+" helpを日本語に設定
+set helplang=ja,en
 " バックアップファイルを作らない
 " set nobackup
 " スワップファイルを作らない
 set noswapfile
 " スワップファイルのディレクトリ設定
-" set directory=~/.vim/tmp
+set directory=~/.vim/tmp
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -55,8 +57,8 @@ set matchtime=1
 syntax on
 "set number
 "set statusline=%F%{fugitive#statusline()}
-set statusline+=%=
-set statusline+=%l-%v/%L
+"set statusline+=%=
+"set statusline+=%l-%v/%L
 "vimdiffの見た目
 hi DiffAdd    ctermfg=black ctermbg=2
 hi DiffChange ctermfg=black ctermbg=3
@@ -109,6 +111,8 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 "vimからファイルを開くときにリストを表示する
 set wildmenu wildmode=list:full
+" vimgrepでquickfixを開く
+autocmd QuickFixCmdPost *grep* cwindow
 
 " タグファイルを探して読み込む
 set tags=./tags
@@ -268,10 +272,15 @@ noremap ,ur     :Unite -buffer-name=register register<CR>
 
 
 " ターミナル時<C-[>でノーマルモードに戻る
-" tnoremap <C-[> <C-\><C-n>
+tnoremap <C-]> <C-\><C-n>
 
 " 自作のチートシートディレクトリを指定
 command CeatSheets :e ~/.config/nvim/how_to_use
 
 " カラースキームを設定
 colorscheme vim-monokai-tasty
+
+
+" バッファ移動をタブと同じように行なう
+nnoremap <silent> gb :bn<CR>
+nnoremap <silent> gB :bp<CR>
