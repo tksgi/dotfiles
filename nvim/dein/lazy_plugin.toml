@@ -47,16 +47,11 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
  
 [[plugins]]
-repo = 'tyru/open-browser.vim'
-hook_add = '''
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-'''
-
-[[plugins]]
 repo = 'tpope/vim-markdown'
 
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby']
+
+[[plugins]]
+repo = 'ozelentok/deoplete-gtags'
