@@ -221,7 +221,7 @@ tnoremap <C-]> <C-\><C-n>
 command CeatSheets :e ~/.config/nvim/how_to_use
 
 " カラースキームを設定
-colorscheme vim-monokai-tasty
+colorscheme molokai
 
 
 " バッファ移動をタブと同じように行なう

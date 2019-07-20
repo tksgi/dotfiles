@@ -35,7 +35,7 @@ depends = ['tagbar', 'vim-fugitive']
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 depends = 'vim-airline'
-hook_add = '''let g:airline_theme='monokai_tasty' '''
+hook_add = '''let g:airline_theme='molokai' '''
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
@@ -45,6 +45,9 @@ hook_add         = 'call hook#add#language_client_neovim#load()'
 
 [[plugins]]
 repo = 'patstockwell/vim-monokai-tasty'
+
+[[plugins]]
+repo = 'tomasr/molokai'
 
 [[plugins]]
 repo = 'vim-scripts/gtags.vim'
