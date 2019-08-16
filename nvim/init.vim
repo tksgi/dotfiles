@@ -2,6 +2,7 @@
 if has("win64")
   let g:python3_host_prog = 'c:\Users\ttets\AppData\Local\Programs\Python\Python37-32'
 endif
+let g:python_host_prog = "~/.pyenv/versions/2.7.16/bin/python2.7"
 " let $TMPDIR = "~/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
@@ -128,9 +129,12 @@ set grepprg=git\ grep\ -I\ --line-number
 "   autocmd QuickFixCmdPost make,*grep* cwindow
 " augroup END
 
+" 折りたたみ設定
+"let g:vimsyn_folding = 'r'
+"set foldmethod=syntax
 
 "コマンドのエイリアス設定
-:command Binary %!xxd
+command Binary %!xxd
 
 "LSP等の外部ツール置き場
 let g:outher_package_path = $HOME . '/tools'
@@ -228,4 +232,4 @@ colorscheme molokai
 nnoremap <silent> gb :b#<CR>
 
 " markdownプレビュー
-command! Shiba :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
+command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
