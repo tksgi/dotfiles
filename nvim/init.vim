@@ -190,10 +190,8 @@ highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
 
 " 補完ウィンドウの設定
-set completeopt=menuone
+" set completeopt=menuone
 
-" 補完ウィンドウの設定
-set completeopt=menuone
 
 "括弧の補完
 " inoremap { {}<LEFT>
@@ -210,16 +208,13 @@ set completeopt=menuone
    autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
  augroup END
 
-"vimgrep (:vim)用
-" nnoremap [q :cprevious<CR>   " 前へ
-" nnoremap ]q :cnext<CR>       " 次へ
-" nnoremap [Q :<C-u>cfirst<CR> " 最初へ
-" nnoremap ]Q :<C-u>clast<CR>  " 最後へ
-
-
 
 " ターミナル時<C-[>でノーマルモードに戻る
-tnoremap <C-]> <C-\><C-n>
+tnoremap <C-w><C-w> <C-\><C-n>
+tnoremap <C-w>k <C-\><C-n><C-w>k
+tnoremap <C-w>j <C-\><C-n><C-w>j
+tnoremap <C-w>l <C-\><C-n><C-w>l
+tnoremap <C-w>; <C-\><C-n><C-w>;
 
 " 自作のチートシートディレクトリを指定
 command CeatSheets :e ~/.config/nvim/how_to_use

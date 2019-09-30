@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'wsdjeg/dein-ui.vim'
+
+[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
@@ -36,12 +39,6 @@ depends = ['tagbar', 'vim-fugitive']
 repo = 'vim-airline/vim-airline-themes'
 depends = 'vim-airline'
 hook_add = '''let g:airline_theme='molokai' '''
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-build = 'bash install.sh'
-hook_post_update = 'call hook#post_update#language_client_neovim#load()'
-hook_add         = 'call hook#add#language_client_neovim#load()'
 
 [[plugins]]
 repo = 'patstockwell/vim-monokai-tasty'

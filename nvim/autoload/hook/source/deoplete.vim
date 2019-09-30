@@ -70,4 +70,5 @@ function! hook#source#deoplete#load() abort
   let g:deoplete#force_omni_input_patterns.cpp =
         \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
+  " call deoplete#custom#option('auto_refresh_delay': 200)
 endfunction

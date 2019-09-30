@@ -55,3 +55,20 @@ on_ft = ['ruby']
 
 [[plugins]]
 repo = 'ozelentok/deoplete-gtags'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html','css']
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+build = 'bash install.sh'
+hook_post_update = '!./install.sh'
+hook_add         = 'call hook#add#language_client_neovim#load()'
+
