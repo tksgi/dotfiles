@@ -60,11 +60,23 @@ repo = 'yuratomo/w3m.vim'
 [[plugins]]
 repo = 'simeji/winresizer'
 
-# [[plugins]]
-# repo = 'editorconfig/editorconfig-vim'
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'tpope/vim-rhubarb'
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+hook_add = '''
+let g:eskk#server = {
+  \ 'host': 'localhost',
+  \ 'port': 5510,
+  \ 'type': 'notfound',
+  \}
+let g:eskk#dictionary = { 'path': "~/.eskk/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }'''
+

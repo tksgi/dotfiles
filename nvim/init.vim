@@ -113,7 +113,10 @@ set wildmenu wildmode=list:full
 " vimgrepでquickfixを開く
 autocmd QuickFixCmdPost *grep* cwindow
 " grepでgit管理下のファイルのみ検索する
-set grepprg=git\ grep\ -I\ --line-number
+" set grepprg=git\ grep\ -I\ --line-number
+if executable('rg')
+  set grepprg=rg\ -i\ --vimgrep\ --no-heading
+endif
 " function! s:gitgrep(query)
 "   let l:current_grep = &grepreg " 前回の設定値の保存
 "   setlocal grepprg=git\ grep\ -I\ --line-number

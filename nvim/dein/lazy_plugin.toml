@@ -20,7 +20,6 @@ repo = 'Shougo/neco-vim'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_source = ['denite.nvim']
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
@@ -72,3 +71,16 @@ build = 'bash install.sh'
 hook_post_update = '!./install.sh'
 hook_add         = 'call hook#add#language_client_neovim#load()'
 
+[[plugins]]
+repo = 'jceb/vim-orgmode'
+
+[[plugins]]
+repo = 'willelz/badapple.nvim'
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = 'javascript'
+
+[[plugins]]
+repo = 'othree/javascript-libraries-syntax.vim'
+on_ft = ['javascript']
