@@ -9,7 +9,7 @@ repo = 'Shougo/denite.nvim'
 hook_add = 'call hook#add#denite#load()'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
+repo = 'Shougo/neomru.vim'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'

@@ -231,3 +231,6 @@ nnoremap <silent> gb :b#<CR>
 
 " markdownプレビュー
 command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
+
+" D<TAB>でカレントディレクトリのパスを展開
+cmap <expr> D<TAB> expand('%:h')

@@ -24,12 +24,15 @@ function! hook#add#denite#load() abort
   call denite#custom#source('file'    , 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
 
   call denite#custom#source('buffer'  , 'matchers', ['matcher_regexp'])
-  "call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
+  call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
 
   " call denite#custom#alias('source', 'file_rec/git', 'file_rec')
   if executable('ag')
     call denite#custom#var('file_rec/git', 'command',
           \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+  elseif executable('rg')
+    call denite#custom#var('file/rec', 'command',
+          \ ['rg', '--files', '--glob', '!.git'])
   endif
 
   if executable('rg')
@@ -55,7 +58,6 @@ function! hook#add#denite#load() abort
     nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
   endfunction
-
 
 
 

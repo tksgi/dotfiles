@@ -19,9 +19,6 @@ on_i = 1
 repo = 'Shougo/neco-vim'
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
-
-[[plugins]]
 repo = 'Shougo/defx.nvim'
 on_source = ['denite.nvim']
 
