@@ -10,7 +10,7 @@ function! hook#add#language_client_neovim#load() abort
   " `eclipse.jdt.ls`インストールディレクトリに、 `config_linux`, `config_mac`, `config_win` というディレクトリがあるので、それぞれOSに併せて設定ファイルパスを指定する。
   let g:LanguageClient_serverCommands["lua"] = ['lua-lsp']
   let g:LanguageClient_serverCommands["ruby"] = ['solargraph', 'stdio']
-  let g:LanguageClient_serverCommands["go"] = ['~/go/bin/go-langserver']
+  let g:LanguageClient_serverCommands["go"] = ['gopls']
 
   " javascript 設定
   let l:js_lsp_path = expand(g:outher_package_path) . "/javascript-typescript-langserver"

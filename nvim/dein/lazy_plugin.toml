@@ -62,11 +62,11 @@ on_ft = ['html','css']
 [[plugins]]
 repo = 'skanehira/translate.vim'
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-build = 'bash install.sh'
-hook_post_update = '!./install.sh'
-hook_add         = 'call hook#add#language_client_neovim#load()'
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# build = 'bash install.sh'
+# hook_post_update = '!./install.sh'
+# hook_add         = 'call hook#add#language_client_neovim#load()'
 
 [[plugins]]
 repo = 'jceb/vim-orgmode'
@@ -81,3 +81,17 @@ on_ft = 'javascript'
 [[plugins]]
 repo = 'othree/javascript-libraries-syntax.vim'
 on_ft = ['javascript']
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+depends = 'async.vim'
+hook_add = 'call hook#add#vim_lsp#load()'
+on_ft = ['go', 'ruby']
+
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+depends = ['async.vim', 'vim-lsp', 'deoplete.nvim']
+hook_add = 'let g:deoplete#sources#vim_lsp#show_info = 1'
