@@ -234,3 +234,7 @@ command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/n
 
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
+
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"

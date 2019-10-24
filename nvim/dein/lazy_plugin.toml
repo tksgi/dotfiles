@@ -67,9 +67,11 @@ repo = 'autozimu/LanguageClient-neovim'
 build = 'bash install.sh'
 hook_post_update = '!./install.sh'
 hook_add         = 'call hook#add#language_client_neovim#load()'
+on_ft = 'ruby'
 
 [[plugins]]
 repo = 'jceb/vim-orgmode'
+on_ft = 'org'
 
 [[plugins]]
 repo = 'willelz/badapple.nvim'

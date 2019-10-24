@@ -56,6 +56,11 @@ hook_add = 'call hook#add#denite_gtags#load()'
 
 [[plugins]]
 repo = 'yuratomo/w3m.vim'
+hook_add = '''
+let g:w3m#external_browser = '/Applications/Firefox.app/Contents/MacOS/firefox'
+'''
+# help
+# https://github.com/yuratomo/w3m.vim
 
 [[plugins]]
 repo = 'simeji/winresizer'
@@ -79,4 +84,13 @@ let g:eskk#server = {
   \}
 let g:eskk#dictionary = { 'path': "~/.eskk/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
 let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }'''
+# 辞書ファイルの生成
+# https://eidera.com/blog/2019/03/15/skkdic_for_eskkvim/
 
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+hook_add = '''
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+'''
