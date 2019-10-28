@@ -1,12 +1,10 @@
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	name = tksgi
-	email = tetsu.kasugaib@sun-asterisk.com
-	mail = =
-	name = =
-	name = TetsuGuest
+	email = 23550705+tksgi@users.noreply.github.com
 	name = tksgi
 [color]
 	ui = true

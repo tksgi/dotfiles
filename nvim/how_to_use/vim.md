@@ -60,3 +60,5 @@ C-R _C-F カーソル下のファイル名
 C-R C-W カーソル下の word
 C-R C-A カーソル下の WORD
 
+# メソッド表示
+:Tagbar

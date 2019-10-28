@@ -15,12 +15,12 @@ setopt share_history
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit -u
-if [ -e ~/.cache/zsh-completions ]; then
-  fpath=(~/.cache/zsh-completions $fpath)
-else
-  git clone git://github.com/zsh-users/zsh-completions.git ~/.cache/zsh-completions
-  fpath=(~/.cache/zsh-completions $fpath)
-fi
+# if [ -e ~/.cache/zsh-completions ]; then
+#   fpath=(~/.cache/zsh-completions $fpath)
+# else
+#   git clone git://github.com/zsh-users/zsh-completions.git ~/.cache/zsh-completions
+#   fpath=(~/.cache/zsh-completions $fpath)
+# fi
 #移動フォルダの履歴を記録(cd -[TAB])
 setopt auto_pushd
 # 補完で小文字でも大文字にマッチさせる

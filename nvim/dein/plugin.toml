@@ -12,8 +12,15 @@ hook_add = 'call hook#add#denite#load()'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = 'let NERDTreeShowHidden=1'
+
+[[plugins]]
+repo = 'Xuyuanp/nerdtree-git-plugin'
+depends = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -29,6 +36,7 @@ repo = 'Yggdroot/indentLine'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
+hook_add = 'let g:tagbar_sort = 0'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
@@ -78,12 +86,13 @@ repo = 'tpope/vim-rhubarb'
 repo = 'tyru/eskk.vim'
 hook_add = '''
 let g:eskk#server = {
-  \ 'host': 'localhost',
-  \ 'port': 5510,
-  \ 'type': 'notfound',
+  \   'host': 'localhost',
+  \   'port': 55100,
   \}
 let g:eskk#dictionary = { 'path': "~/.eskk/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }'''
+let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+'''
+# google-ime-skk -p 5510
 # 辞書ファイルの生成
 # https://eidera.com/blog/2019/03/15/skkdic_for_eskkvim/
 
