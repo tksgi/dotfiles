@@ -108,6 +108,8 @@ set wrapscan
 set hlsearch
 " ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+" 置換時候補をインタラクティブに表示
+set inccommand=split
 "vimからファイルを開くときにリストを表示する
 set wildmenu wildmode=list:full
 " vimgrepでquickfixを開く

@@ -12,6 +12,10 @@ hook_add = 'call hook#add#denite#load()'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
+repo = 'kmnk/denite-dirmark'
+on_ft = 'denite.nvim'
+
+[[plugins]]
 repo = 'Shougo/neoyank.vim'
 
 [[plugins]]
@@ -60,7 +64,6 @@ hook_add = 'call hook#add#gtags#load()'
 
 [[plugins]]
 repo = 'ozelentok/denite-gtags'
-hook_add = 'call hook#add#denite_gtags#load()'
 
 [[plugins]]
 repo = 'yuratomo/w3m.vim'
@@ -85,14 +88,16 @@ repo = 'tpope/vim-rhubarb'
 [[plugins]]
 repo = 'tyru/eskk.vim'
 hook_add = '''
+" AquaSKKserverを利用する
 let g:eskk#server = {
   \   'host': 'localhost',
-  \   'port': 55100,
+  \   'port': 5510,
   \}
-let g:eskk#dictionary = { 'path': "~/.eskk/.eskk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/.eskk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+let g:eskk#dictionary = { 'path': "~/.skk/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+let g:eskk#large_dictionary = { 'path': "~/.skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+let g:eskk#show_candidates_count = 1
 '''
-# google-ime-skk -p 5510
+# google-ime-skk
 # 辞書ファイルの生成
 # https://eidera.com/blog/2019/03/15/skkdic_for_eskkvim/
 
@@ -103,3 +108,32 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 '''
+
+[[plugins]]
+repo = 'rbgrouleff/bclose.vim'
+
+[[plugins]]
+repo = 'iberianpig/tig-explorer.vim'
+depends = 'bclose.vim'
+#hook_add = '''
+#" open tig with current file
+#nnoremap <Leader>T :TigOpenCurrentFile<CR>
+#
+#" open tig with Project root path
+#nnoremap <Leader>t :TigOpenProjectRootDir<CR>
+#
+#" open tig grep
+#nnoremap <Leader>g :TigGrep<CR>
+#
+#" resume from last grep
+#nnoremap <Leader>r :TigGrepResume<CR>
+#
+#" open tig grep with the selected word
+#vnoremap <Leader>g y:TigGrep<Space><C-R>"<CR>
+#
+#" open tig grep with the word under the cursor
+#nnoremap <Leader>cg :<C-u>:TigGrep<Space><C-R><C-W><CR>
+#
+#" open tig blame with current file
+#nnoremap <Leader>b :TigBlame<CR>
+#'''

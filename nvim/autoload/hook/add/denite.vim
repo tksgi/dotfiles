@@ -6,15 +6,21 @@ function! hook#add#denite#load() abort
   nnoremap <silent> [denite]f :<C-u>DeniteBufferDir
         \ -direction=topleft -cursor-wrap=true file file:new<CR>
   "バッファ一覧
-  nnoremap <silent> [denite]b :<C-u>Denite -direction=topleft -cursor-wrap=true buffer<CR>
+  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
   "レジスタ一覧
-  nnoremap <silent> [denite]r :<C-u>Denite -direction=topleft -cursor-wrap=true -buffer-name=register register<CR>
+  nnoremap <silent> [denite]r :<C-u>Denite -buffer-name=register register<CR>
   "最近使用したファイル一覧
-  nnoremap <silent> [denite]m :<C-u>Denite -direction=topleft -cursor-wrap=true file_mru<CR>
+  nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
+  "gtags
+  nmap <silent> [denite]<C-D> :Denite -buffer-name=gtags_completion gtags_completion<cr>
+
+  "ブックマーク関連
+  nnoremap [denite-dirmark] <Nop>
+  nmap [denite]<C-b> [denite-dirmark]
   "ブックマーク一覧
-  nnoremap <silent> [denite]c :<C-u>Denite -direction=topleft -cursor-wrap=true bookmark<CR>
+  nnoremap <silent> [denite]l :<C-u>Denite dirmark<CR>
   "ブックマークに追加
-  nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
+  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
 
   ".git以下のディレクトリ検索
   nnoremap <silent> [denite]k :<C-u>Denite -direction=topleft -cursor-wrap=true
