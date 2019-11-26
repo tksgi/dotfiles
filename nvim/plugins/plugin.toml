@@ -11,9 +11,9 @@ hook_add = 'call hook#add#denite#load()'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 
-[[plugins]]
-repo = 'kmnk/denite-dirmark'
-on_ft = 'denite.nvim'
+# [[plugins]]
+# repo = 'kmnk/denite-dirmark'
+# on_ft = 'denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
@@ -34,6 +34,8 @@ repo = 'vim-scripts/grep.vim'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+hook_add = 'call hook#add#quickrun#load()'
+
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -81,6 +83,11 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+hook_add = '''
+let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+'''
 
 [[plugins]]
 repo = 'tpope/vim-rhubarb'
@@ -89,9 +96,13 @@ repo = 'tpope/vim-rhubarb'
 repo = 'tyru/eskk.vim'
 hook_add = '''
 " AquaSKKserverを利用する
+"let g:eskk#server = {
+"  \   'host': 'localhost',
+"  \   'port': 5510,
+"  \}
 let g:eskk#server = {
   \   'host': 'localhost',
-  \   'port': 5510,
+  \   'port': 55100,
   \}
 let g:eskk#dictionary = { 'path': "~/.skk/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
 let g:eskk#large_dictionary = { 'path': "~/.skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
@@ -137,3 +148,9 @@ depends = 'bclose.vim'
 #" open tig blame with current file
 #nnoremap <Leader>b :TigBlame<CR>
 #'''
+
+# [[plugins]]
+# repo = 'skanehira/docker.vim'
+# 
+# [[plugins]]
+# repo = 'skanehira/docker-compose.vim'

@@ -43,7 +43,16 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
  
 [[plugins]]
-repo = 'tpope/vim-markdown'
+repo = 'gabrielelana/vim-markdown'
+on_ft = 'markdown'
+hook_add = 'let g:markdown_enable_spell_checking = 0'
+
+[[plugins]]
+repo = 'shime/vim-livedown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'godlygeek/tabular'
 
 [[plugins]]
 repo = 'tpope/vim-rails'
@@ -88,10 +97,6 @@ on_ft = ['javascript']
 repo = 'itchyny/screensaver.vim'
 
 [[plugins]]
-repo = 'rhysd/nyaovim-markdown-preview'
-on_ft = 'markdown'
-
-[[plugins]]
 repo = 'nvie/vim-flake8'
 on_ft = 'python'
 
@@ -101,3 +106,6 @@ repo = 'dense-analysis/ale'
 [[plugins]]
 repo = 'tbodt/deoplete-tabnine'
 build = './install.sh'
+
+[[plugins]]
+repo = 'MattesGroeger/vim-bookmarks'

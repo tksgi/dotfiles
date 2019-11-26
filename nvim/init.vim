@@ -26,11 +26,11 @@ set showcmd
 set mouse=a
 set backspace=indent,eol,start
 " 保存時に行末スペース削除
-augroup HighlightTrailingSpaces
-  autocmd!
-  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
-  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
-augroup END
+" augroup HighlightTrailingSpaces
+"   autocmd!
+"   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+"   autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+" augroup END
 " tmp ディレクトリではバックアップを行わない
 set backupskip=/tmp/*,/private/tmp/*
 " :Eでカレントディレクトリを開く
@@ -126,9 +126,9 @@ endif
 "   let &grepprg = l:current_grep
 "   redraw!
 " endfunction
-" 
+"
 " command! -nargs=? Ggrep call s:gitgrep(<f-args>)
-" 
+"
 " augroup Vimrc
 "   autocmd!
 "   autocmd QuickFixCmdPost make,*grep* cwindow
@@ -164,7 +164,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " プラグイン管理
-  let s:toml_dir  = $HOME . '/.config/nvim/dein'
+  let s:toml_dir  = $HOME . '/.config/nvim/plugins'
   let s:toml = s:toml_dir . '/plugin.toml'
   let s:lazy_toml = s:toml_dir . '/lazy_plugin.toml'
 
@@ -216,10 +216,10 @@ highlight PMenuSbar ctermbg=4
 
 " ターミナル時<C-[>でノーマルモードに戻る
 tnoremap <C-w><C-w> <C-\><C-n>
+tnoremap <C-w>h <C-\><C-n><C-w>h
 tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>j <C-\><C-n><C-w>j
 tnoremap <C-w>l <C-\><C-n><C-w>l
-tnoremap <C-w>; <C-\><C-n><C-w>;
 
 " 自作のチートシートディレクトリを指定
 command CeatSheets :e ~/.config/nvim/how_to_use
@@ -237,6 +237,7 @@ command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/n
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
 
+" leaderをスペースに設定
 noremap <Space> <Nop>
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\\"

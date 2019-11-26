@@ -50,7 +50,7 @@ export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
 
 #viライクな設定
-bindkey -v
+# bindkey -v
 
 #コマンド履歴検索(CTRL + P,N)
 autoload history-search-end

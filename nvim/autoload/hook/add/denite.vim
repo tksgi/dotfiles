@@ -14,13 +14,13 @@ function! hook#add#denite#load() abort
   "gtags
   nmap <silent> [denite]<C-D> :Denite -buffer-name=gtags_completion gtags_completion<cr>
 
-  "ブックマーク関連
-  nnoremap [denite-dirmark] <Nop>
-  nmap [denite]<C-b> [denite-dirmark]
-  "ブックマーク一覧
-  nnoremap <silent> [denite]l :<C-u>Denite dirmark<CR>
-  "ブックマークに追加
-  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
+  " "ブックマーク関連
+  " nnoremap [denite-dirmark] <Nop>
+  " nmap [denite]<C-b> [denite-dirmark]
+  " "ブックマーク一覧
+  " nnoremap <silent> [denite-dirmark]l :<C-u>Denite dirmark<CR>
+  " "ブックマークに追加
+  " nnoremap <silent> [denite-dirmark]a :<C-u>Denite dirmark/add<CR>
 
   ".git以下のディレクトリ検索
   nnoremap <silent> [denite]k :<C-u>Denite -direction=topleft -cursor-wrap=true
