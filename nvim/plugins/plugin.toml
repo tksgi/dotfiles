@@ -64,8 +64,8 @@ repo = 'tomasr/molokai'
 repo = 'vim-scripts/gtags.vim'
 hook_add = 'call hook#add#gtags#load()'
 
-[[plugins]]
-repo = 'ozelentok/denite-gtags'
+# [[plugins]]
+# repo = 'ozelentok/denite-gtags'
 
 [[plugins]]
 repo = 'yuratomo/w3m.vim'
@@ -120,37 +120,103 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 '''
 
+# なんだっけこれ？
 [[plugins]]
 repo = 'rbgrouleff/bclose.vim'
 
+# [[plugins]]
+# repo = 'iberianpig/tig-explorer.vim'
+# depends = 'bclose.vim'
+
 [[plugins]]
-repo = 'iberianpig/tig-explorer.vim'
-depends = 'bclose.vim'
-#hook_add = '''
-#" open tig with current file
-#nnoremap <Leader>T :TigOpenCurrentFile<CR>
-#
-#" open tig with Project root path
-#nnoremap <Leader>t :TigOpenProjectRootDir<CR>
-#
-#" open tig grep
-#nnoremap <Leader>g :TigGrep<CR>
-#
-#" resume from last grep
-#nnoremap <Leader>r :TigGrepResume<CR>
-#
-#" open tig grep with the selected word
-#vnoremap <Leader>g y:TigGrep<Space><C-R>"<CR>
-#
-#" open tig grep with the word under the cursor
-#nnoremap <Leader>cg :<C-u>:TigGrep<Space><C-R><C-W><CR>
-#
-#" open tig blame with current file
-#nnoremap <Leader>b :TigBlame<CR>
-#'''
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = 'context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+dir = '~/.fzf'
+do = './install --all'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+
+[[plugins]]
+repo = 'godlygeek/tabular'
 
 # [[plugins]]
-# repo = 'skanehira/docker.vim'
-# 
+# repo = 'ozelentok/deoplete-gtags'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+[[plugins]]
+repo = 'skanehira/translate.vim'
+
+[[plugins]]
+repo = 'willelz/badapple.nvim'
+
+[[plugins]]
+repo = 'itchyny/screensaver.vim'
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+
 # [[plugins]]
-# repo = 'skanehira/docker-compose.vim'
+# repo = 'MattesGroeger/vim-bookmarks'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+# gtag自動作成
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = 'let g:gen_tags#statusline = 1'
+
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# merged = 0
+# build = 'yarn install --frozen-lockfile'
+# hook_add = '''
+# " Remap keys for gotos
+# nmap <silent> gd <Plug>(coc-definition)
+# nmap <silent> gy <Plug>(coc-type-definition)
+# nmap <silent> gi <Plug>(coc-implementation)
+# nmap <silent> gr <Plug>(coc-references)
+#
+# " Use K to show documentation in preview window
+# nnoremap <silent> K :call <SID>show_documentation()<CR>
+#
+# " Add status line support, for integration with other plugin, checkout `:h coc-status`
+# " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+# '''
+#
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+hook_add = '''
+let g:vista_sidebar_width = 40
+let g:vista_echo_cursor = 0
+
+" デフォルトの情報ソースをctagsにする
+let g:vista_default_executive = 'ctags'
+" 特定の言語の場合vim-lspを利用した情報ソースを利用するようにする
+let g:vista_executive_for = {
+    \ 'go': 'coc',
+    \ 'python': 'coc',
+    \ 'ruby': 'coc',
+    \ }
+
+" トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
+nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+'''
+
+[[plugins]]
+repo = 'skanehira/docker-compose.vim'
+
+[[plugins]]
+repo = 'mbbill/undotree'

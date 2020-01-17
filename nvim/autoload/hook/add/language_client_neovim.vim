@@ -9,7 +9,7 @@ function! hook#add#language_client_neovim#load() abort
   " `configuration`オプションはOSごとに別の設定にする必要がある。
   " `eclipse.jdt.ls`インストールディレクトリに、 `config_linux`, `config_mac`, `config_win` というディレクトリがあるので、それぞれOSに併せて設定ファイルパスを指定する。
   let g:LanguageClient_serverCommands["lua"] = ['lua-lsp']
-  let g:LanguageClient_serverCommands["ruby"] = ['solargraph', 'stdio']
+  " let g:LanguageClient_serverCommands["ruby"] = ['solargraph', 'stdio']
   let g:LanguageClient_serverCommands["go"] = ['~/go/bin/go-langserver']
 
   " javascript 設定

@@ -362,3 +362,13 @@ set wildmenu wildmode=list:full
 "nnoremap <silent> k :call languageclient#textdocument_hover()<cr>
 "nnoremap <silent> gd :call languageclient#textdocument_definition()<cr>
 "nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+
+
+call plug#begin('~/.vim/plugged')
+
+" vim8.2 game
+Plug 'vim/killersheep'
+
+call plug#end()
+

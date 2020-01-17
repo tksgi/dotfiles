@@ -10,11 +10,11 @@ set fenc=utf-8
 " helpを日本語に設定
 set helplang=ja,en
 " バックアップファイルを作らない
-" set nobackup
+set nobackup
 " スワップファイルを作らない
 set noswapfile
 " スワップファイルのディレクトリ設定
-set directory=~/.vim/tmp
+" set directory=~/.vim/tmp
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -22,6 +22,8 @@ set autoread
 set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
+" コマンドウィンドウを2行に設定
+set cmdheight=2
 " マウスを有効にする
 set mouse=a
 set backspace=indent,eol,start
@@ -236,8 +238,29 @@ command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/n
 
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
+cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
 " leaderをスペースに設定
 noremap <Space> <Nop>
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\\"
+
+
+" ずれ確認用
+" 0123456789012345678901234567890123456789
+" ｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵ
+" あいうえおあいうえおあいうえおあいうえお
+"
+"
+function! Scouter(file, ...)
+  let pat = '^\s*$\|^\s*"'
+  let lines = readfile(a:file)
+  if !a:0 || !a:1
+    let lines = split(substitute(join(lines, "\n"), '\n\s*\\', '', 'g'), "\n")
+  endif
+  return len(filter(lines,'v:val !~ pat'))
+endfunction
+command! -bar -bang -nargs=? -complete=file Scouter
+\        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
+command! -bar -bang -nargs=? -complete=file GScouter
+\        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)

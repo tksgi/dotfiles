@@ -1,38 +1,16 @@
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'context_filetype.vim'
 hook_add = 'call hook#source#deoplete#load()'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = 'context_filetype.vim'
-
-[[plugins]]
-repo = 'Shougo/neco-syntax'
-on_i = 1
+on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
+on_ft = 'vim'
 
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 on_source = ['denite.nvim']
-
-[[plugins]]
-repo = 'junegunn/fzf'
-dir = '~/.fzf'
-do = './install --all' 
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
-
-[[plugins]]
-repo = 'tomtom/tcomment_vim'
-on_i = 1
 
 [[plugins]]
 repo = 'carlitux/deoplete-ternjs'
@@ -52,38 +30,23 @@ repo = 'shime/vim-livedown'
 on_ft = 'markdown'
 
 [[plugins]]
-repo = 'godlygeek/tabular'
-
-[[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby']
-
-[[plugins]]
-repo = 'ozelentok/deoplete-gtags'
-
-[[plugins]]
-repo = 'Shougo/deol.nvim'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html','css']
 
-[[plugins]]
-repo = 'skanehira/translate.vim'
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-build = 'bash install.sh'
-hook_post_update = '!./install.sh'
-hook_add         = 'call hook#add#language_client_neovim#load()'
-on_ft = 'ruby'
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# build = 'bash install.sh'
+# hook_post_update = '!./install.sh'
+# hook_add         = 'call hook#add#language_client_neovim#load()'
+# on_ft = 'ruby'
 
 [[plugins]]
 repo = 'jceb/vim-orgmode'
 on_ft = 'org'
-
-[[plugins]]
-repo = 'willelz/badapple.nvim'
 
 [[plugins]]
 repo = 'othree/yajs.vim'
@@ -93,19 +56,24 @@ on_ft = 'javascript'
 repo = 'othree/javascript-libraries-syntax.vim'
 on_ft = ['javascript']
 
-[[plugins]]
-repo = 'itchyny/screensaver.vim'
+# ALEを使用
+# [[plugins]]
+# repo = 'nvie/vim-flake8'
+# on_ft = 'python'
 
 [[plugins]]
-repo = 'nvie/vim-flake8'
+repo = 'davidhalter/jedi-vim'
 on_ft = 'python'
 
-[[plugins]]
-repo = 'dense-analysis/ale'
+# [[plugins]]
+# repo = 'tbodt/deoplete-tabnine'
+# build = './install.sh'
+# on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'tbodt/deoplete-tabnine'
-build = './install.sh'
+repo = 'jparise/vim-graphql'
+on_ft = 'graphql'
 
 [[plugins]]
-repo = 'MattesGroeger/vim-bookmarks'
+repo = 'fatih/vim-go'
+on_ft = 'go'

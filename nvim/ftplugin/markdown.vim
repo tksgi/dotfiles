@@ -23,9 +23,14 @@ nnoremap <buffer> <C-c><C-c> :<C-U>call EvalCodeBlock()<CR>
 " スニペットの方が楽？
 iab <buffer> `R ```ruby<CR><CR>```<UP>
 iab <buffer> `P ```python<CR><CR>```<UP>
-iab <buffer> `S ```shell<CR><CR>```<UP>
+iab <buffer> `S ```sh<CR><CR>```<UP>
+inoremap <buffer> `R<TAB> ```ruby<CR><CR>```<UP>
+inoremap <buffer> `P<TAB> ```python<CR><CR>```<UP>
+inoremap <buffer> `S<TAB> ```sh<CR><CR>```<UP>
+
 
 command! TableFormat :Tabularize /|
+nnoremap <buffer> <TAB><TAB> :TableFormat<CR>
 
 " table整形 with Tabular
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
