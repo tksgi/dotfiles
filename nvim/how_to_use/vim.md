@@ -62,3 +62,10 @@ C-R C-A カーソル下の WORD
 
 # メソッド表示
 :Tagbar
+
+# キーマップが定義されたスクリプトを調べる
+:verbose map
+ファイルに書き出す場合
+:set vfile=ファイルパス
+:verbose map
+

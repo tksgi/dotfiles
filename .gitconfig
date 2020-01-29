@@ -24,3 +24,5 @@
     browser = open
 [browser "chrome"]
     cmd = open -a 'Firefox.app'
+[ghq]
+	root = /Users/kasugaitooru/go/src

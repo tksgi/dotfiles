@@ -60,9 +60,9 @@ repo = 'patstockwell/vim-monokai-tasty'
 [[plugins]]
 repo = 'tomasr/molokai'
 
-[[plugins]]
-repo = 'vim-scripts/gtags.vim'
-hook_add = 'call hook#add#gtags#load()'
+# [[plugins]]
+# repo = 'vim-scripts/gtags.vim'
+# hook_add = 'call hook#add#gtags#load()'
 
 # [[plugins]]
 # repo = 'ozelentok/denite-gtags'
@@ -132,10 +132,6 @@ repo = 'rbgrouleff/bclose.vim'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = 'context_filetype.vim'
-
-[[plugins]]
 repo = 'Shougo/neco-syntax'
 
 [[plugins]]
@@ -152,8 +148,8 @@ repo = 'godlygeek/tabular'
 # [[plugins]]
 # repo = 'ozelentok/deoplete-gtags'
 
-[[plugins]]
-repo = 'Shougo/deol.nvim'
+# [[plugins]]
+# repo = 'Shougo/deol.nvim'
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
@@ -196,27 +192,51 @@ hook_add = 'let g:gen_tags#statusline = 1'
 # " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 # '''
 #
-[[plugins]]
-repo = 'liuchengxu/vista.vim'
-hook_add = '''
-let g:vista_sidebar_width = 40
-let g:vista_echo_cursor = 0
-
-" デフォルトの情報ソースをctagsにする
-let g:vista_default_executive = 'ctags'
-" 特定の言語の場合vim-lspを利用した情報ソースを利用するようにする
-let g:vista_executive_for = {
-    \ 'go': 'coc',
-    \ 'python': 'coc',
-    \ 'ruby': 'coc',
-    \ }
-
-" トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
-nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
-'''
-
+# [[plugins]]
+# repo = 'liuchengxu/vista.vim'
+# hook_add = '''
+# let g:vista_sidebar_width = 40
+# let g:vista_echo_cursor = 0
+#
+# " デフォルトの情報ソースをctagsにする
+# let g:vista_default_executive = 'ctags'
+# " 特定の言語の場合vim-lspを利用した情報ソースを利用するようにする
+# let g:vista_executive_for = {
+#     \ 'go': 'coc',
+#     \ 'python': 'coc',
+#     \ 'ruby': 'coc',
+#     \ }
+#
+# " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
+# nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+# '''
+#
 [[plugins]]
 repo = 'skanehira/docker-compose.vim'
 
 [[plugins]]
 repo = 'mbbill/undotree'
+
+# vim-lsp
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete.vim'
+#
+# [[plugins]]
+# repo =  'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_preview_autoclose = 1
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+merged = 0
+
+# [[plugins]]
+# repo = 'glacambre/firenvim'
+# hook_post_update = '_ -> firenvim#install(0)'
