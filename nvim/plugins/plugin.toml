@@ -231,6 +231,7 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 let g:lsp_preview_autoclose = 1
+nnoremap <leader><C-]> :LspDefinition<CR>
 '''
 
 [[plugins]]

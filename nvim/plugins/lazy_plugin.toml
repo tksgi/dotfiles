@@ -80,6 +80,7 @@ on_ft = 'graphql'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
+# hook_add = 'let g:go_gopls_enabled = 0'
 
 # vim-lspのdeoplete対応
 [[plugins]]
