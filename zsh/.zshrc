@@ -13,4 +13,4 @@ source ~/dotfiles/zsh/alias.zsh
 
 sh ~/dotfiles/aarandom.sh
 
-source ~/dotfiles/zsh/zplug.sh
+source ~/dotfiles/zsh/zinit.sh
