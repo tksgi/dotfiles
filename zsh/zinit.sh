@@ -1,12 +1,12 @@
-if [ ! -e zinit ]
+if [ ! -e $HOME/.zinit/bin ]
 then
   mkdir ~/.zinit
   git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 fi
 ### zinit
-source ~/.zplug/init.zsh
-module_path+=( "$HOME/.zinit/bin/zmodules/Src" )
-zmodload zdharma/zinit
+source ~/.zinit/bin/zinit.zsh
+# module_path+=( "$HOME/.zinit/bin/zmodules/Src" )
+# zmodload zdharma/zinit
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
