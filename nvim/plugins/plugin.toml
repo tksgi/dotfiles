@@ -241,3 +241,9 @@ merged = 0
 # [[plugins]]
 # repo = 'glacambre/firenvim'
 # hook_post_update = '_ -> firenvim#install(0)'
+
+[[plugins]]
+repo = 'vim-scripts/dbext.vim'
+hook_add='''
+let g:dbext_default_profile_pltfrm = 'type=MYSQL:host=127.0.0.1:user=pltfrm:passwd=pltfrm:dbname=pltfrm'
+'''
