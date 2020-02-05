@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ln -sf ~/.config/zsh/.zshrc ~/
+cp ~/.config/zsh/.zshrc ~/
