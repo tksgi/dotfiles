@@ -41,10 +41,33 @@ setopt prompt_subst
 zstyle ':vcs_info:*' formats '[%F{green}%b%f]'    
 zstyle ':vcs_info:*' actionformats '%F{green}%b%f(%F{red}%a%f)' 
 precmd() { vcs_info }
-PROMPT="Dir: %F{red}%~%f
-%F{white}% %D %* %f $ "
-RPROMPT='${vcs_info_msg_0_}'
-RPROMPT2='${vcs_info_msg_0_}'
+# PROMPT="Dir: %F{red}%~%f
+# %F{white}% %D %* %f $ "
+# RPROMPT='${vcs_info_msg_0_}'
+# RPROMPT2='${vcs_info_msg_0_}'
+
+# 時刻を表示したい
+export PREV_COMMAND_END_TIME
+export NEXT_COMMAND_BGN_TIME
+
+function show_command_end_time() {
+  PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
+  PROMPT="Dir: %F{red}%~%f ${vcs_info_msg_0_}
+${PREV_COMMAND_END_TIME} -          
+%F{red}$%f "
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd show_command_end_time
+
+show_command_begin_time() {
+  NEXT_COMMAND_BGN_TIME=`date "+%H:%M:%S"`
+  PROMPT="Dir: %F{red}%~%f ${vcs_info_msg_0_}
+${PREV_COMMAND_END_TIME} - ${NEXT_COMMAND_BGN_TIME} 
+$ "
+  zle .accept-line
+  zle .reset-prompt
+}
+zle -N accept-line show_command_begin_time
 
 export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
@@ -69,4 +92,5 @@ export ZLS_COLORS=$LS_COLORS
 export CLICOLOR=true
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
 
