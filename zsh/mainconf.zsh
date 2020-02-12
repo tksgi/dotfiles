@@ -74,6 +74,8 @@ export LSCOLORS=DxGxcxdxCxegedabagacad
 
 #viライクな設定
 # bindkey -v
+# emacsモード(デフォルトだと$EDITORを見てしまうので明示的に設定)
+bindkey -e
 
 #コマンド履歴検索(CTRL + P,N)
 autoload history-search-end
