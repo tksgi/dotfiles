@@ -148,6 +148,9 @@ cmap <expr> E<SPACE> 'e ' . expand('%:h')
 tnoremap <C-w>[ <C-\><C-n>
 tnoremap <C-w><C-[> <C-\><C-n>
 
+" terminalをcurrent windowで開く
+command! Ter terminal ++curwin
+
 function! Scouter(file, ...)
   let pat = '^\s*$\|^\s*"'
   let lines = readfile(a:file)
