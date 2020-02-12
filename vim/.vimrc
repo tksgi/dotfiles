@@ -129,6 +129,9 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 
 " プラギン
+" if !filereadable('~/.vim/autoload/plug.vim')
+"   !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" endif
 call plug#begin('~/.vim/plugged')
 
 " vim8.2 game
