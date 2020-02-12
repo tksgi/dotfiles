@@ -73,4 +73,13 @@ function! hook#add#denite#load() abort
       \ 'split': 'horizontal',
       \ 'winheight': 10,
       \ })
+
+  " grepする
+  command! Dgrep execute(":Denite grep -buffer-name=grep-buffer-denite")
+  " Denite grep結果を再表示する
+  command! Dresume execute(":Denite -resume -buffer-name=grep-buffer-denite")
+  " resumeしたgrep結果の次の行の結果へ飛ぶ
+  command! Dnext execute(":Denite -resume -buffer-name=grep-buffer-denite -select=+1 -immediately")
+  " resumeしたgrep結果の前の行の結果へ飛ぶ
+  command! Dprev execute(":Denite -resume -buffer-name=grep-buffer-denite -select=-1 -immediately")
 endfunction
