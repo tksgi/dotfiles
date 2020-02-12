@@ -245,6 +245,8 @@ nnoremap <silent> gb :b#<CR>
 cmap <expr> D<TAB> expand('%:h')
 cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
+" terminal buffer内で <C-W>[ でノーマルモードに移行
+tnoremap <C-w>[ <C-\><C-n>
 
 " ずれ確認用
 " 0123456789012345678901234567890123456789
