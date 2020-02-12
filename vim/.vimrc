@@ -11,6 +11,8 @@ set directory=~/.vim/tmp
 if !isdirectory('~/.vim/tmp')
   !mkdir -p ~/.vim/tmp
 endif
+" tmp ディレクトリではバックアップを行わない
+set backupskip=/tmp/*,/private/tmp/*,~/.vim/tmp/*
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -27,10 +29,13 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
   autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
-" tmp ディレクトリではバックアップを行わない
-set backupskip=/tmp/*,/private/tmp/*
 " :Eでカレントディレクトリを開く
 command -nargs=? E Explore <args>
+"
+" leaderをスペースに設定
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
@@ -71,6 +76,8 @@ set diffopt+=vertical
 set scrolloff=3
 " カーソル行を常にハイライト
 set cursorline
+" カラースキーム
+colorscheme desert
 
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
@@ -143,6 +150,56 @@ Plug 'godlygeek/tabular'
 " その場で実行
 Plug 'thinca/vim-quickrun'
 
+" File Tree Viewer
+Plug 'lambdalisue/fern.vim'
+
+" ファイルicon
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'lambdalisue/fern-renderer-devicons.vim'
+
+Plug 'lambdalisue/fern-bookmark.vim'
+
+" Org Mode
+Plug 'jceb/vim-orgmode'
+
+" ウィンドウサイズ変更
+Plug 'simeji/winresizer'
+
+" LSP
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+" 補完
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" docker操作
+Plug 'skanehira/docker.vim'
+
+Plug 'skanehira/docker-compose.vim'
+
+" ctags生成
+Plug 'jsfaint/gen_tags.vim'
+
+" git操作
+Plug 'tpope/vim-fugitive'
+
+" ブラウザ操作
+Plug 'tyru/open-browser.vim'
+
+" grepプラグイン
+Plug 'mileszs/ack.vim'
+
+" goプラグイン
+" :Godoc, :Fmt, :Import コマンドのみ追加
+Plug 'vim-jp/vim-go-extra'
+
+
+" ステータスライン
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 " eskk設定
@@ -157,10 +214,29 @@ let g:eskk#show_candidates_count = 1
 " vim-markdown設定
 let g:markdown_enable_spell_checking = 0
 
+" Fern設定
+let g:fern#renderer = "devicons"
+
+" LSP設定
+let g:lsp_preview_autoclose = 1
+nnoremap <leader><C-]> :LspDefinition<CR>
 
 
+" gen_tags設定
+let g:gen_tags#statusline = 1
 
+" open_browser設定
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
 
+" ack.vim 設定
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" vim-go-extra設定
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 " バッファ移動をタブと同じように行なう
 nnoremap <silent> gb :b#<CR>
@@ -169,10 +245,6 @@ nnoremap <silent> gb :b#<CR>
 cmap <expr> D<TAB> expand('%:h')
 cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
-" leaderをスペースに設定
-noremap <Space> <Nop>
-let g:mapleader = "\<Space>"
-let g:maplocalleader = "\\"
 
 " ずれ確認用
 " 0123456789012345678901234567890123456789
