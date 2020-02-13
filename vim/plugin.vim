@@ -34,7 +34,8 @@ Plug 'lambdalisue/fern-renderer-devicons.vim'
 Plug 'lambdalisue/fern-bookmark.vim'
 
 " Org Mode
-Plug 'tksgi/vim-orgmode'
+" Plug 'tksgi/vim-orgmode'
+Plug 'hsitz/VimOrganizer'
 
 " ウィンドウサイズ変更
 Plug 'simeji/winresizer'
