@@ -14,9 +14,6 @@ source ~/dotfiles/zsh/alias.zsh
 sh ~/dotfiles/aarandom.sh
 
 # 環境変数
-if [ -f '~/path.sh`' ]
-then
-  source ~/path.sh
-fi
+### .zshenvに書くべし ###
 
 source ~/dotfiles/zsh/zinit.sh
