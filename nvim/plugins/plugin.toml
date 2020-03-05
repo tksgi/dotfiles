@@ -18,13 +18,25 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = 'let NERDTreeShowHidden=1'
+# [[plugins]]
+# repo = 'scrooloose/nerdtree'
+# hook_add = 'let NERDTreeShowHidden=1'
+
+# [[plugins]]
+# repo = 'Xuyuanp/nerdtree-git-plugin'
+# depends = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'Xuyuanp/nerdtree-git-plugin'
-depends = 'scrooloose/nerdtree'
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-devicons.vim'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'lambdalisue/fern-bookmark.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -40,14 +52,15 @@ hook_add = 'call hook#add#quickrun#load()'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = 'let g:tagbar_sort = 0'
+# [[plugins]]
+# repo = 'majutsushi/tagbar'
+# hook_add = 'let g:tagbar_sort = 0'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 hook_add = 'call hook#add#vim_airline#load()'
-depends = ['tagbar', 'vim-fugitive']
+# depends = ['tagbar', 'vim-fugitive']
+depends = ['vim-fugitive']
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -160,8 +173,8 @@ repo = 'willelz/badapple.nvim'
 [[plugins]]
 repo = 'itchyny/screensaver.vim'
 
-[[plugins]]
-repo = 'dense-analysis/ale'
+# [[plugins]]
+# repo = 'dense-analysis/ale'
 
 # [[plugins]]
 # repo = 'MattesGroeger/vim-bookmarks'
@@ -192,25 +205,19 @@ hook_add = 'let g:gen_tags#statusline = 1'
 # " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 # '''
 #
-# [[plugins]]
-# repo = 'liuchengxu/vista.vim'
-# hook_add = '''
-# let g:vista_sidebar_width = 40
-# let g:vista_echo_cursor = 0
-#
-# " デフォルトの情報ソースをctagsにする
-# let g:vista_default_executive = 'ctags'
-# " 特定の言語の場合vim-lspを利用した情報ソースを利用するようにする
-# let g:vista_executive_for = {
-#     \ 'go': 'coc',
-#     \ 'python': 'coc',
-#     \ 'ruby': 'coc',
-#     \ }
-#
-# " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
-# nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
-# '''
-#
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+hook_add = '''
+let g:vista_sidebar_width = 40
+let g:vista_echo_cursor = 0
+
+" デフォルトのソースをvim_lspに設定
+let g:vista_default_executive = 'vim_lsp'
+
+" トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
+nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+'''
+
 [[plugins]]
 repo = 'skanehira/docker-compose.vim'
 
@@ -231,7 +238,13 @@ repo = 'prabirshrestha/async.vim'
 repo = 'prabirshrestha/vim-lsp'
 hook_add = '''
 let g:lsp_preview_autoclose = 1
+let g:lsp_preview_float = 1
+let g:lsp_diagnostics_float_cursor = 1
+
 nnoremap <leader><C-]> :LspDefinition<CR>
+" ログ出力用
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
 '''
 
 [[plugins]]
@@ -242,8 +255,16 @@ merged = 0
 # repo = 'glacambre/firenvim'
 # hook_post_update = '_ -> firenvim#install(0)'
 
+# [[plugins]]
+# repo = 'vim-scripts/dbext.vim'
+# hook_add='''
+# let g:dbext_default_profile_pltfrm = 'type=MYSQL:host=127.0.0.1:user=pltfrm:passwd=pltfrm:dbname=pltfrm'
+# '''
+
 [[plugins]]
-repo = 'vim-scripts/dbext.vim'
-hook_add='''
-let g:dbext_default_profile_pltfrm = 'type=MYSQL:host=127.0.0.1:user=pltfrm:passwd=pltfrm:dbname=pltfrm'
+repo = 'mileszs/ack.vim'
+hook_add = '''
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 '''

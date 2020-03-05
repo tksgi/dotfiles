@@ -38,6 +38,11 @@ set backupskip=/tmp/*,/private/tmp/*
 " :Eでカレントディレクトリを開く
 command -nargs=? E Explore <args>
 
+" leaderをスペースに設定
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
+
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
@@ -240,11 +245,6 @@ command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/n
 cmap <expr> D<TAB> expand('%:h')
 cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
-" leaderをスペースに設定
-noremap <Space> <Nop>
-let g:mapleader = "\<Space>"
-let g:maplocalleader = "\\"
-
 
 " ずれ確認用
 " 0123456789012345678901234567890123456789
@@ -265,3 +265,15 @@ command! -bar -bang -nargs=? -complete=file Scouter
 command! -bar -bang -nargs=? -complete=file GScouter
 \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
 
+
+
+
+let g:lsp_settings = {
+    \ 'analysis-server-dart-snapshot': {
+    \     'cmd': [
+    \         'dart',
+    \         '/usr/local/Cellar/dart/2.7.1/libexec/bin/snapshots/analysis_server.dart.snapshot',
+    \         '--lsp'
+    \     ],
+    \ },
+\ }

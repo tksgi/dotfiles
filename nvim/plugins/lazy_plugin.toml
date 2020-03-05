@@ -77,10 +77,15 @@ on_ft = 'python'
 repo = 'jparise/vim-graphql'
 on_ft = 'graphql'
 
+# golang
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = 'go'
+# # hook_add = 'let g:go_gopls_enabled = 0'
 [[plugins]]
-repo = 'fatih/vim-go'
+repo = 'vim-jp/vim-go-extra'
 on_ft = 'go'
-# hook_add = 'let g:go_gopls_enabled = 0'
+hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 
 # vim-lspのdeoplete対応
 [[plugins]]
@@ -99,11 +104,16 @@ depends = 'neosnippet.vim'
 
 
 # カッコ
-[[plugins]]
-repo = 'cohama/lexima.vim'
-on_event = 'InsertEnter'
+# [[plugins]]
+# repo = 'cohama/lexima.vim'
+# on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'shuntaka9576/preview-swagger.nvim'
 build = 'yarn install'
 on_ft = ['json', 'yaml']
+
+
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+on_ft = ['dart']
