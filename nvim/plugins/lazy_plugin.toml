@@ -70,9 +70,9 @@ on_ft = ['javascript']
 # repo = 'nvie/vim-flake8'
 # on_ft = 'python'
 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = 'python'
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# on_ft = 'python'
 
 # [[plugins]]
 # repo = 'tbodt/deoplete-tabnine'
