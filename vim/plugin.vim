@@ -49,6 +49,15 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+" snippet
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+
+" asyncomplete関連
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'prabirshrestha/asyncomplete-tags.vim'
+
 " docker操作
 Plug 'skanehira/docker.vim'
 
@@ -100,6 +109,24 @@ let g:fern#renderer = "devicons"
 let g:lsp_preview_autoclose = 1
 nnoremap <leader><C-]> :LspDefinition<CR>
 
+" asyncomplete設定
+" snippet設定
+let g:UltiSnipsExpandTrigger="<c-k>"
+
+call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+      \ 'name': 'ultisnips',
+      \ 'whitelist': ['*'],
+      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+      \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': 'tags',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
+    \ }))
 
 " gen_tags設定
 let g:gen_tags#statusline = 1
@@ -115,5 +142,6 @@ if executable('ag')
 endif
 
 " vim-go-extra設定
+" 保存時にファイルをフォーマット
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 

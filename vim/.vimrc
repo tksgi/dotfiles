@@ -14,9 +14,9 @@ set fenc=utf-8
 " set noswapfile
 " スワップファイルのディレクトリ設定
 set directory=~/.vim/tmp
-if !isdirectory('~/.vim/tmp')
-  !mkdir -p ~/.vim/tmp
-endif
+" if !isdirectory('~/.vim/tmp')
+"   !mkdir -p ~/.vim/tmp
+" endif
 " tmp ディレクトリではバックアップを行わない
 set backupskip=/tmp/*,/private/tmp/*,~/.vim/tmp/*
 
