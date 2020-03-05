@@ -20,4 +20,13 @@ function! hook#add#nvim_lsp#load() abort
   nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 
+  " コマンド追加
+  command LspDeclaration    lua vim.lsp.buf.declaration()<CR>
+  command LspDefinition     lua vim.lsp.buf.definition()<CR>
+  command Lsphover          lua vim.lsp.buf.hover()<CR>
+  command LspImpletentation lua vim.lsp.buf.implementation()<CR>
+  command LspSignatureHelp  lua vim.lsp.buf.signature_help()<CR>
+  command LspTypeDefinition lua vim.lsp.buf.type_definition()<CR>
+  command LspReferences     lua vim.lsp.buf.references()<CR>
+
 endfunction
