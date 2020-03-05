@@ -225,8 +225,8 @@ repo = 'skanehira/docker-compose.vim'
 repo = 'mbbill/undotree'
 
 # vim-lsp
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
+# [[plugins]]
+# repo = 'prabirshrestha/async.vim'
 
 # [[plugins]]
 # repo = 'prabirshrestha/asyncomplete.vim'
@@ -234,22 +234,22 @@ repo = 'prabirshrestha/async.vim'
 # [[plugins]]
 # repo =  'prabirshrestha/asyncomplete-lsp.vim'
 
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-let g:lsp_preview_autoclose = 1
-let g:lsp_preview_float = 1
-let g:lsp_diagnostics_float_cursor = 1
-
-nnoremap <leader><C-]> :LspDefinition<CR>
-" ログ出力用
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-'''
-
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
-merged = 0
+# [[plugins]]
+# repo = 'prabirshrestha/vim-lsp'
+# hook_add = '''
+# let g:lsp_preview_autoclose = 1
+# let g:lsp_preview_float = 1
+# let g:lsp_diagnostics_float_cursor = 1
+#
+# nnoremap <leader><C-]> :LspDefinition<CR>
+# " ログ出力用
+# let g:lsp_log_verbose = 1
+# let g:lsp_log_file = expand('~/vim-lsp.log')
+# '''
+#
+# [[plugins]]
+# repo = 'mattn/vim-lsp-settings'
+# merged = 0
 
 # [[plugins]]
 # repo = 'glacambre/firenvim'

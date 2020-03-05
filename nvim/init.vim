@@ -268,12 +268,12 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 
 
-let g:lsp_settings = {
-    \ 'analysis-server-dart-snapshot': {
-    \     'cmd': [
-    \         'dart',
-    \         '/usr/local/Cellar/dart/2.7.1/libexec/bin/snapshots/analysis_server.dart.snapshot',
-    \         '--lsp'
-    \     ],
-    \ },
-\ }
+" let g:lsp_settings = {
+"     \ 'analysis-server-dart-snapshot': {
+"     \     'cmd': [
+"     \         'dart',
+"     \         '/usr/local/Cellar/dart/2.7.1/libexec/bin/snapshots/analysis_server.dart.snapshot',
+"     \         '--lsp'
+"     \     ],
+"     \ },
+" \ }
