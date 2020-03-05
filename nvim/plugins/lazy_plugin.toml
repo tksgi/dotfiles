@@ -8,12 +8,18 @@ call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 on_event = 'InsertEnter'
 
 [[plugins]]
+repo = 'Shougo/deoplete-lsp'
+on_event = 'InsertEnter'
+depends = 'deoplete.nvim'
+
+
+[[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = 'vim'
 
-[[plugins]]
-repo = 'Shougo/defx.nvim'
-on_source = ['denite.nvim']
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# on_source = ['denite.nvim']
 
 [[plugins]]
 repo = 'carlitux/deoplete-ternjs'
@@ -88,19 +94,19 @@ on_ft = 'go'
 hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 
 # vim-lspのdeoplete対応
-[[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
-on_event = 'InsertEnter'
+# [[plugins]]
+# repo = 'lighttiger2505/deoplete-vim-lsp'
+# on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 depends = 'context_filetype.vim'
 on_event = 'InsertEnter'
 
-[[plugins]]
-repo = 'thomasfaingnaert/vim-lsp-neosnippet'
-on_event = 'InsertEnter'
-depends = 'neosnippet.vim'
+# [[plugins]]
+# repo = 'thomasfaingnaert/vim-lsp-neosnippet'
+# on_event = 'InsertEnter'
+# depends = 'neosnippet.vim'
 
 
 # カッコ
