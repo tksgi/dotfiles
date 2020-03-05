@@ -178,7 +178,6 @@ if dein#load_state('~/.cache/dein')
   call dein#load_toml(s:toml, {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
-
   " Required:
   call dein#end()
   call dein#save_state()
@@ -277,3 +276,14 @@ command! -bar -bang -nargs=? -complete=file GScouter
 "     \     ],
 "     \ },
 " \ }
+
+" timeoutを設定
+set timeout timeoutlen=3000 ttimeoutlen=100
+augroup FastEscape
+  autocmd!
+  au InsertEnter * set timeoutlen=0
+  au InsertLeave * set timeoutlen=100
+augroup END
+
+
+
