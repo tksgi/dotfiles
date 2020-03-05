@@ -268,3 +268,7 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 '''
+
+[[plugins]]
+repo = 'neovim/nvim-lsp'
+hook_post_source = 'call hook#add#nvim-lsp#load()'
