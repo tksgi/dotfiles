@@ -271,4 +271,4 @@ endif
 
 [[plugins]]
 repo = 'neovim/nvim-lsp'
-hook_post_source = 'call hook#add#nvim-lsp#load()'
+hook_add = 'call hook#add#nvim_lsp#load()'
