@@ -53,7 +53,7 @@ export NEXT_COMMAND_BGN_TIME
 function show_command_end_time() {
   PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
   PROMPT="Dir: %F{red}%~%f ${vcs_info_msg_0_}
-${PREV_COMMAND_END_TIME} -          
+${PREV_COMMAND_END_TIME} - __:__:__
 %F{red}$%f "
 }
 autoload -Uz add-zsh-hook
@@ -96,3 +96,5 @@ export CLICOLOR=true
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 
+# pathの重複を避ける
+typeset -U path PATH
