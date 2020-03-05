@@ -211,8 +211,8 @@ hook_add = '''
 let g:vista_sidebar_width = 40
 let g:vista_echo_cursor = 0
 
-" デフォルトのソースをvim_lspに設定
-let g:vista_default_executive = 'vim_lsp'
+" デフォルトのソースをnvim_lspに設定
+let g:vista_default_executive = 'nvim_lsp'
 
 " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
 nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
