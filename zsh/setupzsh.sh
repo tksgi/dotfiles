@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cp ~/.config/zsh/.zshrc ~/
+cp ~/dotfiles/zsh/.zshrc ~/
