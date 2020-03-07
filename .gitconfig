@@ -1,7 +1,7 @@
 [core]
 	editor = vim
 	excludesFile = ~/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	#pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	name = tksgi
 	email = 23550705+tksgi@users.noreply.github.com
@@ -26,3 +26,5 @@
     cmd = open -a 'Firefox.app'
 [ghq]
 	root = /Users/kasugaitooru/go/src
+[url "https://github.com/"]
+	insteadOf = git@github.com:
