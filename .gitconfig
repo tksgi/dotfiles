@@ -5,7 +5,6 @@
 [user]
 	name = tksgi
 	email = 23550705+tksgi@users.noreply.github.com
-	name = tksgi
 [color]
 	ui = true
 [alias]
@@ -26,5 +25,7 @@
     cmd = open -a 'Firefox.app'
 [ghq]
 	root = /Users/kasugaitooru/go/src
-[url "https://github.com/"]
-	insteadOf = git@github.com:
+[url ":git@github.com:"]
+	insteadOf = htps://github.com/
+#[url "https://github.com/"]
+#	insteadOf = git@github.com:
