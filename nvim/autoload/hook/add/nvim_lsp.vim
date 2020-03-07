@@ -11,7 +11,7 @@ function! hook#add#nvim_lsp#load() abort
   lua require'nvim_lsp'.yamlls.setup{}
   lua require'nvim_lsp'.dockerls.setup{}
 
-  " docのキーマップ
+  " helpのexampleキーマップ
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
   nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
