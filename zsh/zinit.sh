@@ -11,9 +11,6 @@ source ~/.zinit/bin/zinit.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit ice wait atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
-
 # git diff
 zinit ice as"program" pick"bin/git-dsf"
 zinit light zdharma/zsh-diff-so-fancy
@@ -22,7 +19,7 @@ zinit ice wait blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
 zinit ice wait atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
 
 zinit ice as"completion"
 zinit snippet git@github.com:/docker/cli/blob/master/contrib/completion/zsh/_docker
