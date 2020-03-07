@@ -14,3 +14,13 @@ source ~/dotfiles/zsh/alias.zsh
 sh ~/dotfiles/aarandom.sh
 
 source ~/dotfiles/zsh/zinit.sh
+
+###################################
+#              注意！             #
+###################################
+#                                 #
+#                                 #
+# 環境変数は~/.zshenvに設定する！ #
+#                                 #
+#                                 #
+###################################
