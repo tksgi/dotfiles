@@ -2,7 +2,6 @@
 if has("win64")
   let g:python3_host_prog = 'c:\Users\ttets\AppData\Local\Programs\Python\Python37-32'
 endif
-let g:python_host_prog = "~/.pyenv/versions/2.7.16/bin/python2.7"
 " let $TMPDIR = "~/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
