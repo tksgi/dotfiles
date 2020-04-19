@@ -272,3 +272,10 @@ endif
 [[plugins]]
 repo = 'neovim/nvim-lsp'
 hook_add = 'call hook#add#nvim_lsp#load()'
+
+# バッファ移動
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'

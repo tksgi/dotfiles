@@ -9,11 +9,17 @@ set fenc=utf-8
 " helpを日本語に設定
 set helplang=ja,en
 " バックアップファイルを作らない
-set nobackup
+" set nobackup
 " スワップファイルを作らない
-set noswapfile
+" set noswapfile
 " スワップファイルのディレクトリ設定
-" set directory=~/.vim/tmp
+set directory=~/.nvim/tmp
+" 永続undo
+set undofile
+if !isdirectory(expand("$HOME/.nvim/undodir"))
+  call mkdir(expand("$HOME/.nvim/undodir"), "p")
+endif
+set undodir=$HOME/.nvim/undodir
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -41,6 +47,17 @@ command -nargs=? E Explore <args>
 noremap <Space> <Nop>
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\\"
+
+" timeoutを設定
+" set timeout timeoutlen=3000 ttimeoutlen=100
+" augroup FastEscape
+"   autocmd!
+"   au InsertEnter * set timeoutlen=0
+"   au InsertLeave * set timeoutlen=100
+" augroup END
+
+
+
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
@@ -275,14 +292,4 @@ command! -bar -bang -nargs=? -complete=file GScouter
 "     \     ],
 "     \ },
 " \ }
-
-" timeoutを設定
-set timeout timeoutlen=3000 ttimeoutlen=100
-augroup FastEscape
-  autocmd!
-  au InsertEnter * set timeoutlen=0
-  au InsertLeave * set timeoutlen=100
-augroup END
-
-
 
