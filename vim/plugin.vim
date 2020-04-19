@@ -1,6 +1,7 @@
 " if !filereadable('~/.vim/autoload/plug.vim')
 "   !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " endif
+
 " プラギン設定
 call plug#begin('~/.vim/plugged')
 
@@ -46,17 +47,28 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 " 補完
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " snippet
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 " asyncomplete関連
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-Plug 'prabirshrestha/asyncomplete-tags.vim'
+" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'prabirshrestha/asyncomplete-tags.vim'
+
+" 補完
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'lighttiger2505/deoplete-vim-lsp'
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'thomasfaingnaert/vim-lsp-snippets'
+Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 
 " docker操作
 Plug 'skanehira/docker.vim'
@@ -67,7 +79,8 @@ Plug 'skanehira/docker-compose.vim'
 Plug 'jsfaint/gen_tags.vim'
 
 " git操作
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim'
 
 " ブラウザ操作
 Plug 'tyru/open-browser.vim'
@@ -107,26 +120,39 @@ let g:fern#renderer = "devicons"
 
 " LSP設定
 let g:lsp_preview_autoclose = 1
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
 nnoremap <leader><C-]> :LspDefinition<CR>
 
 " asyncomplete設定
 " snippet設定
-let g:UltiSnipsExpandTrigger="<c-k>"
+" let g:UltiSnipsExpandTrigger="<c-k>"
+" 
+" call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+"       \ 'name': 'ultisnips',
+"       \ 'whitelist': ['*'],
+"       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+"       \ }))
+" 
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+"     \ 'name': 'tags',
+"     \ 'whitelist': ['*'],
+"     \ 'completor': function('asyncomplete#sources#tags#completor'),
+"     \ 'config': {
+"     \    'max_file_size': 50000000,
+"     \  },
+"     \ }))
 
-call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-      \ 'name': 'ultisnips',
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-      \ }))
+" deoplete設定
+let g:deoplete#enable_at_startup = 1
 
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-    \ 'name': 'tags',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#tags#completor'),
-    \ 'config': {
-    \    'max_file_size': 50000000,
-    \  },
-    \ }))
+" vim-hug-neovim-rpc設定
+let g:neovim_rpc#py = 'python3'
+" let s:pyeval = function('py3eval')
+
+" neosnippet設定
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " gen_tags設定
 let g:gen_tags#statusline = 1

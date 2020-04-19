@@ -4,6 +4,8 @@
 " あいうえおあいうえおあいうえおあいうえお
 "
 "
+let g:python3_host_prog = '/Users/tetsu/.pyenv/shims'
+let g:python_host_prog = '/Users/tetsu/.pyenv/shims'
 " let $TMPDIR = "/Users/tetsu/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
@@ -66,7 +68,7 @@ set showmatch
 set matchtime=1
 "コードの色分け
 syntax on
-"set number
+set number
 "set statusline=%F%{fugitive#statusline()}
 set statusline+=%=
 set statusline+=%l-%v/%L
