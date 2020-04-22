@@ -7,10 +7,11 @@ call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 '''
 on_event = 'InsertEnter'
 
-[[plugins]]
-repo = 'Shougo/deoplete-lsp'
-on_event = 'InsertEnter'
-depends = 'deoplete.nvim'
+# nvim-lsp用
+# [[plugins]]
+# repo = 'Shougo/deoplete-lsp'
+# on_event = 'InsertEnter'
+# depends = 'deoplete.nvim'
 
 
 [[plugins]]
@@ -94,9 +95,9 @@ on_ft = 'go'
 hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 
 # vim-lspのdeoplete対応
-# [[plugins]]
-# repo = 'lighttiger2505/deoplete-vim-lsp'
-# on_event = 'InsertEnter'
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'

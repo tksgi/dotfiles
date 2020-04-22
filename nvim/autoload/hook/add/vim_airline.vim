@@ -18,5 +18,5 @@ function! hook#add#vim_airline#load() abort
     let g:airline_section_z = airline#section#create(['%p%% ☰ %l/%L :%v'])
     " aleの出力をairline表示
     " let g:airline#extensions#ale#enabled = 1
-  let g:airline#extensions#lsp#enabled = 0
+    let g:airline#extensions#lsp#enabled = 0
 endfunction
