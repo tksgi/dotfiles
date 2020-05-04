@@ -158,8 +158,9 @@ endif
 " augroup END
 
 " 折りたたみ設定
-"let g:vimsyn_folding = 'r'
-"set foldmethod=syntax
+" let g:vimsyn_folding = 'aflPr'
+" set foldmethod=indent
+" autocmd BufRead * normal zR
 
 "コマンドのエイリアス設定
 command Binary %!xxd
