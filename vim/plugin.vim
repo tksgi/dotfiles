@@ -36,7 +36,7 @@ Plug 'lambdalisue/fern-bookmark.vim'
 
 " Org Mode
 " Plug 'tksgi/vim-orgmode'
-Plug 'hsitz/VimOrganizer'
+" Plug 'hsitz/VimOrganizer'
 
 " ウィンドウサイズ変更
 Plug 'simeji/winresizer'
@@ -45,6 +45,7 @@ Plug 'simeji/winresizer'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+" Plug 'tksgi/vim-lsp-settings'
 
 " 補完
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -96,6 +97,15 @@ Plug 'vim-jp/vim-go-extra'
 " ステータスライン
 Plug 'itchyny/lightline.vim'
 
+" カラースキーム
+Plug 'patstockwell/vim-monokai-tasty'
+Plug 'tomasr/molokai'
+
+" dartシンタックス
+Plug 'dart-lang/dart-vim-plugin'
+
+" easymotion
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 
@@ -124,35 +134,45 @@ let g:lsp_virtual_text_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 nnoremap <leader><C-]> :LspDefinition<CR>
 
+" let g:lsp_settings = {
+"     \ 'analysis-server-dart-snapshot': {
+"     \     'cmd': [
+"     \         '/usr/local/Cellar/dart/2.7.2/bin/dart',
+"     \         '/usr/local/Cellar/dart/2.7.2/libexec/bin/snapshots/analysis_server.dart.snapshot',
+"     \         '--lsp'
+"     \     ],
+"     \ },
+" \ }
+
 " asyncomplete設定
 " snippet設定
-" let g:UltiSnipsExpandTrigger="<c-k>"
-" 
-" call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-"       \ 'name': 'ultisnips',
-"       \ 'whitelist': ['*'],
-"       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-"       \ }))
-" 
-" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-"     \ 'name': 'tags',
-"     \ 'whitelist': ['*'],
-"     \ 'completor': function('asyncomplete#sources#tags#completor'),
-"     \ 'config': {
-"     \    'max_file_size': 50000000,
-"     \  },
-"     \ }))
+let g:UltiSnipsExpandTrigger="<c-k>"
+
+call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+      \ 'name': 'ultisnips',
+      \ 'whitelist': ['*'],
+      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+      \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+    \ 'name': 'tags',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#tags#completor'),
+    \ 'config': {
+    \    'max_file_size': 50000000,
+    \  },
+    \ }))
 
 " deoplete設定
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " vim-hug-neovim-rpc設定
 let g:neovim_rpc#py = 'python3'
 " let s:pyeval = function('py3eval')
 
 " neosnippet設定
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" imap <C-k> <Plug>(neosnippet_expand_or_jump)
+" smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " gen_tags設定
 let g:gen_tags#statusline = 1
@@ -171,3 +191,8 @@ endif
 " 保存時にファイルをフォーマット
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
+" dart-vim-plugin設定
+" let g:dart_format_on_save = 1
+
+" colorscheme vim-monokai-tasty
+colorscheme molokai

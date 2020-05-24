@@ -98,3 +98,4 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # pathの重複を避ける
 typeset -U path PATH
+

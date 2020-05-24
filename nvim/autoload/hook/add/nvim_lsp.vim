@@ -1,8 +1,8 @@
 function! hook#add#nvim_lsp#load() abort
-
+  lua vim.cmd('packadd nvim-lsp')
 
   lua require'nvim_lsp'.gopls.setup{}
-  lua require'nvim_lsp'.dartls.setup{ cmd = { "dart", "/usr/local/Cellar/dart/2.7.1/libexec/bin/snapshots/analysis_server.dart.snapshot", "--lsp" } }
+  lua require'nvim_lsp'.dartls.setup{ cmd = { "/Users/kasugaitooru/go/src/github.com/flutter/flutter/bin/cache/dart-sdk/bin/dart", "/Users/kasugaitooru/go/src/github.com/flutter/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp" }}
   lua require'nvim_lsp'.pyls.setup{}
   lua require'nvim_lsp'.solargraph.setup{}
   lua require'nvim_lsp'.vimls.setup{}

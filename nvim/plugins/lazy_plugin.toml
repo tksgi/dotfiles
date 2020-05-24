@@ -4,19 +4,39 @@ depends = 'context_filetype.vim'
 hook_source = 'call hook#source#deoplete#load()'
 hook_post_source = '''
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+call deoplete#enable()
 '''
 on_event = 'InsertEnter'
 
 # nvim-lsp用
-# [[plugins]]
-# repo = 'Shougo/deoplete-lsp'
-# on_event = 'InsertEnter'
-# depends = 'deoplete.nvim'
+[[plugins]]
+repo = 'Shougo/deoplete-lsp'
+on_event = 'InsertEnter'
+depends = 'deoplete.nvim'
 
 
 [[plugins]]
 repo = 'Shougo/neco-vim'
 on_ft = 'vim'
+
+# snippets
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['context_filetype.vim', 'vim-snippets']
+on_event = 'InsertEnter'
+hook_post_source = '''
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_derectory = $HOME . '/.cache/dein/repos/github.com/honza/vim-snippets/snippets/'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
 
 # [[plugins]]
 # repo = 'Shougo/defx.nvim'
@@ -95,30 +115,24 @@ on_ft = 'go'
 hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 
 # vim-lspのdeoplete対応
-[[plugins]]
-repo = 'lighttiger2505/deoplete-vim-lsp'
-on_event = 'InsertEnter'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = 'context_filetype.vim'
-on_event = 'InsertEnter'
+# [[plugins]]
+# repo = 'lighttiger2505/deoplete-vim-lsp'
+# on_event = 'InsertEnter'
 
 # [[plugins]]
 # repo = 'thomasfaingnaert/vim-lsp-neosnippet'
 # on_event = 'InsertEnter'
 # depends = 'neosnippet.vim'
 
-
 # カッコ
 # [[plugins]]
 # repo = 'cohama/lexima.vim'
 # on_event = 'InsertEnter'
 
-[[plugins]]
-repo = 'shuntaka9576/preview-swagger.nvim'
-build = 'yarn install'
-on_ft = ['json', 'yaml']
+# [[plugins]]
+# repo = 'shuntaka9576/preview-swagger.nvim'
+# build = 'yarn install'
+# on_ft = ['json', 'yaml']
 
 
 [[plugins]]

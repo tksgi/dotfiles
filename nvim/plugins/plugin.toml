@@ -94,13 +94,6 @@ repo = 'simeji/winresizer'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-hook_add = '''
-let g:neosnippet#snippets_directory = $HOME . '/.config/nvim/snippets'
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-'''
 
 [[plugins]]
 repo = 'tpope/vim-rhubarb'
@@ -212,7 +205,7 @@ let g:vista_sidebar_width = 40
 let g:vista_echo_cursor = 0
 
 " デフォルトのソースをvim_lspに設定
-let g:vista_default_executive = 'vim_lsp'
+" let g:vista_default_executive = 'nvim_lsp'
 
 " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
 nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
@@ -225,8 +218,8 @@ repo = 'skanehira/docker-compose.vim'
 repo = 'mbbill/undotree'
 
 # vim-lsp
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
+# [[plugins]]
+# repo = 'prabirshrestha/async.vim'
 
 # [[plugins]]
 # repo = 'prabirshrestha/asyncomplete.vim'
@@ -234,24 +227,24 @@ repo = 'prabirshrestha/async.vim'
 # [[plugins]]
 # repo =  'prabirshrestha/asyncomplete-lsp.vim'
 
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-let g:lsp_preview_autoclose = 1
-let g:lsp_preview_float = 1
-let g:lsp_diagnostics_float_cursor = 0
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
+# [[plugins]]
+# repo = 'prabirshrestha/vim-lsp'
+# hook_add = '''
+# let g:lsp_preview_autoclose = 1
+# let g:lsp_preview_float = 1
+# let g:lsp_diagnostics_float_cursor = 0
+# let g:lsp_virtual_text_enabled = 0
+# let g:lsp_diagnostics_echo_cursor = 1
+#
+# nnoremap <leader><C-]> :LspDefinition<CR>
+# " ログ出力用
+# let g:lsp_log_verbose = 1
+# let g:lsp_log_file = expand('~/vim-lsp.log')
+# '''
 
-nnoremap <leader><C-]> :LspDefinition<CR>
-" ログ出力用
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-'''
-
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
-merged = 0
+# [[plugins]]
+# repo = 'mattn/vim-lsp-settings'
+# merged = 0
 
 # [[plugins]]
 # repo = 'glacambre/firenvim'
@@ -271,9 +264,14 @@ if executable('ag')
 endif
 '''
 
+[[plugins]]
+repo = 'neovim/nvim-lsp'
+hook_post_source = 'call hook#add#nvim_lsp#load()'
+
 # [[plugins]]
-# repo = 'neovim/nvim-lsp'
-# hook_add = 'call hook#add#nvim_lsp#load()'
+# repo = 'haorenW1025/diagnostic-nvim'
+# depends = 'nvim-lsp'
+# hook_post_source = 'call hook#add#diagnostic_nvim#load()'
 
 # バッファ移動
 [[plugins]]
