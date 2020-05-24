@@ -35,6 +35,13 @@ bindkey '^fc' fzf-cd
 # bindkey '^f^g' fzf-ghq
 # bindkey '^f^v' fzf-grep-vscode
 
+zinit ice as"program"
+zinit light x-motemen/ghq
+
+zinit ice as"program" atclone"sh autogen.sh; ./configure" atpull"%atclone" make 
+zinit light tmux/tmux
+# ./configure && make && sudo make install
+
 zinit ice wait blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
