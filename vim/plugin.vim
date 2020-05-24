@@ -72,9 +72,9 @@ Plug 'prabirshrestha/asyncomplete-tags.vim'
 " Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 
 " docker操作
-Plug 'skanehira/docker.vim'
-
-Plug 'skanehira/docker-compose.vim'
+" Plug 'skanehira/docker.vim'
+" 
+" Plug 'skanehira/docker-compose.vim'
 
 " ctags生成
 Plug 'jsfaint/gen_tags.vim'
