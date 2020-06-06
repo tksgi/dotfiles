@@ -35,8 +35,17 @@ bindkey '^fc' fzf-cd
 # bindkey '^f^g' fzf-ghq
 # bindkey '^f^v' fzf-grep-vscode
 
-zinit ice as"program"
+zinit ice as"program" make
 zinit light x-motemen/ghq
+
+zinit ice as"program" atclone"cargo install exa" atpull"%atclone"
+zinit light ogham/exa
+
+zinit ice as"program" atclone"cargo install --locked bat" atpull"%atclone"
+zinit light sharkdp/bat
+# 
+# zinit ice as"program"
+# zinit light dandavison/delta
 
 zinit ice as"program" atclone"sh autogen.sh; ./configure" atpull"%atclone" make 
 zinit light tmux/tmux
