@@ -218,33 +218,34 @@ repo = 'skanehira/docker-compose.vim'
 repo = 'mbbill/undotree'
 
 # vim-lsp
-# [[plugins]]
-# repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
 
-# [[plugins]]
-# repo = 'prabirshrestha/asyncomplete.vim'
-# 
-# [[plugins]]
-# repo =  'prabirshrestha/asyncomplete-lsp.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+ 
+[[plugins]]
+repo =  'prabirshrestha/asyncomplete-lsp.vim'
 
-# [[plugins]]
-# repo = 'prabirshrestha/vim-lsp'
-# hook_add = '''
-# let g:lsp_preview_autoclose = 1
-# let g:lsp_preview_float = 1
-# let g:lsp_diagnostics_float_cursor = 0
-# let g:lsp_virtual_text_enabled = 0
-# let g:lsp_diagnostics_echo_cursor = 1
-#
-# nnoremap <leader><C-]> :LspDefinition<CR>
-# " ログ出力用
-# let g:lsp_log_verbose = 1
-# let g:lsp_log_file = expand('~/vim-lsp.log')
-# '''
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_preview_autoclose = 1
+let g:lsp_preview_float = 1
+let g:lsp_diagnostics_float_cursor = 0
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
 
-# [[plugins]]
-# repo = 'mattn/vim-lsp-settings'
-# merged = 0
+nnoremap <leader><C-]> :LspDefinition<CR>
+nnoremap <F12> :LspDefinition<CR>
+" ログ出力用
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+merged = 0
 
 # [[plugins]]
 # repo = 'glacambre/firenvim'
@@ -264,9 +265,9 @@ if executable('ag')
 endif
 '''
 
-[[plugins]]
-repo = 'neovim/nvim-lsp'
-hook_post_source = 'call hook#add#nvim_lsp#load()'
+# [[plugins]]
+# repo = 'neovim/nvim-lsp'
+# hook_post_source = 'call hook#add#nvim_lsp#load()'
 
 # [[plugins]]
 # repo = 'haorenW1025/diagnostic-nvim'

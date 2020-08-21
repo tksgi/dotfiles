@@ -213,9 +213,9 @@ endif
 
 
 "deoplete設定u
-highlight Pmenu ctermbg=4
-highlight PmenuSel ctermbg=1
-highlight PMenuSbar ctermbg=4
+" highlight Pmenu ctermbg=4
+" highlight PmenuSel ctermbg=1
+" highlight PMenuSbar ctermbg=4
 
 " 補完ウィンドウの設定
 " set completeopt=menuone
@@ -294,3 +294,5 @@ command! -bar -bang -nargs=? -complete=file GScouter
 "     \ },
 " \ }
 
+" 背景透過用設定
+hi Normal ctermbg=NONE
