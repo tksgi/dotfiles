@@ -16,4 +16,5 @@ sh ~/dotfiles/aarandom.sh
 # 環境変数
 ### .zshenvに書くべし ###
 
+eval "$(anyenv init -)"
 source ~/dotfiles/zsh/zinit.sh
