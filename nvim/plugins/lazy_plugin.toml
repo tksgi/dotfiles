@@ -9,10 +9,10 @@ call deoplete#enable()
 on_event = 'InsertEnter'
 
 # nvim-lsp用
-[[plugins]]
-repo = 'Shougo/deoplete-lsp'
-on_event = 'InsertEnter'
-depends = 'deoplete.nvim'
+# [[plugins]]
+# repo = 'Shougo/deoplete-lsp'
+# on_event = 'InsertEnter'
+# depends = 'deoplete.nvim'
 
 
 [[plugins]]
@@ -95,10 +95,11 @@ on_ft = ['javascript']
 # repo = 'davidhalter/jedi-vim'
 # on_ft = 'python'
 
-# [[plugins]]
-# repo = 'tbodt/deoplete-tabnine'
-# build = './install.sh'
-# on_event = 'InsertEnter'
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+build = './install.sh'
+on_event = 'InsertEnter'
+on_ft = 'dart'
 
 [[plugins]]
 repo = 'jparise/vim-graphql'
@@ -115,14 +116,14 @@ on_ft = 'go'
 hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 
 # vim-lspのdeoplete対応
-# [[plugins]]
-# repo = 'lighttiger2505/deoplete-vim-lsp'
-# on_event = 'InsertEnter'
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+on_event = 'InsertEnter'
 
-# [[plugins]]
-# repo = 'thomasfaingnaert/vim-lsp-neosnippet'
-# on_event = 'InsertEnter'
-# depends = 'neosnippet.vim'
+[[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-neosnippet'
+on_event = 'InsertEnter'
+depends = 'neosnippet.vim'
 
 # カッコ
 # [[plugins]]
@@ -138,3 +139,10 @@ hook_add = 'autocmd FileType go autocmd BufWritePre <buffer> Fmt'
 [[plugins]]
 repo = 'dart-lang/dart-vim-plugin'
 on_ft = ['dart']
+
+# javascript formatter
+[[plugins]]
+repo = 'prettier/vim-prettier'
+on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
+build = 'yarn install'
+rev = 'release/1.x'
