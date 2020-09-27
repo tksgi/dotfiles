@@ -12,6 +12,7 @@
 	co = checkout
   br = branch
   st = status
+	delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
 [init]
 	tmplatedir = .git_tmp
 [diff]
@@ -24,8 +25,6 @@
     browser = open
 [browser "chrome"]
     cmd = open -a 'Firefox.app'
-[ghq]
-	root = /Users/kasugaitooru/go/src
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

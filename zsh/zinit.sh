@@ -27,11 +27,11 @@ zinit light zdharma/zsh-diff-so-fancy
 zinit pack for fzf
 # zinit ice lucid wait"0" depth"1" blockf
 # zinit light "chitoku-k/fzf-zsh-completions"
-zinit light yuki-ycino/fzf-preview.zsh
-# FZF_PREVIEW_DISABLE_DEFAULT_BIND=1
-FZF_PREVIEW_ENABLE_TMUX=1
-bindkey '^i' fzf-or-normal-completion
-bindkey '^fc' fzf-cd
+# zinit light yuki-ycino/fzf-preview.zsh
+# # FZF_PREVIEW_DISABLE_DEFAULT_BIND=1
+# FZF_PREVIEW_ENABLE_TMUX=1
+# bindkey '^i' fzf-or-normal-completion
+# bindkey '^fc' fzf-cd
 # bindkey '^f^g' fzf-ghq
 # bindkey '^f^v' fzf-grep-vscode
 

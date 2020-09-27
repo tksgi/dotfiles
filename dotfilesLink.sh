@@ -1,5 +1,6 @@
 #!/bin/sh
 cd ~
+mkdir ~/.config
 ln -sf ~/dotfiles/.bashrc ~/.bashrc
 ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
@@ -8,3 +9,4 @@ ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/vim/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 ln -sf ~/dotfiles/vim/after ~/.vim/after
+ln -sf ~/dotfiles/alacritty ~/.config/alacritty

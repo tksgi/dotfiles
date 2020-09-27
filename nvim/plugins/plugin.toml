@@ -73,6 +73,9 @@ repo = 'patstockwell/vim-monokai-tasty'
 [[plugins]]
 repo = 'tomasr/molokai'
 
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
 # [[plugins]]
 # repo = 'vim-scripts/gtags.vim'
 # hook_add = 'call hook#add#gtags#load()'
@@ -80,11 +83,11 @@ repo = 'tomasr/molokai'
 # [[plugins]]
 # repo = 'ozelentok/denite-gtags'
 
-[[plugins]]
-repo = 'yuratomo/w3m.vim'
-hook_add = '''
-let g:w3m#external_browser = '/Applications/Firefox.app/Contents/MacOS/firefox'
-'''
+# [[plugins]]
+# repo = 'yuratomo/w3m.vim'
+# hook_add = '''
+# let g:w3m#external_browser = '/Applications/Firefox.app/Contents/MacOS/firefox'
+# '''
 # help
 # https://github.com/yuratomo/w3m.vim
 
@@ -245,6 +248,7 @@ let g:lsp_virtual_text_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 1
 
 nnoremap <leader><C-]> :LspDefinition<CR>
+nnoremap <F12> :LspDefinition<CR>
 " ログ出力用
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
