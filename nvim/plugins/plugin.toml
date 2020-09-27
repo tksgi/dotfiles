@@ -30,7 +30,7 @@ repo = 'Shougo/neoyank.vim'
 repo = 'lambdalisue/fern.vim'
 
 [[plugins]]
-repo = 'lambdalisue/fern-renderer-devicons.vim'
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
