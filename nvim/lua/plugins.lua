@@ -4,11 +4,12 @@ return require('packer').startup(function()
   use {'wbthomason/packer.nvim', opt = true}
 
   use {
-    'haorenW1025/completion-nvim',
+    'nvim-lua/completion-nvim',
     event = 'InsertEnter *',
     config = function() 
       vim.cmd('packadd vim-vsnip') 
       vim.cmd('packadd vim-vsnip-integ') 
+      require'vompletion'.on_attach()
     end,
     requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
   }
@@ -29,6 +30,23 @@ return require('packer').startup(function()
   use { 'lambdalisue/fern-renderer-nerdfont.vim', requires = 'lambdalisue/nerdfont.vim', config = 'let g:fern#renderer = "nerdfont"'}
   use { 'lambdalisue/fern-git-status.vim'}
   use { 'simeji/winresizer'}
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    config = function()
+      -- Find files using Telescope command-line sugar.
+      vim.cmd('nnoremap <leader>ff <cmd>Telescope find_files<cr>')
+      vim.cmd('nnoremap <leader>fg <cmd>Telescope live_grep<cr>')
+      vim.cmd('nnoremap <leader>fb <cmd>Telescope buffers<cr>')
+      vim.cmd('nnoremap <leader>fh <cmd>Telescope help_tags<cr>')
+
+      -- Using lua functions
+      vim.cmd('nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>')
+      vim.cmd('nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>')
+      vim.cmd('nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>')
+      vim.cmd('nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>')
+    end
+  }
 
   use { 'godlygeek/tabular', cmd = 'Tabular'}
 

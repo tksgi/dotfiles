@@ -22,6 +22,12 @@ local plugins = {
     only_setup = false,
     path = "/Users/tetsu/.local/share/nvim/site/pack/packer/opt/dart-vim-plugin"
   },
+  ["deoplete-tabnine"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "/Users/tetsu/.local/share/nvim/site/pack/packer/opt/deoplete-tabnine"
+  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
@@ -189,12 +195,12 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: sonokai
-loadstring("colorscheme sonokai")()
 -- Config for: fern-renderer-nerdfont.vim
 loadstring('let g:fern#renderer = "nerdfont"')()
 -- Config for: nvim-lspconfig
 loadstring("\27LJ\2\nA\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\"call hook#add#nvim_lsp#load()\bcmd\bvim\0")()
+-- Config for: sonokai
+loadstring("colorscheme sonokai")()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
@@ -212,10 +218,11 @@ command! -nargs=* -range -bang -complete=file Tabular call s:load(['tabular'], {
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
-  au FileType toml ++once call s:load(['vim-toml'], { "ft": "toml" })
-  au FileType ruby ++once call s:load(['vim-rails'], { "ft": "ruby" })
   au FileType markdown ++once call s:load(['vim-markdown'], { "ft": "markdown" })
   au FileType dart ++once call s:load(['dart-vim-plugin'], { "ft": "dart" })
+  au FileType toml ++once call s:load(['vim-toml'], { "ft": "toml" })
+  au FileType ruby ++once call s:load(['vim-rails'], { "ft": "ruby" })
   " Event lazy-loads
   au InsertEnter * ++once call s:load(['completion-nvim'], { "event": "InsertEnter *" })
+  au VimEnter * ++once call s:load(['deoplete-tabnine'], { "event": "VimEnter *" })
 augroup END

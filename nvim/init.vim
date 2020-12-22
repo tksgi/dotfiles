@@ -297,3 +297,4 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 
 lua require('plugins')
+colorscheme sonokai
