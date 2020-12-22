@@ -171,52 +171,52 @@ let g:outher_package_path = $HOME . '/tools'
 "VIM上のターミナルでもaliasを使えるようにする
 " let $ZSH_ENV='~/.zshrc'
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " プラグイン管理
-  let s:toml_dir  = $HOME . '/.config/nvim/plugins'
-  let s:toml = s:toml_dir . '/plugin.toml'
-  let s:lazy_toml = s:toml_dir . '/lazy_plugin.toml'
-
-  call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
- call dein#install()
-endif
-
-"End dein Scripts-------------------------
-
-
-"deoplete設定u
-highlight Pmenu ctermbg=4
-highlight PmenuSel ctermbg=1
-highlight PMenuSbar ctermbg=4
-
+" "dein Scripts-----------------------------
+" if &compatible
+"   set nocompatible               " Be iMproved
+" endif
+"
+" " Required:
+" set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+"
+" " Required:
+" if dein#load_state('~/.cache/dein')
+"   call dein#begin('~/.cache/dein')
+"
+"   " Let dein manage dein
+"   " Required:
+"   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+"
+"   " プラグイン管理
+"   let s:toml_dir  = $HOME . '/.config/nvim/plugins'
+"   let s:toml = s:toml_dir . '/plugin.toml'
+"   let s:lazy_toml = s:toml_dir . '/lazy_plugin.toml'
+"
+"   call dein#load_toml(s:toml, {'lazy': 0})
+"   call dein#load_toml(s:lazy_toml, {'lazy': 1})
+"
+"   " Required:
+"   call dein#end()
+"   call dein#save_state()
+" endif
+"
+" " Required:
+" filetype plugin indent on
+" syntax enable
+"
+" " If you want to install not installed plugins on startup.
+" if dein#check_install()
+"  call dein#install()
+" endif
+"
+" "End dein Scripts-------------------------
+"
+"
+" "deoplete設定u
+" highlight Pmenu ctermbg=4
+" highlight PmenuSel ctermbg=1
+" highlight PMenuSbar ctermbg=4
+"
 " 補完ウィンドウの設定
 " set completeopt=menuone
 
@@ -248,14 +248,14 @@ tnoremap <C-w>l <C-\><C-n><C-w>l
 command CeatSheets :e ~/.config/nvim/how_to_use
 
 " カラースキームを設定
-colorscheme molokai
+" colorscheme molokai
 
 
 " バッファ移動をタブと同じように行なう
 nnoremap <silent> gb :b#<CR>
 
 " markdownプレビュー
-command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
+" command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
 
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
@@ -294,3 +294,6 @@ command! -bar -bang -nargs=? -complete=file GScouter
 "     \ },
 " \ }
 
+
+
+lua require('plugins')

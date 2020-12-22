@@ -1,15 +1,15 @@
 function! hook#add#nvim_lsp#load() abort
-  lua vim.cmd('packadd nvim-lsp')
 
-  lua require'nvim_lsp'.gopls.setup{}
-  " lua require'nvim_lsp'.dartls.setup{ cmd = { "/Users/kasugaitooru/go/src/github.com/flutter/flutter/bin/cache/dart-sdk/bin/dart", "/Users/kasugaitooru/go/src/github.com/flutter/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp" }}
-  lua require'nvim_lsp'.pyls.setup{}
-  lua require'nvim_lsp'.solargraph.setup{}
-  lua require'nvim_lsp'.vimls.setup{}
-  lua require'nvim_lsp'.tsserver.setup{}
-  lua require'nvim_lsp'.vuels.setup{}
-  lua require'nvim_lsp'.yamlls.setup{}
-  lua require'nvim_lsp'.dockerls.setup{}
+  lua require'lspconfig'.gopls.setup{}
+  lua require'lspconfig'.dartls.setup{}
+  lua require'lspconfig'.pyls.setup{}
+  lua require'lspconfig'.solargraph.setup{}
+  lua require'lspconfig'.vimls.setup{}
+  lua require'lspconfig'.tsserver.setup{}
+  lua require'lspconfig'.vuels.setup{}
+  lua require'lspconfig'.yamlls.setup{}
+  lua require'lspconfig'.dockerls.setup{}
+  lua require'lspconfig'.sumneko_lua.setup{}
 
   " helpのexampleキーマップ
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>

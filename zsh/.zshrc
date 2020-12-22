@@ -13,6 +13,7 @@ source ~/dotfiles/zsh/alias.zsh
 
 sh ~/dotfiles/aarandom.sh
 
+eval "$(anyenv init -)"
 eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(nodenv init -)"

@@ -10,4 +10,4 @@ ln -sf ~/dotfiles/vim/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/nvim ~/.config/nvim
 mkdir -p ~/.vim/after
 ln -sf ~/dotfiles/vim/after ~/.vim/after
-ln -sf ~/dotfiles/alacritty ~/.config/alacritty
+ln -sf ~/dotfiles/alacritty ~/.config/
