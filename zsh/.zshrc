@@ -13,6 +13,10 @@ source ~/dotfiles/zsh/alias.zsh
 
 sh ~/dotfiles/aarandom.sh
 
+eval "$(rbenv init -)"
+eval "$(pyenv init -)"
+eval "$(nodenv init -)"
+
 # 環境変数
 ### .zshenvに書くべし ###
 

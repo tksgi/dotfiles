@@ -12,6 +12,7 @@
 	co = checkout
   br = branch
   st = status
+	delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
 [init]
 	tmplatedir = .git_tmp
 [diff]
