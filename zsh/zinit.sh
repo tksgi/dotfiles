@@ -35,8 +35,8 @@ bindkey '^fc' fzf-cd
 # bindkey '^f^g' fzf-ghq
 # bindkey '^f^v' fzf-grep-vscode
 
-zinit ice as"program" make
-zinit light x-motemen/ghq
+# zinit ice as"program" make
+# zinit light x-motemen/ghq
 
 zinit ice as"program" atclone"cargo install exa" atpull"%atclone"
 zinit light ogham/exa
