@@ -240,18 +240,6 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 
 
-" let g:lsp_settings = {
-"     \ 'analysis-server-dart-snapshot': {
-"     \     'cmd': [
-"     \         'dart',
-"     \         '/usr/local/Cellar/dart/2.7.1/libexec/bin/snapshots/analysis_server.dart.snapshot',
-"     \         '--lsp'
-"     \     ],
-"     \ },
-" \ }
-
-
-
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'lambdalisue/fern.vim'
@@ -294,7 +282,7 @@ Plug 'stevearc/aerial.nvim' " symbol
 Plug 'akinsho/flutter-tools.nvim'
 
 " lsp install
-Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-settings'
 
 
 " better syntax highlighting
@@ -311,6 +299,10 @@ Plug 'romgrk/nvim-treesitter-context'
 Plug 'norcalli/snippets.nvim'
 
 Plug 'lambdalisue/gina.vim'
+
+" nvim-lua-api completion
+Plug 'tjdevries/nlua.nvim'
+
 call plug#end()
 
 " fern
@@ -391,13 +383,7 @@ colorscheme sonokai
 " completion-nvim END
 
 " nvim-treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    -- disable = { "c", "rust" },  -- list of language that will be disabled
-  },
-}
-EOF
+lua require'treesitter'
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 

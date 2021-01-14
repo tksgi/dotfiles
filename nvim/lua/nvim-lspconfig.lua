@@ -3,7 +3,7 @@ vim.cmd('packadd nvim-lspconfig')
 -- Aerial config
 local aerial = require'aerial'
 
-local custom_attach = function(client)
+local custom_attach = function(client, bufnr)
   aerial.on_attach(client)
   --require'completion'.on_attach()
 
@@ -35,30 +35,20 @@ end
 ----------------
 
 local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
--- require'lspconfig'.dartls.setup{
---   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
---   init_options = {
---     closingLabels = true,
---   },
---   -- callbacks = {
---   --   ['dart/textDocument/publishClosingLabels'] = require('lsp_extensions.dart.closing_labels').get_callback({highlight = "Special", prefix = " >> "}),
---   -- }
---   on_attach = custom_attach,
--- }
--- require'lspconfig'.dartls.setup{
---   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
---   init_options = {
---     flags = {allow_incremental_sync = true},
---     closingLabels = true,
---     outline = true,
---     flutterOutline = true,
---   },
---   on_attach = custom_attach,
---   handlers = {
---     ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
---     ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
---   },
--- }
+require'lspconfig'.dartls.setup{
+  cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
+  init_options = {
+    flags = {allow_incremental_sync = true},
+    closingLabels = true,
+    outline = true,
+    flutterOutline = true,
+  },
+  on_attach = custom_attach,
+  handlers = {
+    ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
+    ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
+  },
+}
 require'lspconfig'.gopls.setup{
   on_attach = custom_attach,
 }
@@ -83,8 +73,57 @@ require'lspconfig'.yamlls.setup{
 require'lspconfig'.dockerls.setup{
   on_attach = custom_attach,
 }
-require'lspconfig'.sumneko_lua.setup{
-  on_attach = custom_attach,
+-- lua lsp start
+local function sumneko_command()
+  local cache_location = vim.fn.stdpath('cache')
+  local bin_location = jit.os
+  if vim.fn.has('mac') then
+    bin_location = 'macOS'
+  end
+
+  return {
+      string.format(
+      "%s/lspconfig/sumneko_lua/lua-language-server/bin/%s/lua-language-server",
+      cache_location,
+        bin_location
+    ),
+      "-E",
+      string.format(
+      "%s/lspconfig/sumneko_lua/lua-language-server/main.lua",
+      cache_location
+    ),
+    }
+end
+
+-- To get builtin LSP running, do something like:
+-- NOTE: This replaces the calls where you would have before done `require('nvim_lsp').sumneko_lua.setup()`
+-- require('nlua.lsp.nvim').setup(require('lspconfig'), {
+--   cmd = sumneko_command(),
+--   on_attach = custom_attach,
+-- })
+-- lua lsp end
+require'lspconfig'.sumneko_lua.setup {
+    settings = {
+        Lua = {
+            runtime = {
+                -- LuaJITやLua 5.4などのバージョンを設定します。
+                version = 'LuaJIT',
+                -- luaのpathを設定します。
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                -- vimモジュールを設定します。
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Neovimのランタイムファイルを設定します。
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+        },
+    },
 }
 
 -- helpのexampleキーマップ
