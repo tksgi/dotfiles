@@ -5,6 +5,9 @@ local aerial = require'aerial'
 
 local custom_attach = function(client)
   aerial.on_attach(client)
+  --require'completion'.on_attach()
+
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Aerial does not set any mappings by default, so you'll want to set some up
   local mapper = function(mode, key, result)
@@ -32,16 +35,30 @@ end
 ----------------
 
 local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
-require'lspconfig'.dartls.setup{
-  cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
-  init_options = {
-    closingLabels = true,
-  },
-  -- callbacks = {
-  --   ['dart/textDocument/publishClosingLabels'] = require('lsp_extensions.dart.closing_labels').get_callback({highlight = "Special", prefix = " >> "}),
-  -- }
-  on_attach = custom_attach,
-}
+-- require'lspconfig'.dartls.setup{
+--   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
+--   init_options = {
+--     closingLabels = true,
+--   },
+--   -- callbacks = {
+--   --   ['dart/textDocument/publishClosingLabels'] = require('lsp_extensions.dart.closing_labels').get_callback({highlight = "Special", prefix = " >> "}),
+--   -- }
+--   on_attach = custom_attach,
+-- }
+-- require'lspconfig'.dartls.setup{
+--   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
+--   init_options = {
+--     flags = {allow_incremental_sync = true},
+--     closingLabels = true,
+--     outline = true,
+--     flutterOutline = true,
+--   },
+--   on_attach = custom_attach,
+--   handlers = {
+--     ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
+--     ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
+--   },
+-- }
 require'lspconfig'.gopls.setup{
   on_attach = custom_attach,
 }

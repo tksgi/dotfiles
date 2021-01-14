@@ -289,8 +289,12 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
+"Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
 Plug 'stevearc/aerial.nvim' " symbol
+Plug 'akinsho/flutter-tools.nvim'
+
+" lsp install
+Plug 'mattn/vim-lsp-settings'
 
 
 " better syntax highlighting
@@ -299,12 +303,14 @@ Plug 'romgrk/nvim-treesitter-context'
 " Plug 'ElPiloto/sidekick.nvim'
 
 " completion
-Plug 'nvim-lua/completion-nvim'
-Plug 'aca/completion-tabnine', { 'do': './install.sh' }
-Plug 'steelsojka/completion-buffers'
-Plug 'nvim-treesitter/completion-treesitter'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'aca/completion-tabnine', { 'do': './install.sh' }
+" Plug 'steelsojka/completion-buffers'
+" Plug 'nvim-treesitter/completion-treesitter'
 
 Plug 'norcalli/snippets.nvim'
+
+Plug 'lambdalisue/gina.vim'
 call plug#end()
 
 " fern
@@ -352,73 +358,37 @@ colorscheme sonokai
 
 " completion-nvim START
 " Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
+" autocmd BufEnter * lua require'completion'.on_attach()
 
-let g:completion_chain_complete_list = {
-    \ 'default': [
-    \    {'complete_items': ['lsp', 'snippet', 'tabnine', 'buffers', 'ts' ]},
-    \    {'mode': '<c-p>'},
-    \    {'mode': '<c-n>'}
-    \]
-\}
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-
-let g:completion_confirm_key = "\<C-k>"
-let g:completion_trigger_character = ['.']
-
-" possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
-let g:completion_enable_snippet = 'snippets.nvim'
+"let g:completion_chain_complete_list = {
+"    \ 'default': [
+"    \    {'complete_items': ['lsp', 'snippet', 'tabnine', 'buffers', 'ts' ]},
+"    \    {'mode': '<c-p>'},
+"    \    {'mode': '<c-n>'}
+"    \]
+"\}
+" let g:completion_chain_complete_list = {
+"     \ 'default': [
+"     \    {'complete_items': ['lsp']},
+"     \    {'mode': '<c-p>'},
+"     \    {'mode': '<c-n>'}
+"     \]
+" \}
+" " Use <Tab> and <S-Tab> to navigate through popup menu
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" " Set completeopt to have a better completion experience
+" set completeopt=menuone,noinsert,noselect
+" 
+" let g:completion_confirm_key = "\<C-k>"
+" let g:completion_trigger_character = ['.']
+" 
+" imap <leader><c-j> <Plug>(completion_next_source) "use <c-j> to switch to previous completion
+" imap <leader><c-k> <Plug>(completion_prev_source) "use <c-k> to switch to next completion
+" 
+" " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
+" let g:completion_enable_snippet = 'snippets.nvim'
 " completion-nvim END
-
-" " sidekick.nvim START
-" " To actually use sidekick!
-" nmap <F8> :call SideKickNoReload()<CR>
-"
-" let g:sidekick_update_on_buf_write = 1
-" " List of which definition types to display:
-" " Example: 'function' tells sidekick to display any node found in a ts 'locals' query
-" " that is captured in `queries/$LANG/locals.scm` as '@definition.function'.
-" let g:sidekick_printable_def_types = ['function', 'class', 'type', 'module', 'parameter', 'method', 'field']
-" " Mapping from definition type to the icon displayed for that type in the outline window.
-" let g:sidekick_def_type_icons = {
-" \    'class': "\uf0e8",
-" \    'type': "\uf0e8",
-" \    'function': "\uf794",
-" \    'module': "\uf7fe",
-" \    'arc_component': "\uf6fe",
-" \    'sweep': "\uf7fd",
-" \    'parameter': "•",
-" \    'var': "v",
-" \    'method': "\uf794",
-" \    'field': "\uf6de",
-" \ }
-"
-" " Indicates which definition types should have their line number displayed in the outline window.
-" let g:sidekick_line_num_def_types = {
-" \    'class': 1,
-" \    'type': 1,
-" \    'function': 1,
-" \    'module': 1,
-" \    'method': 1,
-" \ }
-"
-" " What to display between definition and line number
-" let g:sidekick_line_num_separator = " "
-" " What to display to the left and right of the line number
-" let g:sidekick_line_num_left = "\ue0b2"
-" let g:sidekick_line_num_right = "\ue0b0"
-" " What to display before outer vs inner definitions
-" let g:sidekick_inner_node_icon = "\u251c\u2500\u25B8"
-" let g:sidekick_outer_node_icon = "\u2570\u2500\u25B8"
-" " What to display to left and right of def_type_icon
-" let g:sidekick_left_bracket = "\u27ea"
-" let g:sidekick_right_bracket = "\u27eb"
-"
-" " sidekick.nvim END
 
 " nvim-treesitter
 lua <<EOF
@@ -430,4 +400,4 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-"
+
