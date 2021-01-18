@@ -5,7 +5,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim'
+
 Plug 'thinca/vim-quickrun'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -150,7 +152,7 @@ lua require'treesitter'
 
 
 " helpeek
-nnoremap K :<C-u>Helpeek<CR>
+nnoremap <leader>K :<C-u>Helpeek<CR>
 " works in command-line mode by using <Cmd>
 if has('nvim')
   cnoremap <C-y> <Cmd>Helpeek<CR>
