@@ -99,10 +99,15 @@ endif
 let g:markdown_enable_spell_checking = 0
 
 " telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
+nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
+nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
+nnoremap <leader>tgs <cmd>Telescope git_status<cr>
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
