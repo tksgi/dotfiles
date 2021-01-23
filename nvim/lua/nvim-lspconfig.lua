@@ -43,7 +43,15 @@ require'lspconfig'.dartls.setup{
     outline = true,
     flutterOutline = true,
   },
-  on_attach = custom_attach,
+  on_attach = function()
+    custom_attach()
+--    vim.cmd("command FlutterRestart    lua require('flutter-tools').restart()<CR>")
+--    vim.cmd("command FlutterQuit    lua require('flutter-tools').quit()<CR>")
+--    vim.cmd("command FlutterDevices    lua require('flutter-tools').devices()<CR>")
+--    vim.cmd("command FlutterEmulators    lua require('flutter-tools').emulators()<CR>")
+--    vim.cmd("command FlutterOutline    lua require('flutter-tools').open_outline()<CR>")
+--    vim.cmd("command FlutterDevTools    lua require('flutter-tools').dev_tools()<CR>")
+  end,
   handlers = {
     ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
     ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
