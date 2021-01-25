@@ -50,3 +50,4 @@ background_opacity: 0.8
 key_bindings:
 - { key: Plus,           mods: Command,                    action: IncreaseFontSize }
 - { key: Minus,          mods: Command,                    action: DecreaseFontSize }
+- { key: N,              mods: Command,                    action: SpawnNewInstance }
