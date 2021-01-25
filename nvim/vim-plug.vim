@@ -58,6 +58,7 @@ Plug 'romgrk/nvim-treesitter-context'
 " Plug 'nvim-treesitter/completion-treesitter'
 
 Plug 'norcalli/snippets.nvim'
+Plug 'nvim-telescope/telescope-snippets.nvim'
 
 Plug 'lambdalisue/gina.vim'
 
@@ -115,6 +116,11 @@ nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
 nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
 nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>tgs <cmd>Telescope git_status<cr>
+
+lua require('telescope').setup()
+lua require('telescope').load_extension('snippets')
+
+inoremap <C-i> <cmd>Telescope snippets<cr>
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
