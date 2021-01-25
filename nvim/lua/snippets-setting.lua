@@ -16,7 +16,7 @@ vim.api.nvim_exec(
 
   " <c-j> will jump backwards to the previous field.
   " If you jump before the first field, it will cancel the snippet.
-  inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
+  " inoremap <c-K> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
   ]],
   false
 )
@@ -43,10 +43,38 @@ end]];
   dart = {
     req = [[require '$1';]];
     func = U.match_indentation [[${1} ${2}(${3}) {
-    return ${4};
+    return ${4}();
     }]];
-    widfunc = U.match_indentation [[Widget ${1}(${2}) {
-    return ${3};
+    widgetFunc = U.match_indentation [[Widget ${1}(${2}) {
+    return ${3}();
     }]];
+    build = U.match_indentation [[@override
+    Widget build(BuildContext context){
+    return ${1}();
+    }]];
+    statelessWidget = U.match_indentation [[class ${1} extends StatelessWidget {
+    ${1}();
+
+    @override
+    Widget build(BuildContext context){
+    return ${2}();
+    }
+    }]];
+    ['if'] = U.match_indentation [[if (${1}) {
+    ${2}
+    }]];
+    lambda = [[(${1}) => ${2}]];
+    get = [[${1} get ${2}{
+    ${3}
+    }]];
+    getl = [[${1} get ${2} => ${3: _${2}};]];
+    set = [[set ${1}(${2}){
+    ${3}
+    }]];
+    setl = [[set ${1}(${2}) => ${3};]];
+    map = U.match_indentation [[map((${1:i}) {
+    ${2}
+    })]];
+    mapl = [[map((${1:i}) => ${2})]];
   }
 }

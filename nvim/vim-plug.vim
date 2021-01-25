@@ -29,6 +29,7 @@ Plug 'sainnhe/sonokai' " colorscheme
 
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
+let g:dart_format_on_save = 1
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -69,6 +70,9 @@ call plug#end()
 
 " fern
 let g:fern#renderer = "nerdfont"
+command Fernr Fern . -reveal=%
+command Fernd Fern %:h
+command Ferndr Fern %:h -reveal=%
 
 " quickrun
 call hook#add#quickrun#load()
@@ -85,6 +89,8 @@ let g:eskk#dictionary = { 'path': "~/.skk/.skk-jisyo", 'sorted': 0, 'encoding': 
 let g:eskk#large_dictionary = { 'path': "~/.skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
 let g:eskk#show_candidates_count = 1
 " silent! imap <unique> <C-j>   <cmd>call eskk#enable()<CR>
+autocmd VimEnter * imap <C-j> <Plug>(eskk:enable)
+autocmd VimEnter * cmap <C-j> <Plug>(eskk:enable)
 
 " open-browser 
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -157,38 +163,38 @@ lua require'treesitter'
 " set foldexpr=nvim_treesitter#foldexpr()
 
 " snippets.nvim
-" lua require'snippets-setting'
-"
-" fun! CompleteSnippetsList(findstart, base)
-"   if a:findstart
-"     " 単語の始点を検索する
-"     let line = getline('.')
-"     let start = col('.') - 1
-"     while start > 0 && line[start - 1] =~ '\s\|.'
-"       let start -= 1
-"     endwhile
-"     return start
-"   else
-"     if !exists('b:snippetsList')
-"       " here document
-"       lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
-"     endif
-"     if empty(a:base)
-"       return b:snippetsList
-"     else
-"       let l:list = []
-"       for snip in b:snippetsList
-"         if snip =~ a:base
-"           call add(l:list, snip)
-"         endif
-"       endfor
-"       return l:list
-"     endif
-"   endif
-" endfun
-" autocmd BufEnter * set completefunc=CompleteSnippetsList
-"
-"
+lua require'snippets-setting'
+
+fun! CompleteSnippetsList(findstart, base)
+  if a:findstart
+    " 単語の始点を検索する
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~ '\s\|.'
+      let start -= 1
+    endwhile
+    return start
+  else
+    if !exists('b:snippetsList')
+      " here document
+      lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
+    endif
+    if empty(a:base)
+      return b:snippetsList
+    else
+      let l:list = []
+      for snip in b:snippetsList
+        if snip =~ a:base
+          call add(l:list, snip)
+        endif
+      endfor
+      return l:list
+    endif
+  endif
+endfun
+autocmd BufEnter * set completefunc=CompleteSnippetsList
+
+
 
 
 
