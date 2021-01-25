@@ -8,6 +8,7 @@ local custom_attach = function(client, bufnr)
   --require'completion'.on_attach()
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
 
   -- Aerial does not set any mappings by default, so you'll want to set some up
   local mapper = function(mode, key, result)
@@ -143,6 +144,7 @@ vim.cmd("nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>")
 vim.cmd("nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>")
 vim.cmd("nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>")
 vim.cmd("nnoremap <silent> <leader>.    <cmd>lua vim.lsp.buf.code_action()<CR>")
+vim.cmd("nnoremap <silent> <leader>d    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 
 
 -- 追加キーマップ
