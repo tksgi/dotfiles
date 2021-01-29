@@ -3,8 +3,12 @@
 -- Aerial config
 local aerial = require'aerial'
 
-local custom_attach = function(client)
+local custom_attach = function(client, bufnr)
   aerial.on_attach(client)
+  --require'completion'.on_attach()
+
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
 
   -- Aerial does not set any mappings by default, so you'll want to set some up
   local mapper = function(mode, key, result)
@@ -35,12 +39,24 @@ local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | 
 require'lspconfig'.dartls.setup{
   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
   init_options = {
+    flags = {allow_incremental_sync = true},
     closingLabels = true,
+    outline = true,
+    flutterOutline = true,
   },
-  -- callbacks = {
-  --   ['dart/textDocument/publishClosingLabels'] = require('lsp_extensions.dart.closing_labels').get_callback({highlight = "Special", prefix = " >> "}),
-  -- }
-  on_attach = custom_attach,
+  on_attach = function()
+    custom_attach()
+--    vim.cmd("command FlutterRestart    lua require('flutter-tools').restart()<CR>")
+--    vim.cmd("command FlutterQuit    lua require('flutter-tools').quit()<CR>")
+--    vim.cmd("command FlutterDevices    lua require('flutter-tools').devices()<CR>")
+--    vim.cmd("command FlutterEmulators    lua require('flutter-tools').emulators()<CR>")
+--    vim.cmd("command FlutterOutline    lua require('flutter-tools').open_outline()<CR>")
+--    vim.cmd("command FlutterDevTools    lua require('flutter-tools').dev_tools()<CR>")
+  end,
+  handlers = {
+    ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
+    ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
+  },
 }
 require'lspconfig'.gopls.setup{
   on_attach = custom_attach,
@@ -66,8 +82,57 @@ require'lspconfig'.yamlls.setup{
 require'lspconfig'.dockerls.setup{
   on_attach = custom_attach,
 }
-require'lspconfig'.sumneko_lua.setup{
-  on_attach = custom_attach,
+-- lua lsp start
+local function sumneko_command()
+  local cache_location = vim.fn.stdpath('cache')
+  local bin_location = jit.os
+  if vim.fn.has('mac') then
+    bin_location = 'macOS'
+  end
+
+  return {
+      string.format(
+      "%s/lspconfig/sumneko_lua/lua-language-server/bin/%s/lua-language-server",
+      cache_location,
+        bin_location
+    ),
+      "-E",
+      string.format(
+      "%s/lspconfig/sumneko_lua/lua-language-server/main.lua",
+      cache_location
+    ),
+    }
+end
+
+-- To get builtin LSP running, do something like:
+-- NOTE: This replaces the calls where you would have before done `require('nvim_lsp').sumneko_lua.setup()`
+-- require('nlua.lsp.nvim').setup(require('lspconfig'), {
+--   cmd = sumneko_command(),
+--   on_attach = custom_attach,
+-- })
+-- lua lsp end
+require'lspconfig'.sumneko_lua.setup {
+    settings = {
+        Lua = {
+            runtime = {
+                -- LuaJITやLua 5.4などのバージョンを設定します。
+                version = 'LuaJIT',
+                -- luaのpathを設定します。
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                -- vimモジュールを設定します。
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Neovimのランタイムファイルを設定します。
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+        },
+    },
 }
 
 -- helpのexampleキーマップ
@@ -79,6 +144,7 @@ vim.cmd("nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>")
 vim.cmd("nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>")
 vim.cmd("nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>")
 vim.cmd("nnoremap <silent> <leader>.    <cmd>lua vim.lsp.buf.code_action()<CR>")
+vim.cmd("nnoremap <silent> <leader>d    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 
 
 -- 追加キーマップ

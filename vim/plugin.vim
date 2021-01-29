@@ -25,14 +25,14 @@ Plug 'godlygeek/tabular'
 Plug 'thinca/vim-quickrun'
 
 " File Tree Viewer
-Plug 'lambdalisue/fern.vim'
+" Plug 'lambdalisue/fern.vim'
 
 " ファイルicon
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'lambdalisue/fern-renderer-devicons.vim'
-
-Plug 'lambdalisue/fern-bookmark.vim'
+" Plug 'ryanoasis/vim-devicons'
+" 
+" Plug 'lambdalisue/fern-renderer-devicons.vim'
+" 
+" Plug 'lambdalisue/fern-bookmark.vim'
 
 " Org Mode
 " Plug 'tksgi/vim-orgmode'
@@ -42,14 +42,14 @@ Plug 'lambdalisue/fern-bookmark.vim'
 Plug 'simeji/winresizer'
 
 " LSP
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
 " Plug 'tksgi/vim-lsp-settings'
 
 " 補完
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " snippet
 " Plug 'SirVer/ultisnips'
@@ -57,8 +57,8 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 " asyncomplete関連
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-Plug 'prabirshrestha/asyncomplete-tags.vim'
+"Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+"Plug 'prabirshrestha/asyncomplete-tags.vim'
 
 " 補完
 " Plug 'Shougo/deoplete.nvim'
@@ -77,7 +77,7 @@ Plug 'prabirshrestha/asyncomplete-tags.vim'
 " Plug 'skanehira/docker-compose.vim'
 
 " ctags生成
-Plug 'jsfaint/gen_tags.vim'
+" Plug 'jsfaint/gen_tags.vim'
 
 " git操作
 " Plug 'tpope/vim-fugitive'
@@ -91,11 +91,11 @@ Plug 'mileszs/ack.vim'
 
 " goプラグイン
 " :Godoc, :Fmt, :Import コマンドのみ追加
-Plug 'vim-jp/vim-go-extra'
+"Plug 'vim-jp/vim-go-extra'
 
 
 " ステータスライン
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
 
 " カラースキーム
 Plug 'patstockwell/vim-monokai-tasty'
@@ -126,13 +126,13 @@ let g:eskk#show_candidates_count = 1
 let g:markdown_enable_spell_checking = 0
 
 " Fern設定
-let g:fern#renderer = "devicons"
+"let g:fern#renderer = "devicons"
 
 " LSP設定
-let g:lsp_preview_autoclose = 1
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-nnoremap <leader><C-]> :LspDefinition<CR>
+"let g:lsp_preview_autoclose = 1
+"let g:lsp_virtual_text_enabled = 0
+"let g:lsp_diagnostics_echo_cursor = 1
+"nnoremap <leader><C-]> :LspDefinition<CR>
 
 " let g:lsp_settings = {
 "     \ 'analysis-server-dart-snapshot': {
@@ -146,22 +146,22 @@ nnoremap <leader><C-]> :LspDefinition<CR>
 
 " asyncomplete設定
 " snippet設定
-let g:UltiSnipsExpandTrigger="<c-k>"
-
-call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-      \ 'name': 'ultisnips',
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-      \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
-    \ 'name': 'tags',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#tags#completor'),
-    \ 'config': {
-    \    'max_file_size': 50000000,
-    \  },
-    \ }))
+" let g:UltiSnipsExpandTrigger="<c-k>"
+" 
+" call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+"       \ 'name': 'ultisnips',
+"       \ 'whitelist': ['*'],
+"       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+"       \ }))
+" 
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#tags#get_source_options({
+"     \ 'name': 'tags',
+"     \ 'whitelist': ['*'],
+"     \ 'completor': function('asyncomplete#sources#tags#completor'),
+"     \ 'config': {
+"     \    'max_file_size': 50000000,
+"     \  },
+"     \ }))
 
 " deoplete設定
 " let g:deoplete#enable_at_startup = 1
@@ -175,7 +175,7 @@ let g:neovim_rpc#py = 'python3'
 " smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 " gen_tags設定
-let g:gen_tags#statusline = 1
+"let g:gen_tags#statusline = 1
 
 " open_browser設定
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
