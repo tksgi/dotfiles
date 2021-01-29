@@ -1,4 +1,4 @@
-vim.cmd('packadd nvim-lspconfig')
+-- vim.cmd('packadd nvim-lspconfig')
 
 -- Aerial config
 local aerial = require'aerial'
