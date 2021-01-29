@@ -110,6 +110,7 @@ let g:markdown_enable_spell_checking = 0
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>to <cmd>Telescope oldfiles<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
 nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
