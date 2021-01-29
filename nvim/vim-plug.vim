@@ -60,7 +60,8 @@ Plug 'romgrk/nvim-treesitter-context'
 Plug 'norcalli/snippets.nvim'
 Plug 'nvim-telescope/telescope-snippets.nvim'
 
-Plug 'lambdalisue/gina.vim'
+" $EDITOR をnvimに設定
+Plug 'lambdalisue/edita.vim'
 
 " nvim-lua-api completion
 Plug 'tjdevries/nlua.nvim'
