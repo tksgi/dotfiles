@@ -33,3 +33,5 @@
 	required = true
 [interactive]
     diffFilter = delta --color-only
+[delta]
+  features = side-by-side line-numbers decorations
