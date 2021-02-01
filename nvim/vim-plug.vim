@@ -38,6 +38,7 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
+Plug 'anott03/nvim-lspinstall'
 "Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
 Plug 'stevearc/aerial.nvim' " symbol
 Plug 'akinsho/flutter-tools.nvim'
@@ -57,8 +58,22 @@ Plug 'romgrk/nvim-treesitter-context'
 " Plug 'steelsojka/completion-buffers'
 " Plug 'nvim-treesitter/completion-treesitter'
 
-Plug 'norcalli/snippets.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
+" completion with Shougo ware
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neco-syntax'
+Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
+Plug 'deoplete-plugins/deoplete-zsh'
+Plug 'deoplete-plugins/deoplete-lsp'
+
+" snippet
+Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet-snippets'
+
+" Plug 'norcalli/snippets.nvim'
+" Plug 'nvim-telescope/telescope-snippets.nvim'
+
+Plug 'Shougo/deol.nvim'
 
 " $EDITOR をnvimに設定
 Plug 'lambdalisue/edita.vim'
@@ -66,7 +81,7 @@ Plug 'lambdalisue/edita.vim'
 " nvim-lua-api completion
 Plug 'tjdevries/nlua.nvim'
 
-Plug 'notomo/helpeek.vim'
+" Plug 'notomo/helpeek.vim'
 
 call plug#end()
 
@@ -120,7 +135,7 @@ nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>tgs <cmd>Telescope git_status<cr>
 
 lua require('telescope').setup()
-lua require('telescope').load_extension('snippets')
+" lua require('telescope').load_extension('snippets')
 
 inoremap <C-i> <cmd>Telescope snippets<cr>
 
@@ -170,45 +185,60 @@ lua require'treesitter'
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
 
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+
+" deoppet.nvim
+call deoppet#initialize()
+call deoppet#custom#option('snippets',
+      \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+      \     "{ 'path': v:val }"))
+
+imap <C-k>  <Plug>(deoppet_expand)
+imap <C-f>  <Plug>(deoppet_jump_forward)
+imap <C-b>  <Plug>(deoppet_jump_backward)
+smap <C-f>  <Plug>(deoppet_jump_forward)
+smap <C-b>  <Plug>(deoppet_jump_backward)
+
 " snippets.nvim
-lua require'snippets-setting'
-
-fun! CompleteSnippetsList(findstart, base)
-  if a:findstart
-    " 単語の始点を検索する
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '\s\|.'
-      let start -= 1
-    endwhile
-    return start
-  else
-    if !exists('b:snippetsList')
-      " here document
-      lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
-    endif
-    if empty(a:base)
-      return b:snippetsList
-    else
-      let l:list = []
-      for snip in b:snippetsList
-        if snip =~ a:base
-          call add(l:list, snip)
-        endif
-      endfor
-      return l:list
-    endif
-  endif
-endfun
-autocmd BufEnter * set completefunc=CompleteSnippetsList
-
+" lua require'snippets-setting'
+"
+" fun! CompleteSnippetsList(findstart, base)
+"   if a:findstart
+"     " 単語の始点を検索する
+"     let line = getline('.')
+"     let start = col('.') - 1
+"     while start > 0 && line[start - 1] =~ '\s\|.'
+"       let start -= 1
+"     endwhile
+"     return start
+"   else
+"     if !exists('b:snippetsList')
+"       " here document
+"       lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
+"     endif
+"     if empty(a:base)
+"       return b:snippetsList
+"     else
+"       let l:list = []
+"       for snip in b:snippetsList
+"         if snip =~ a:base
+"           call add(l:list, snip)
+"         endif
+"       endfor
+"       return l:list
+"     endif
+"   endif
+" endfun
+" autocmd BufEnter * set completefunc=CompleteSnippetsList
+"
 
 
 
 
 " helpeek
-nnoremap <leader>K :<C-u>Helpeek<CR>
-" works in command-line mode by using <Cmd>
-if has('nvim')
-  cnoremap <C-y> <Cmd>Helpeek<CR>
-endif
+" nnoremap <leader>K :<C-u>Helpeek<CR>
+" " works in command-line mode by using <Cmd>
+" if has('nvim')
+"   cnoremap <C-y> <Cmd>Helpeek<CR>
+" endif
