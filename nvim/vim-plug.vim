@@ -69,6 +69,7 @@ Plug 'deoplete-plugins/deoplete-lsp'
 Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 
 " Plug 'norcalli/snippets.nvim'
 " Plug 'nvim-telescope/telescope-snippets.nvim'
@@ -137,7 +138,7 @@ nnoremap <leader>tgs <cmd>Telescope git_status<cr>
 lua require('telescope').setup()
 " lua require('telescope').load_extension('snippets')
 
-inoremap <C-i> <cmd>Telescope snippets<cr>
+" inoremap <C-i> <cmd>Telescope snippets<cr>
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
@@ -199,6 +200,9 @@ imap <C-f>  <Plug>(deoppet_jump_forward)
 imap <C-b>  <Plug>(deoppet_jump_backward)
 smap <C-f>  <Plug>(deoppet_jump_forward)
 smap <C-b>  <Plug>(deoppet_jump_backward)
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
 
 " snippets.nvim
 " lua require'snippets-setting'
