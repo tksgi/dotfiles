@@ -12,8 +12,6 @@ Plug 'thinca/vim-quickrun'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'jacoborus/tender.vim'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-rhubarb' " Gbrowse
@@ -30,6 +28,12 @@ Plug 'sainnhe/sonokai' " colorscheme
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
+
+" statusline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
+Plug 'hoob3rt/lualine.nvim'
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -96,7 +100,7 @@ command Ferndr Fern %:h -reveal=%
 call hook#add#quickrun#load()
 
 " vim_airline
-call hook#add#vim_airline#load()
+" call hook#add#vim_airline#load()
 
 " eskk
 let g:eskk#server = {
@@ -246,3 +250,6 @@ let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/sn
 " if has('nvim')
 "   cnoremap <C-y> <Cmd>Helpeek<CR>
 " endif
+"
+" lualine
+lua require'lualine_setting'
