@@ -52,7 +52,7 @@ export NEXT_COMMAND_BGN_TIME
 
 function show_command_end_time() {
   PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
-  PROMPT="Dir: %F{red}%~%f ${vcs_info_msg_0_}
+  PROMPT="%F{blue}${HOST}%f Dir: %F{red}%~%f ${vcs_info_msg_0_}
 ${PREV_COMMAND_END_TIME} - __:__:__
 %F{red}$%f "
 }
@@ -61,7 +61,7 @@ add-zsh-hook precmd show_command_end_time
 
 show_command_begin_time() {
   NEXT_COMMAND_BGN_TIME=`date "+%H:%M:%S"`
-  PROMPT="Dir: %F{red}%~%f ${vcs_info_msg_0_}
+  PROMPT="%{blue}${HOST}%f Dir: %F{red}%~%f ${vcs_info_msg_0_}
 ${PREV_COMMAND_END_TIME} - ${NEXT_COMMAND_BGN_TIME} 
 $ "
   zle .accept-line
