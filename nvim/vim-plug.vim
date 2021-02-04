@@ -25,6 +25,9 @@ Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sainnhe/sonokai' " colorscheme
 
+" 日付等のインクリメント
+Plug 'monaqa/dial.nvim'
+
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
@@ -128,6 +131,14 @@ endif
 
 " vim-markdown
 let g:markdown_enable_spell_checking = 0
+
+" dial
+nmap <C-a> <Plug>(dial-increment)
+nmap <C-x> <Plug>(dial-decrement)
+vmap <C-a> <Plug>(dial-increment)
+vmap <C-x> <Plug>(dial-decrement)
+vmap g<C-a> <Plug>(dial-increment-additional)
+vmap g<C-x> <Plug>(dial-decrement-additional)
 
 " telescope
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
