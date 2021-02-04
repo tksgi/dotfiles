@@ -93,6 +93,8 @@ Plug 'tjdevries/nlua.nvim'
 
 Plug 'romgrk/barbar.nvim'
 
+Plug 'rmagatti/auto-session'
+
 call plug#end()
 
 " fern
