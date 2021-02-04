@@ -88,6 +88,8 @@ Plug 'tjdevries/nlua.nvim'
 
 " Plug 'notomo/helpeek.vim'
 
+Plug 'romgrk/barbar.nvim'
+
 call plug#end()
 
 " fern
@@ -192,6 +194,7 @@ lua require'treesitter'
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
+autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
 
 " deoppet.nvim
 call deoppet#initialize()
@@ -253,3 +256,6 @@ let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/sn
 "
 " lualine
 lua require'lualine_setting'
+
+" deol
+nnoremap <leader>df :<C-u>Deol -split=floating -winheight=70 -winwidth=200<CR>
