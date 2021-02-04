@@ -92,8 +92,9 @@ Plug 'tjdevries/nlua.nvim'
 " Plug 'notomo/helpeek.vim'
 
 Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'rmagatti/auto-session'
+Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
 
 call plug#end()
 
@@ -272,3 +273,9 @@ lua require'lualine_setting'
 
 " deol
 nnoremap <leader>df :<C-u>Deol -split=floating -winheight=70 -winwidth=200<CR>
+
+" auto-session
+if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
+  call mkdir(expand("$HOME/.cache/.nvim/auto-session"), "p")
+endif
+let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
