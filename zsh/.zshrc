@@ -3,8 +3,6 @@
 export LC_CTYPE=ja_JP.UTF-8
 export LANG=ja_JP.UTF-8
 
-
-
 # 共通設定
 source ~/dotfiles/zsh/mainconf.zsh
 
@@ -13,9 +11,9 @@ source ~/dotfiles/zsh/alias.zsh
 
 sh ~/dotfiles/aarandom.sh
 
-eval "$(rbenv init -)"
-eval "$(pyenv init -)"
-eval "$(nodenv init -)"
+# asdf
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
 
 # 環境変数
 ### .zshenvに書くべし ###
