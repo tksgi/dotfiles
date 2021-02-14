@@ -66,7 +66,9 @@ Plug 'lambdalisue/edita.vim'
 " nvim-lua-api completion
 Plug 'tjdevries/nlua.nvim'
 
-Plug 'notomo/helpeek.vim'
+" Plug 'notomo/helpeek.vim'
+
+Plug 'Bakudankun/BackAndForward.vim'
 
 call plug#end()
 
@@ -207,8 +209,12 @@ autocmd BufEnter * set completefunc=CompleteSnippetsList
 
 
 " helpeek
-nnoremap <leader>K :<C-u>Helpeek<CR>
-" works in command-line mode by using <Cmd>
-if has('nvim')
-  cnoremap <C-y> <Cmd>Helpeek<CR>
-endif
+" nnoremap <leader>K :<C-u>Helpeek<CR>
+" " works in command-line mode by using <Cmd>
+" if has('nvim')
+"   cnoremap <C-y> <Cmd>Helpeek<CR>
+" endif
+
+" BackAndForward
+nnoremap <C-h> :<C-u>Back<CR>
+nnoremap <C-l> :<C-u>Forward<CR>
