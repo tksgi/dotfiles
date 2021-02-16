@@ -15,6 +15,9 @@ sh ~/dotfiles/aarandom.sh
 . $HOME/.asdf/asdf.sh
 fpath=(${ASDF_DIR}/completions $fpath)
 
+# manをnvimで開く
+export MANPAGER="nvim -c 'set ft=man' -"
+
 # 環境変数
 ### .zshenvに書くべし ###
 
