@@ -30,7 +30,7 @@ repo = 'Shougo/neoyank.vim'
 repo = 'lambdalisue/fern.vim'
 
 [[plugins]]
-repo = 'lambdalisue/fern-renderer-devicons.vim'
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
@@ -73,9 +73,6 @@ repo = 'patstockwell/vim-monokai-tasty'
 [[plugins]]
 repo = 'tomasr/molokai'
 
-[[plugins]]
-repo = 'jacoborus/tender.vim'
-
 # [[plugins]]
 # repo = 'vim-scripts/gtags.vim'
 # hook_add = 'call hook#add#gtags#load()'
@@ -83,11 +80,11 @@ repo = 'jacoborus/tender.vim'
 # [[plugins]]
 # repo = 'ozelentok/denite-gtags'
 
-# [[plugins]]
-# repo = 'yuratomo/w3m.vim'
-# hook_add = '''
-# let g:w3m#external_browser = '/Applications/Firefox.app/Contents/MacOS/firefox'
-# '''
+[[plugins]]
+repo = 'yuratomo/w3m.vim'
+hook_add = '''
+let g:w3m#external_browser = '/Applications/Firefox.app/Contents/MacOS/firefox'
+'''
 # help
 # https://github.com/yuratomo/w3m.vim
 
@@ -170,15 +167,7 @@ repo = 'willelz/badapple.nvim'
 repo = 'itchyny/screensaver.vim'
 
 # [[plugins]]
-# # repo = 'dense-analysis/ale'
-# repo = 'nelsyeung/ale'
-# rev = 'feature/dart-analysis-server'
-# # on_ft = 'dart'
-# hook_add = '''
-# let g:ale_disable_lsp = 1
-# let g:airline#extensions#ale#enabled = 1
-# let g:ale_sign_column_always = 1
-# '''
+# repo = 'dense-analysis/ale'
 
 # [[plugins]]
 # repo = 'MattesGroeger/vim-bookmarks'
@@ -216,7 +205,7 @@ let g:vista_sidebar_width = 40
 let g:vista_echo_cursor = 0
 
 " デフォルトのソースをvim_lspに設定
-let g:vista_default_executive = 'vim_lsp'
+" let g:vista_default_executive = 'nvim_lsp'
 
 " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
 nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
@@ -229,12 +218,12 @@ repo = 'skanehira/docker-compose.vim'
 repo = 'mbbill/undotree'
 
 # vim-lsp
-# [[plugins]]
-# repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete.vim'
-
+ 
 [[plugins]]
 repo =  'prabirshrestha/asyncomplete-lsp.vim'
 
@@ -258,15 +247,15 @@ let g:lsp_log_file = expand('~/vim-lsp.log')
 repo = 'mattn/vim-lsp-settings'
 merged = 0
 
-[[plugins]]
-repo = 'glacambre/firenvim'
-hook_post_update = '_ -> firenvim#install(0)'
+# [[plugins]]
+# repo = 'glacambre/firenvim'
+# hook_post_update = '_ -> firenvim#install(0)'
 
-[[plugins]]
-repo = 'vim-scripts/dbext.vim'
-hook_add='''
-let g:dbext_default_profile_pltfrm = 'type=MYSQL:host=127.0.0.1:user=pltfrm:passwd=pltfrm:dbname=pltfrm'
-'''
+# [[plugins]]
+# repo = 'vim-scripts/dbext.vim'
+# hook_add='''
+# let g:dbext_default_profile_pltfrm = 'type=MYSQL:host=127.0.0.1:user=pltfrm:passwd=pltfrm:dbname=pltfrm'
+# '''
 
 [[plugins]]
 repo = 'mileszs/ack.vim'
@@ -291,6 +280,3 @@ repo = 'tpope/vim-unimpaired'
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'

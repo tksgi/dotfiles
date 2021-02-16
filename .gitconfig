@@ -24,6 +24,8 @@
     browser = open
 [browser "chrome"]
     cmd = open -a 'Firefox.app'
+[ghq]
+	root = ~/go/src
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -31,3 +33,5 @@
 	required = true
 [interactive]
     diffFilter = delta --color-only
+[delta]
+  features = side-by-side line-numbers decorations

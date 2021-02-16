@@ -12,8 +12,6 @@ Plug 'thinca/vim-quickrun'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'jacoborus/tender.vim'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-rhubarb' " Gbrowse
@@ -27,9 +25,18 @@ Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sainnhe/sonokai' " colorscheme
 
+" 日付等のインクリメント
+Plug 'monaqa/dial.nvim'
+
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
+
+" statusline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
+Plug 'hoob3rt/lualine.nvim'
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -38,6 +45,7 @@ Plug 'nvim-telescope/telescope.nvim'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
+Plug 'anott03/nvim-lspinstall'
 "Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
 Plug 'stevearc/aerial.nvim' " symbol
 Plug 'akinsho/flutter-tools.nvim'
@@ -57,8 +65,23 @@ Plug 'romgrk/nvim-treesitter-context'
 " Plug 'steelsojka/completion-buffers'
 " Plug 'nvim-treesitter/completion-treesitter'
 
-Plug 'norcalli/snippets.nvim'
-Plug 'nvim-telescope/telescope-snippets.nvim'
+" completion with Shougo ware
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neco-syntax'
+Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
+Plug 'deoplete-plugins/deoplete-zsh'
+Plug 'deoplete-plugins/deoplete-lsp'
+
+" snippet
+Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
+
+" Plug 'norcalli/snippets.nvim'
+" Plug 'nvim-telescope/telescope-snippets.nvim'
+
+Plug 'Shougo/deol.nvim'
 
 " $EDITOR をnvimに設定
 Plug 'lambdalisue/edita.vim'
@@ -69,6 +92,10 @@ Plug 'tjdevries/nlua.nvim'
 " Plug 'notomo/helpeek.vim'
 
 Plug 'Bakudankun/BackAndForward.vim'
+Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
 
 call plug#end()
 
@@ -82,7 +109,7 @@ command Ferndr Fern %:h -reveal=%
 call hook#add#quickrun#load()
 
 " vim_airline
-call hook#add#vim_airline#load()
+" call hook#add#vim_airline#load()
 
 " eskk
 let g:eskk#server = {
@@ -109,6 +136,14 @@ endif
 " vim-markdown
 let g:markdown_enable_spell_checking = 0
 
+" dial
+nmap <C-a> <Plug>(dial-increment)
+nmap <C-x> <Plug>(dial-decrement)
+vmap <C-a> <Plug>(dial-increment)
+vmap <C-x> <Plug>(dial-decrement)
+vmap g<C-a> <Plug>(dial-increment-additional)
+vmap g<C-x> <Plug>(dial-decrement-additional)
+
 " telescope
 nnoremap <leader>tf <cmd>Telescope find_files<cr>
 nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
@@ -122,9 +157,9 @@ nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>tgs <cmd>Telescope git_status<cr>
 
 lua require('telescope').setup()
-lua require('telescope').load_extension('snippets')
+" lua require('telescope').load_extension('snippets')
 
-inoremap <C-i> <cmd>Telescope snippets<cr>
+" inoremap <C-i> <cmd>Telescope snippets<cr>
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
@@ -172,38 +207,57 @@ lua require'treesitter'
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
 
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
+
+" deoppet.nvim
+call deoppet#initialize()
+call deoppet#custom#option('snippets',
+      \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+      \     "{ 'path': v:val }"))
+
+imap <C-k>  <Plug>(deoppet_expand)
+imap <C-f>  <Plug>(deoppet_jump_forward)
+imap <C-b>  <Plug>(deoppet_jump_backward)
+smap <C-f>  <Plug>(deoppet_jump_forward)
+smap <C-b>  <Plug>(deoppet_jump_backward)
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
+
 " snippets.nvim
-lua require'snippets-setting'
-
-fun! CompleteSnippetsList(findstart, base)
-  if a:findstart
-    " 単語の始点を検索する
-    let line = getline('.')
-    let start = col('.') - 1
-    while start > 0 && line[start - 1] =~ '\s\|.'
-      let start -= 1
-    endwhile
-    return start
-  else
-    if !exists('b:snippetsList')
-      " here document
-      lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
-    endif
-    if empty(a:base)
-      return b:snippetsList
-    else
-      let l:list = []
-      for snip in b:snippetsList
-        if snip =~ a:base
-          call add(l:list, snip)
-        endif
-      endfor
-      return l:list
-    endif
-  endif
-endfun
-autocmd BufEnter * set completefunc=CompleteSnippetsList
-
+" lua require'snippets-setting'
+"
+" fun! CompleteSnippetsList(findstart, base)
+"   if a:findstart
+"     " 単語の始点を検索する
+"     let line = getline('.')
+"     let start = col('.') - 1
+"     while start > 0 && line[start - 1] =~ '\s\|.'
+"       let start -= 1
+"     endwhile
+"     return start
+"   else
+"     if !exists('b:snippetsList')
+"       " here document
+"       lua local ft = vim.bo.filetype; local keys = {}; for k,v in pairs(vim.tbl_extend('force', require'snippets'.snippets._global or {}, require'snippets'.snippets[ft] or {})) do table.insert(keys, k); end; vim.b.snippetsList = keys;
+"     endif
+"     if empty(a:base)
+"       return b:snippetsList
+"     else
+"       let l:list = []
+"       for snip in b:snippetsList
+"         if snip =~ a:base
+"           call add(l:list, snip)
+"         endif
+"       endfor
+"       return l:list
+"     endif
+"   endif
+" endfun
+" autocmd BufEnter * set completefunc=CompleteSnippetsList
+"
 
 
 
@@ -218,3 +272,16 @@ autocmd BufEnter * set completefunc=CompleteSnippetsList
 " BackAndForward
 nnoremap <C-h> :<C-u>Back<CR>
 nnoremap <C-l> :<C-u>Forward<CR>
+
+"
+" lualine
+lua require'lualine_setting'
+
+" deol
+nnoremap <leader>df :<C-u>Deol -split=floating -winheight=70 -winwidth=200<CR>
+
+" auto-session
+if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
+  call mkdir(expand("$HOME/.cache/.nvim/auto-session"), "p")
+endif
+let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")

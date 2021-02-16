@@ -1,4 +1,4 @@
-vim.cmd('packadd nvim-lspconfig')
+-- vim.cmd('packadd nvim-lspconfig')
 
 -- Aerial config
 local aerial = require'aerial'
@@ -144,7 +144,7 @@ vim.cmd("nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>")
 vim.cmd("nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>")
 vim.cmd("nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>")
 vim.cmd("nnoremap <silent> <leader>.    <cmd>lua vim.lsp.buf.code_action()<CR>")
-vim.cmd("nnoremap <silent> <leader>d    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+vim.cmd("nnoremap <silent> <leader>D    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 
 
 -- 追加キーマップ

@@ -25,9 +25,9 @@ on_ft = 'vim'
 repo = 'Shougo/neosnippet.vim'
 depends = ['context_filetype.vim', 'vim-snippets']
 on_event = 'InsertEnter'
-hook_post_source = '''
+hook_add = '''
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_derectory = $HOME . '/.cache/dein/repos/github.com/honza/vim-snippets/snippets/'
+let g:neosnippet#snippets_directory = $HOME . '/.cache/dein/repos/github.com/honza/vim-snippets/snippets' . ',' . $HOME . '/dotfiles/nvim/snippets'
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 '''
@@ -95,11 +95,10 @@ on_ft = ['javascript']
 # repo = 'davidhalter/jedi-vim'
 # on_ft = 'python'
 
-[[plugins]]
-repo = 'tbodt/deoplete-tabnine'
-build = './install.sh'
-on_event = 'InsertEnter'
-on_ft = 'dart'
+# [[plugins]]
+# repo = 'tbodt/deoplete-tabnine'
+# build = './install.sh'
+# on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'jparise/vim-graphql'
@@ -121,9 +120,12 @@ repo = 'lighttiger2505/deoplete-vim-lsp'
 on_event = 'InsertEnter'
 
 [[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-snippets'
+on_event = 'InsertEnter'
+
+[[plugins]]
 repo = 'thomasfaingnaert/vim-lsp-neosnippet'
 on_event = 'InsertEnter'
-depends = 'neosnippet.vim'
 
 # カッコ
 # [[plugins]]
@@ -139,10 +141,4 @@ depends = 'neosnippet.vim'
 [[plugins]]
 repo = 'dart-lang/dart-vim-plugin'
 on_ft = ['dart']
-
-# javascript formatter
-[[plugins]]
-repo = 'prettier/vim-prettier'
-on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
-build = 'yarn install'
-rev = 'release/1.x'
+hook_add = 'autocmd FileType dart autocmd BufWritePre <buffer> DartFmt'
