@@ -24,8 +24,6 @@
     browser = open
 [browser "chrome"]
     cmd = open -a 'Firefox.app'
-[ghq]
-	root = ~/go/src
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
