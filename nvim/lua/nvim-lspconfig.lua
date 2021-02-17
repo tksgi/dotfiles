@@ -7,7 +7,7 @@ local custom_attach = function(client, bufnr)
   aerial.on_attach(client)
   --require'completion'.on_attach()
 
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]])
 
   -- Aerial does not set any mappings by default, so you'll want to set some up
@@ -35,7 +35,10 @@ local custom_attach = function(client, bufnr)
 end
 ----------------
 
-local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
+-- local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
+local dartBin = string.sub(vim.fn.system([[echo "$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin"]]), 1, -2)
+
+-- $ asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' '
 require'lspconfig'.dartls.setup{
   cmd = {dartBin .. [[/dart]], dartBin .. [[/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot]], '--lsp'},
   init_options = {
