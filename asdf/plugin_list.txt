@@ -7,4 +7,4 @@ github-cli latest
 python latest,2.7.13
 ripgrep latest
 ruby latest
-
+# flutter latest

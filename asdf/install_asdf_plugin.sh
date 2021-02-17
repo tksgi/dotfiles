@@ -1,16 +1,22 @@
+#!/bin/zsh
 cd `dirname $0`
 while read line
 do
   echo "${line}"
+  if [ ${line[1]} = '#' ]; then
+    continue
+  fi
   ary=(`echo $line`)
   if [ ${#ary[@]} -eq 2 ]; then
-    asdf plugin-add "${ary[0]}"
-    versions=(`echo ${ary[1]} | tr -s ',' ' '`)
-    for version in versions
+    echo ${ary[1]}
+    asdf plugin-add "${ary[1]}"
+    versions=(`echo ${ary[2]} | tr -s ',' ' '`)
+    for version in ${versions[@]}
     do
-      asdf install "${ary[0]}" "$version"
+      echo "install version: ${version}"
+      asdf install "${ary[1]}" "$version"
     done
-    latest=`asdf latest ${ary[0]}`
+    latest=`asdf latest ${ary[1]}`
     versionsStr=`echo ${ary[1]} | tr -s ',' ' ' | sed -e s/latest/"$latest"/`
     asdf global "${ary[0]}" "$versionsStr"
   else
