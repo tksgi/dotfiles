@@ -41,7 +41,12 @@ Plug 'hoob3rt/lualine.nvim'
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neomru.vim'
+Plug 'chemzqm/denite-git'
+
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
@@ -145,21 +150,24 @@ vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
 
 " telescope
-nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
-nnoremap <leader>tb <cmd>Telescope buffers<cr>
-nnoremap <leader>to <cmd>Telescope oldfiles<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
-nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
-nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
-nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
-nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
-nnoremap <leader>tgs <cmd>Telescope git_status<cr>
-
-lua require('telescope').setup()
+" nnoremap <leader>tf <cmd>Telescope find_files<cr>
+" nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>tb <cmd>Telescope buffers<cr>
+" nnoremap <leader>to <cmd>Telescope oldfiles<cr>
+" nnoremap <leader>th <cmd>Telescope help_tags<cr>
+" nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
+" nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
+" nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
+" nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
+" nnoremap <leader>tgs <cmd>Telescope git_status<cr>
+"
+" lua require('telescope').setup()
 " lua require('telescope').load_extension('snippets')
 
 " inoremap <C-i> <cmd>Telescope snippets<cr>
+
+" denite
+call hook#add#denite#load()
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
@@ -278,7 +286,7 @@ nnoremap <C-l> :<C-u>Forward<CR>
 lua require'lualine_setting'
 
 " deol
-nnoremap <leader>df :<C-u>Deol -split=floating -winheight=70 -winwidth=200<CR>
+nnoremap <leader>bt :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
 
 " auto-session
 if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
