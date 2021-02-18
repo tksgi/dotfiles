@@ -16,8 +16,8 @@ asdf plugin-add nodejs
 
 bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
 
-for version in versions
+for version in ${versions[@]}
 do
   asdf install nodejs "$version"
 done
-asdf global `asdf latest nodejs`
+asdf global nodejs `asdf latest nodejs`
