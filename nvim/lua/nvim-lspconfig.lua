@@ -35,7 +35,10 @@ local custom_attach = function(client, bufnr)
 end
 ----------------
 
+-- for flutter installed by flutter repository
 -- local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
+--
+-- for flutter installed by asdf 
 local dartBin = string.sub(vim.fn.system([[echo "$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin"]]), 1, -2)
 
 -- $ asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' '
@@ -146,7 +149,7 @@ vim.cmd("nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>")
 vim.cmd("nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>")
 vim.cmd("nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>")
 vim.cmd("nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>")
-vim.cmd("nnoremap <silent> <leader>.    <cmd>lua vim.lsp.buf.code_action()<CR>")
+vim.cmd("nnoremap <silent> <leader>c    <cmd>lua vim.lsp.buf.code_action()<CR>")
 vim.cmd("nnoremap <silent> <leader>D    <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
 
 
