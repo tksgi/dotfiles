@@ -48,15 +48,16 @@ Plug 'Shougo/neomru.vim'
 Plug 'chemzqm/denite-git'
 
 
-" lsp
-Plug 'neovim/nvim-lspconfig'
-Plug 'anott03/nvim-lspinstall'
+" builtin-lsp
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'anott03/nvim-lspinstall'
 "Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
-Plug 'stevearc/aerial.nvim' " symbol
-Plug 'akinsho/flutter-tools.nvim'
+" Plug 'stevearc/aerial.nvim' " symbol
+" Plug 'akinsho/flutter-tools.nvim'
 
-" lsp install
-" Plug 'mattn/vim-lsp-settings'
+" vim-lsp
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 
 " better syntax highlighting
@@ -75,7 +76,8 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neco-syntax'
 Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
 Plug 'deoplete-plugins/deoplete-zsh'
-Plug 'deoplete-plugins/deoplete-lsp'
+" Plug 'deoplete-plugins/deoplete-lsp'
+Plug 'lighttiger2505/deoplete-vim-lsp'
 
 " snippet
 Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -170,7 +172,10 @@ vmap g<C-x> <Plug>(dial-decrement-additional)
 call hook#add#denite#load()
 
 " nvim_lspconfig
-lua require('nvim-lspconfig')
+" lua require('nvim-lspconfig')
+
+" vim-lsp
+
 
 " colorscheme
 colorscheme sonokai
