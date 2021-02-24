@@ -46,6 +46,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'chemzqm/denite-git'
+Plug 'delphinus/vim-denite-memo'
 
 
 " builtin-lsp
