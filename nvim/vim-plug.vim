@@ -4,6 +4,11 @@ Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-bookmark.vim'
+Plug 'lambdalisue/fern-mapping-quickfix.vim'
 
 "Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/gina.vim'
@@ -112,6 +117,22 @@ let g:fern#renderer = "nerdfont"
 command Fernr Fern . -reveal=%
 command Fernd Fern %:h
 command Ferndr Fern %:h -reveal=%
+command Fernb Fern bookmark:///
+
+function! s:fern_init() abort
+  " Open bookmark:///
+  nnoremap <buffer><silent>
+        \ <Plug>(fern-my-enter-bookmark)
+        \ :<C-u>Fern bookmark:///<CR>
+  nmap <buffer><expr><silent>
+        \ <C-^>
+        \ fern#smart#scheme(
+        \   "\<Plug>(fern-my-enter-bookmark)",
+        \   {
+        \     'bookmark': "\<C-^>",
+        \   },
+        \ )
+endfunction
 
 " quickrun
 call hook#add#quickrun#load()
