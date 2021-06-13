@@ -33,10 +33,10 @@ Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
 " statusline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
-Plug 'hoob3rt/lualine.nvim'
+" Plug 'hoob3rt/lualine.nvim'
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -114,7 +114,7 @@ command Ferndr Fern %:h -reveal=%
 call hook#add#quickrun#load()
 
 " vim_airline
-" call hook#add#vim_airline#load()
+call hook#add#vim_airline#load()
 
 " eskk
 let g:eskk#server = {
@@ -283,7 +283,7 @@ nnoremap <C-l> :<C-u>Forward<CR>
 
 "
 " lualine
-lua require'lualine_setting'
+" lua require'lualine_setting'
 
 " deol
 nnoremap <leader>bt :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
