@@ -9,7 +9,7 @@ source ~/dotfiles/zsh/mainconf.zsh
 # alias
 source ~/dotfiles/zsh/alias.zsh
 
-sh ~/dotfiles/aarandom.sh
+zsh ~/dotfiles/aarandom.zsh
 
 # asdf
 . $HOME/.asdf/asdf.sh
