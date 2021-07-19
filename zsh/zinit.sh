@@ -15,8 +15,8 @@ autoload -Uz _zinit
 # zinit light zdharma/fast-syntax-highlighting
 
 # git diff
-zinit ice as"program" pick"bin/git-dsf"
-zinit light zdharma/zsh-diff-so-fancy
+# zinit ice as"program" pick"bin/git-dsf"
+# zinit light zdharma/zsh-diff-so-fancy
 
 # fzf
 # zinit lucid as=program pick="$ZPFX/bin/(fzf|fzf-tmux)" \
@@ -24,7 +24,7 @@ zinit light zdharma/zsh-diff-so-fancy
 #   cp bin/(fzf|fzf-tmux) $ZPFX/bin" \
 #   make="PREFIX=$ZPFX install" for \
 #   junegunn/fzf
-zinit pack for fzf
+# zinit pack for fzf
 # zinit ice lucid wait"0" depth"1" blockf
 # zinit light "chitoku-k/fzf-zsh-completions"
 # zinit light yuki-ycino/fzf-preview.zsh

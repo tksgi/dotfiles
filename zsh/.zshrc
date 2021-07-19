@@ -21,4 +21,4 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # 環境変数
 ### .zshenvに書くべし ###
 
-source ~/dotfiles/zsh/zinit.sh
+# source ~/dotfiles/zsh/zinit.sh
