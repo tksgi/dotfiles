@@ -34,6 +34,15 @@ Plug 'sainnhe/sonokai' " colorscheme
 Plug 'monaqa/dial.nvim'
 
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+Plug 'previm/previm'
+" 要サーバー起動
+" docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
+let g:previm_plantuml_imageprefix = 'http://localhost:8888/png/'
+
+
+Plug 'aklt/plantuml-syntax'
+
+
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
@@ -67,8 +76,8 @@ Plug 'mattn/vim-lsp-settings'
 
 
 " better syntax highlighting
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'romgrk/nvim-treesitter-context'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'romgrk/nvim-treesitter-context'
 " Plug 'ElPiloto/sidekick.nvim'
 
 " completion
@@ -207,7 +216,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
   nmap <buffer> gr <plug>(lsp-references)
   nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
+  " nmap <buffer> gt <plug>(lsp-type-definition)
   nmap <buffer> <leader>rn <plug>(lsp-rename)
   nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
   nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
@@ -219,6 +228,17 @@ augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let s:dartBin = trim(system("echo \"$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin\""), "\n")
+au User lsp_setup call lsp#register_server({
+\ 'name': 'dart-analysis-server',
+\ 'cmd': {server_info->[s:dartBin .. "/dart", s:dartBin .. "/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"]},
+\ 'allowlist': ['dart'],
+\ 'blocklist': ['filetype to blocklist'],
+\ 'config': {},
+\ 'workspace_config': {'param': {'enabled': v:true}},
+\ 'languageId': {server_info->'dart'},
+\ })
 
 " colorscheme
 colorscheme sonokai
@@ -258,7 +278,7 @@ colorscheme sonokai
 " completion-nvim END
 
 " nvim-treesitter
-lua require'treesitter'
+" lua require'treesitter'
 " 折り畳み設定
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
