@@ -38,17 +38,17 @@ zinit pack for fzf
 # zinit ice as"program" make
 # zinit light x-motemen/ghq
 
-zinit ice as"program" atclone"cargo install exa" atpull"%atclone"
-zinit light ogham/exa
+# zinit ice as"program" atclone"cargo install exa" atpull"%atclone"
+# zinit light ogham/exa
 
-zinit ice as"program" atclone"cargo install --locked bat" atpull"%atclone"
-zinit light sharkdp/bat
+# zinit ice as"program" atclone"cargo install --locked bat" atpull"%atclone"
+# zinit light sharkdp/bat
 # 
 # zinit ice as"program"
 # zinit light dandavison/delta
 
-zinit ice as"program" atclone"sh autogen.sh; ./configure" atpull"%atclone" make 
-zinit light tmux/tmux
+# zinit ice as"program" atclone"sh autogen.sh; ./configure" atpull"%atclone" make 
+# zinit light tmux/tmux
 # ./configure && make && sudo make install
 
 zinit ice wait blockf atpull'zinit creinstall -q .'
