@@ -44,7 +44,8 @@ font:
     # Style can be specified to pick a specific face.
     style: Italic
 
-background_opacity: 0.8
+# background_opacity: 1
+background_opacity: 0.95
 
 
 key_bindings:
