@@ -74,6 +74,9 @@ Plug 'delphinus/vim-denite-memo'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
+" symbol viewer
+Plug 'liuchengxu/vista.vim'
+
 
 " better syntax highlighting
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -89,7 +92,7 @@ Plug 'mattn/vim-lsp-settings'
 " completion with Shougo ware
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neco-syntax'
-Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
+" Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
 Plug 'deoplete-plugins/deoplete-zsh'
 " Plug 'deoplete-plugins/deoplete-lsp'
 Plug 'lighttiger2505/deoplete-vim-lsp'
@@ -239,6 +242,9 @@ au User lsp_setup call lsp#register_server({
 \ 'workspace_config': {'param': {'enabled': v:true}},
 \ 'languageId': {server_info->'dart'},
 \ })
+
+" vista.vim
+let g:vista_default_executive = 'vim_lsp'
 
 " colorscheme
 colorscheme sonokai
