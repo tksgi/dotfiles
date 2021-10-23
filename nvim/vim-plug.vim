@@ -231,6 +231,7 @@ vmap g<C-x> <Plug>(dial-decrement-additional)
 " nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
 " nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
 " nnoremap <leader>tgs <cmd>Telescope git_status<cr>
+" nnoremap <leader>t: <cmd>Telescope commands<cr>
 "
 " lua require('telescope').setup()
 " lua require('telescope').load_extension('snippets')
@@ -333,35 +334,66 @@ call ddc#custom#patch_global('completionMenu', 'pum.vim')
   call ddc#custom#patch_global('autoCompleteEvents',
       \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
 
-call ddc#custom#patch_global('sources', ['omni', 'buffer', 'file', 'git-file', 'git-commit', 'git-branch', 'vim-lsp', 'skkeleton'])
+call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
 call ddc#custom#patch_global('sourceOptions', {
   \   '_': {
   \     'matchers': ['matcher_fuzzy'],
   \     'sorters': ['sorter_fuzzy'],
   \     'converters': ['converter_fuzzy']
   \   },
-  \   'zsh': {'mark': 'Z'},
-  \   'git-flie': {'mark': 'gitF'},
-  \   'git-commit': {'mark': 'gitC'},
-  \   'git-branch': {'mark': 'gitB'},
+  \   'zsh': {
+  \     'mark': 'Z',
+  \     'maxCandidates': 10,
+  \   },
   \   'vim-lsp': {
   \     'mark': 'lsp',
+  \     'maxCandidates': 10,
   \   },
   \   'skkeleton': {
   \     'mark': 'skkeleton',
   \     'matchers': ['skkeleton'],
-  \     'sorters': []
+  \     'maxCandidates': 10,
+  \   },
+  \   'buffer': {
+  \     'mark': 'buffer',
+  \     'maxCandidates': 5,
   \   },
   \   'file': {
   \     'mark': 'F',
   \     'isVolatile': v:true,
   \     'forceCompletionPattern': '\S/\S*',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-flie': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-commit': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-branch': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'necovim': {
+  \     'mark': 'necovim',
+  \     'maxCandidates': 5,
+  \    },
+  \   'tabnine': {
+  \     'mark': 'TN',
+  \     'maxCandidates': 5,
+  \     'isVolatile': v:true,
+  \   },
+  \   'oldfiles': {
+  \     'mark': 'oldfiles',
+  \     'maxCandidates': 5,
+  \   },
+  \   'around': {
+  \     'mark': 'around',
+  \     'maxCandidates': 5,
   \   },
   \ })
-
-call ddc#custom#patch_global('sourceParams', {
-\   'path': { 'cmd': ['find', '-max-depth', '5'] }
-\ })
 
 call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
 
@@ -378,15 +410,15 @@ call ddc#custom#patch_filetype(
     \   },
     \ }})
 
-cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+" cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 nnoremap :       <Cmd>call CommandlinePre()<CR>:
-inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+" inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
@@ -394,10 +426,12 @@ inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
 inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 
+call pum#set_option('border', 'double')
+
 function! CommandlinePre() abort
   " Overwrite sources
   let s:prev_buffer_config = ddc#custom#get_buffer()
-  call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around'])
+  call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
 
   autocmd CmdlineLeave * ++once call CommandlinePost()
 
