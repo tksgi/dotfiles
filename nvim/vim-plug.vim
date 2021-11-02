@@ -32,6 +32,8 @@ Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
+Plug 'vim-ruby/vim-ruby'
+
 " statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -121,8 +123,8 @@ let g:eskk#server = {
   \   'host': 'localhost',
   \   'port': 55100,
   \}
-let g:eskk#dictionary = { 'path': "~/.skk/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/.skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+let g:eskk#dictionary = { 'path': "~/skk_dictionary/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+let g:eskk#large_dictionary = { 'path': "~/skk_dictionary/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
 let g:eskk#show_candidates_count = 1
 " silent! imap <unique> <C-j>   <cmd>call eskk#enable()<CR>
 autocmd VimEnter * imap <C-j> <Plug>(eskk:enable)

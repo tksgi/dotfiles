@@ -9,3 +9,6 @@ python latest,2.7.18
 ripgrep latest
 ruby latest
 # flutter latest
+exa latest
+fzf latest
+tmux latest
