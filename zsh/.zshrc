@@ -3,6 +3,10 @@
 export LC_CTYPE=ja_JP.UTF-8
 export LANG=ja_JP.UTF-8
 
+# asdf
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
 # 共通設定
 source ~/dotfiles/zsh/mainconf.zsh
 
@@ -10,10 +14,6 @@ source ~/dotfiles/zsh/mainconf.zsh
 source ~/dotfiles/zsh/alias.zsh
 
 zsh ~/dotfiles/aarandom.zsh
-
-# asdf
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
 
 # manをnvimで開く
 export MANPAGER="nvim -c 'set ft=man' -"
