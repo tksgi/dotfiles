@@ -12,3 +12,4 @@ ruby latest
 exa latest
 fzf latest
 tmux latest
+deno latest

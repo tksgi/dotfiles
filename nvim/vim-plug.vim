@@ -1,9 +1,18 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'vim-jp/vimdoc-ja'
+
+" Filer
+Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-mapping-git.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-bookmark.vim'
+Plug 'lambdalisue/fern-mapping-quickfix.vim'
+Plug 'yuki-yano/fern-preview.vim'
 
 "Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/gina.vim'
@@ -15,7 +24,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'jacoborus/tender.vim'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-rhubarb' " Gbrowse
-Plug 'tyru/eskk.vim'
+" Plug 'tyru/eskk.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'godlygeek/tabular'
@@ -73,11 +82,29 @@ Plug 'romgrk/nvim-treesitter-context'
 " Plug 'nvim-treesitter/completion-treesitter'
 
 " completion with Shougo ware
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neco-syntax'
-Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
-Plug 'deoplete-plugins/deoplete-zsh'
-Plug 'deoplete-plugins/deoplete-lsp'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/neco-syntax'
+" Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
+" Plug 'deoplete-plugins/deoplete-zsh'
+" Plug 'deoplete-plugins/deoplete-lsp'
+" completion with ddc
+Plug 'Shougo/ddc.vim'
+Plug 'Shougo/pum.vim'
+Plug 'Shougo/neco-vim'
+Plug 'vim-denops/denops.vim'
+Plug 'vim-skk/skkeleton'
+Plug 'Shougo/ddc-nvim-lsp'
+Plug 'Shougo/ddc-zsh'
+Plug 'Shougo/ddc-omni'
+Plug 'Shougo/ddc-cmdline-history'
+Plug 'tani/ddc-git'
+Plug 'tani/ddc-oldfiles'
+Plug 'tani/ddc-fuzzy'
+Plug 'ippachi/ddc-yank'
+Plug 'matsui54/ddc-buffer'
+Plug 'LumaKernel/ddc-tabnine'
+Plug 'LumaKernel/ddc-file'
+Plug 'delphinus/ddc-treesitter'
 
 " snippet
 Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -112,6 +139,18 @@ command Fernr Fern . -reveal=%
 command Fernd Fern %:h
 command Ferndr Fern %:h -reveal=%
 
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
 " quickrun
 call hook#add#quickrun#load()
 
@@ -119,16 +158,33 @@ call hook#add#quickrun#load()
 call hook#add#vim_airline#load()
 
 " eskk
-let g:eskk#server = {
-  \   'host': 'localhost',
-  \   'port': 55100,
-  \}
-let g:eskk#dictionary = { 'path': "~/skk_dictionary/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/skk_dictionary/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
-let g:eskk#show_candidates_count = 1
-" silent! imap <unique> <C-j>   <cmd>call eskk#enable()<CR>
-autocmd VimEnter * imap <C-j> <Plug>(eskk:enable)
-autocmd VimEnter * cmap <C-j> <Plug>(eskk:enable)
+" let g:eskk#server = {
+"   \   'host': 'localhost',
+"   \   'port': 55100,
+"   \}
+" let g:eskk#dictionary = { 'path': "~/skk_dictionary/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+" let g:eskk#large_dictionary = { 'path': "~/skk_dictionary/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+" let g:eskk#show_candidates_count = 1
+" " silent! imap <unique> <C-j>   <cmd>call eskk#enable()<CR>
+" autocmd VimEnter * imap <C-j> <Plug>(eskk:enable)
+" autocmd VimEnter * cmap <C-j> <Plug>(eskk:enable)
+
+" skkeleton
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+        \ 'eggLikeNewline': v:true,
+        \ 'globalJisyo': "~/.skk/SKK-JISYO.L",
+        \ 'globalJisyoEncoding': 'utf-8',
+        \ 'userJisyo': "~/.skk/.skk-jisyo",
+        \ })
+  call skkeleton#register_kanatable('rom', {
+        \ "z\<Space>": ["\u3000", ''],
+        \ })
+endfunction
+autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
 
 " open-browser 
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -217,9 +273,129 @@ lua require'treesitter'
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
 
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
+" " deoplete.nvim
+" let g:deoplete#enable_at_startup = 1
+" autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
+
+" ddc.vim
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+  call ddc#custom#patch_global('autoCompleteEvents',
+      \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
+
+call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank'])
+call ddc#custom#patch_global('sourceOptions', {
+  \   '_': {
+  \     'matchers': ['matcher_fuzzy'],
+  \     'sorters': ['sorter_fuzzy'],
+  \     'converters': ['converter_fuzzy']
+  \   },
+  \   'zsh': {
+  \     'mark': 'Z',
+  \     'maxCandidates': 10,
+  \   },
+  \   'vim-lsp': {
+  \     'mark': 'lsp',
+  \     'maxCandidates': 10,
+  \   },
+  \   'skkeleton': {
+  \     'mark': 'skkeleton',
+  \     'matchers': ['skkeleton'],
+  \     'maxCandidates': 10,
+  \   },
+  \   'buffer': {
+  \     'mark': 'buffer',
+  \     'maxCandidates': 5,
+  \   },
+  \   'file': {
+  \     'mark': 'F',
+  \     'isVolatile': v:true,
+  \     'forceCompletionPattern': '\S/\S*',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-flie': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-commit': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'git-branch': {
+  \     'mark': 'gitF',
+  \     'maxCandidates': 5,
+  \   },
+  \   'necovim': {
+  \     'mark': 'necovim',
+  \     'maxCandidates': 5,
+  \    },
+  \   'tabnine': {
+  \     'mark': 'TN',
+  \     'maxCandidates': 5,
+  \     'isVolatile': v:true,
+  \   },
+  \   'oldfiles': {
+  \     'mark': 'oldfiles',
+  \     'maxCandidates': 5,
+  \   },
+  \   'around': {
+  \     'mark': 'around',
+  \     'maxCandidates': 5,
+  \   },
+  \   'yank': {
+  \     'mark': 'Y',
+  \     'maxCandidates': 5,
+  \   }
+  \ })
+
+call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
+
+call ddc#custom#patch_filetype(
+    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+    \ 'sourceOptions': {
+    \   'file': {
+    \     'forceCompletionPattern': '\S\\\S*',
+    \   },
+    \ },
+    \ 'sourceParams': {
+    \   'file': {
+    \     'mode': 'win32',
+    \   },
+    \ }})
+
+" cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+nnoremap :       <Cmd>call CommandlinePre()<CR>:
+" inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
+inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
+
+call pum#set_option('border', 'double')
+
+function! CommandlinePre() abort
+  " Overwrite sources
+  let s:prev_buffer_config = ddc#custom#get_buffer()
+  call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
+
+  autocmd CmdlineLeave * ++once call CommandlinePost()
+
+  " Enable command line completion
+  call ddc#enable_cmdline_completion()
+endfunction
+function! CommandlinePost() abort
+  " Restore sources
+  call ddc#custom#set_buffer(s:prev_buffer_config)
+endfunction
+
+call ddc#enable()
 
 " deoppet.nvim
 call deoppet#initialize()
