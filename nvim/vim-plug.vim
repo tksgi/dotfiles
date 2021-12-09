@@ -28,7 +28,8 @@ Plug 'tpope/vim-rhubarb' " Gbrowse
 Plug 'tyru/open-browser.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'godlygeek/tabular'
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
+Plug 'numToStr/Comment.nvim'
 Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
@@ -65,6 +66,9 @@ Plug 'anott03/nvim-lspinstall'
 "Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
 Plug 'stevearc/aerial.nvim' " symbol
 Plug 'akinsho/flutter-tools.nvim'
+" for rust
+Plug 'simrat39/rust-tools.nvim' " need rust-analyzer. execute `rustup component add rust-src`
+Plug 'mfussenegger/nvim-dap'
 
 " lsp install
 " Plug 'mattn/vim-lsp-settings'
@@ -173,9 +177,9 @@ call hook#add#vim_airline#load()
 function! s:skkeleton_init() abort
   call skkeleton#config({
         \ 'eggLikeNewline': v:true,
-        \ 'globalJisyo': "~/.skk/SKK-JISYO.L",
+        \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
         \ 'globalJisyoEncoding': 'utf-8',
-        \ 'userJisyo': "~/.skk/.skk-jisyo",
+        \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
         \ })
   call skkeleton#register_kanatable('rom', {
         \ "z\<Space>": ["\u3000", ''],
@@ -471,3 +475,7 @@ if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
   call mkdir(expand("$HOME/.cache/.nvim/auto-session"), "p")
 endif
 let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
+
+
+
+lua require('Comment').setup()
