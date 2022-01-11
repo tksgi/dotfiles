@@ -44,11 +44,12 @@ font:
     # Style can be specified to pick a specific face.
     style: Italic
 
-background_opacity: 1
-# background_opacity: 0.65
+# background_opacity: 1
+background_opacity: 0.95
 
 
 key_bindings:
 - { key: Plus,           mods: Command,                    action: IncreaseFontSize }
+- { key: Equals,           mods: Command,                    action: IncreaseFontSize }
 - { key: Minus,          mods: Command,                    action: DecreaseFontSize }
 - { key: N,              mods: Command,                    action: SpawnNewInstance }
