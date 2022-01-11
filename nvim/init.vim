@@ -267,4 +267,8 @@ if has('nvim')
   endfunction
   nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
 endif
-" }}}
+
+" nvim 0.6.0でmatchitがプリインストールされており、nomalモードでのYコマンドが意図しない挙動になっていたことの対応
+nunmap Y
+
+
