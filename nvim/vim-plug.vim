@@ -46,6 +46,8 @@ Plug 'aklt/plantuml-syntax'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+
 " statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -79,8 +81,8 @@ Plug 'liuchengxu/vista.vim'
 
 
 " better syntax highlighting
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'romgrk/nvim-treesitter-context'
 " Plug 'ElPiloto/sidekick.nvim'
 
 " completion
@@ -136,8 +138,6 @@ Plug 'tjdevries/nlua.nvim'
 Plug 'Bakudankun/BackAndForward.vim'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-
-Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
 
 call plug#end()
 
@@ -279,6 +279,14 @@ au User lsp_setup call lsp#register_server({
 \ 'languageId': {server_info->'dart'},
 \ })
 
+let s:solargraph_port = '7658'
+au User lsp_setup call lsp#register_server({
+\ 'name': 'solargraph',
+\ "tcp": { server_info-> "localhost:" . s:solargraph_port },
+\ 'allowlist': ['ruby'],
+\ 'languageId': {server_info->'ruby'},
+\ })
+
 " vista.vim
 let g:vista_default_executive = 'vim_lsp'
 
@@ -416,7 +424,7 @@ cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-nnoremap :       <Cmd>call CommandlinePre()<CR>:
+" nnoremap :       <Cmd>call CommandlinePre()<CR>:
 " inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
@@ -428,21 +436,22 @@ inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 
 call pum#set_option('border', 'double')
 
-function! CommandlinePre() abort
-  " Overwrite sources
-  let s:prev_buffer_config = ddc#custom#get_buffer()
-  call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
-
-  autocmd CmdlineLeave * ++once call CommandlinePost()
-
-  " Enable command line completion
-  call ddc#enable_cmdline_completion()
-endfunction
-function! CommandlinePost() abort
-  " Restore sources
-  call ddc#custom#set_buffer(s:prev_buffer_config)
-endfunction
-
+" disable in order to avoid breaking terminal drawing
+" function! CommandlinePre() abort
+"   " Overwrite sources
+"   let s:prev_buffer_config = ddc#custom#get_buffer()
+"   call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
+"
+"   autocmd CmdlineLeave * ++once call CommandlinePost()
+"
+"   " Enable command line completion
+"   call ddc#enable_cmdline_completion()
+" endfunction
+" function! CommandlinePost() abort
+"   " Restore sources
+"   call ddc#custom#set_buffer(s:prev_buffer_config)
+" endfunction
+"
 call ddc#enable()
 
 " deoppet.nvim
