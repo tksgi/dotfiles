@@ -30,7 +30,7 @@ Plug 'sainnhe/sonokai' " colorscheme
 " 日付等のインクリメント
 Plug 'monaqa/dial.nvim'
 
-Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'previm/previm'
 " 要サーバー起動
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
