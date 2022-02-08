@@ -56,12 +56,14 @@ Plug 'vim-airline/vim-airline-themes'
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'pwntester/octo.nvim'
 
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neomru.vim'
-Plug 'chemzqm/denite-git'
-Plug 'delphinus/vim-denite-memo'
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/neomru.vim'
+" Plug 'chemzqm/denite-git'
+" Plug 'delphinus/vim-denite-memo'
 
 
 " builtin-lsp
@@ -85,16 +87,17 @@ Plug 'romgrk/nvim-treesitter-context'
 
 " completion with ddc
 Plug 'Shougo/ddc.vim'
-Plug 'Shougo/pum.vim'
+" Plug 'Shougo/pum.vim'
 Plug 'Shougo/neco-vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
 Plug 'shun/ddc-vim-lsp'
 Plug 'Shougo/ddc-zsh'
 Plug 'Shougo/ddc-omni'
-Plug 'Shougo/ddc-cmdline-history'
-Plug 'tani/ddc-git'
-Plug 'tani/ddc-oldfiles'
+Plug 'Shougo/ddc-line'
+" Plug 'Shougo/ddc-cmdline-history'
+" Plug 'tani/ddc-git'
+" Plug 'tani/ddc-oldfiles'
 Plug 'tani/ddc-fuzzy'
 Plug 'ippachi/ddc-yank'
 Plug 'matsui54/ddc-buffer'
@@ -183,7 +186,10 @@ if executable('ag')
 endif
 
 " vim-markdown
-let g:markdown_enable_spell_checking = 0
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_new_list_item_indent = 0
 
 " dial
 nmap <C-a> <Plug>(dial-increment)
@@ -194,7 +200,7 @@ vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
 
 " denite
-call hook#add#denite#load()
+" call hook#add#denite#load()
 
 " nvim_lspconfig
 " lua require('nvim-lspconfig')
@@ -202,7 +208,7 @@ call hook#add#denite#load()
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
   setlocal signcolumn=yes
-  inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+  " inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> <leader>pr <plug>(lsp-peek-definition)
@@ -234,14 +240,14 @@ au User lsp_setup call lsp#register_server({
 \ 'languageId': {server_info->'dart'},
 \ })
 
-let s:solargraph_port = '7658'
-au User lsp_setup call lsp#register_server({
-\ 'name': 'solargraph',
-\ "tcp": { server_info-> "localhost:" . s:solargraph_port },
-\ 'allowlist': ['ruby'],
-\ 'languageId': {server_info->'ruby'},
-\ })
-
+" let s:solargraph_port = '7658'
+" au User lsp_setup call lsp#register_server({
+" \ 'name': 'solargraph',
+" \ "tcp": { server_info-> "localhost:" . s:solargraph_port },
+" \ 'allowlist': ['ruby'],
+" \ 'languageId': {server_info->'ruby'},
+" \ })
+"
 " vista.vim
 let g:vista_default_executive = 'vim_lsp'
 
@@ -249,11 +255,13 @@ let g:vista_default_executive = 'vim_lsp'
 colorscheme sonokai
 
 " ddc.vim
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
+" call ddc#custom#patch_global('completionMenu', 'pum.vim')
   call ddc#custom#patch_global('autoCompleteEvents',
       \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
 
-call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
+call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'file', 'line', 'tabnine'])
+" call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
+" call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
 call ddc#custom#patch_global('sourceOptions', {
   \   '_': {
   \     'matchers': ['matcher_fuzzy'],
@@ -331,21 +339,21 @@ call ddc#custom#patch_filetype(
 
 " cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+" cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+" cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+" cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 " nnoremap :       <Cmd>call CommandlinePre()<CR>:
 " inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
-inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
+" inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+" inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+" inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+" inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
+" inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 
-call pum#set_option('border', 'double')
+" call pum#set_option('border', 'double')
 
 " disable in order to avoid breaking terminal drawing
 " function! CommandlinePre() abort
@@ -389,10 +397,18 @@ nnoremap <C-l> :<C-u>Forward<CR>
 " lua require'lualine_setting'
 
 " deol
-nnoremap <leader>tt :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
+nnoremap <leader>de :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
 
 " auto-session
 if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
   call mkdir(expand("$HOME/.cache/.nvim/auto-session"), "p")
 endif
 let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
+
+
+" Telescope
+lua require('telescope').setup()
+lua require('telescope').load_extension('fzf')
+lua require('octo').setup()
+nnoremap <leader>tb :<C-u>Telescope buffers<CR>
+nnoremap <leader>to :<C-u>Telescope oldfiles<CR>
