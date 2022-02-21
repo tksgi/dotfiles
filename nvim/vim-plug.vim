@@ -2,6 +2,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-git-status.vim'
@@ -15,15 +16,13 @@ Plug 'lambdalisue/gina.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'jacoborus/tender.vim'
+" Plug 'jacoborus/tender.vim' " colorscheme
 Plug 'simeji/winresizer'
-Plug 'tpope/vim-rhubarb' " Gbrowse
 Plug 'tyru/open-browser.vim'
-Plug 'Shougo/context_filetype.vim'
-Plug 'godlygeek/tabular'
+" Plug 'Shougo/context_filetype.vim' " TreeSitterがあるので
+Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'tomtom/tcomment_vim'
 Plug 'mbbill/undotree'
-Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sainnhe/sonokai' " colorscheme
 
@@ -31,16 +30,13 @@ Plug 'sainnhe/sonokai' " colorscheme
 Plug 'monaqa/dial.nvim'
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'previm/previm'
+Plug 'previm/previm', { 'for': 'markdown' }
 " 要サーバー起動
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
 let g:previm_plantuml_imageprefix = 'http://localhost:8888/png/'
 
 
 " 言語別設定
-Plug 'aklt/plantuml-syntax'
-
-
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
@@ -67,15 +63,15 @@ Plug 'pwntester/octo.nvim'
 
 
 " builtin-lsp
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'anott03/nvim-lspinstall'
-"Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
-" Plug 'stevearc/aerial.nvim' " symbol
-" Plug 'akinsho/flutter-tools.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+" nvim-lspのprogress indicator
+Plug 'j-hui/fidget.nvim'
+Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim6.0' }
 
 " vim-lsp
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 
 " symbol viewer
 Plug 'liuchengxu/vista.vim'
@@ -91,7 +87,7 @@ Plug 'Shougo/ddc.vim'
 Plug 'Shougo/neco-vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
-Plug 'shun/ddc-vim-lsp'
+Plug 'Shougo/ddc-nvim-lsp'
 Plug 'Shougo/ddc-zsh'
 Plug 'Shougo/ddc-omni'
 Plug 'Shougo/ddc-line'
@@ -101,13 +97,14 @@ Plug 'Shougo/ddc-line'
 Plug 'tani/ddc-fuzzy'
 Plug 'ippachi/ddc-yank'
 Plug 'matsui54/ddc-buffer'
+Plug 'matsui54/denops-popup-preview.vim'
 Plug 'LumaKernel/ddc-tabnine'
 Plug 'LumaKernel/ddc-file'
 " snippet
-Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet-snippets'
-Plug 'honza/vim-snippets'
+" Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/neosnippet-snippets'
+" Plug 'honza/vim-snippets'
 
 Plug 'Shougo/deol.nvim'
 
@@ -125,7 +122,10 @@ Plug 'Bakudankun/BackAndForward.vim'
 " tabbarの設定
 Plug 'romgrk/barbar.nvim'
 
-Plug 'kyazdani42/nvim-web-devicons'
+
+
+" プロジェクト固有設定
+Plug 'windwp/nvim-projectconfig'
 
 call plug#end()
 
@@ -203,43 +203,43 @@ vmap g<C-x> <Plug>(dial-decrement-additional)
 " call hook#add#denite#load()
 
 " nvim_lspconfig
-" lua require('nvim-lspconfig')
+lua require('nvim-lspconfig')
 
 " vim-lsp
-function! s:on_lsp_buffer_enabled() abort
-  setlocal signcolumn=yes
-  " inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <leader>pr <plug>(lsp-peek-definition)
-  nmap <buffer> gs <plug>(lsp-document-symbol-search)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  " nmap <buffer> gt <plug>(lsp-type-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-  nmap <buffer> K <plug>(lsp-hover)
-  nmap <buffer> <leader>c <plug>(lsp-code-lens)
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-let s:dartBin = trim(system("echo \"$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin\""), "\n")
-au User lsp_setup call lsp#register_server({
-\ 'name': 'dart-analysis-server',
-\ 'cmd': {server_info->[s:dartBin .. "/dart", s:dartBin .. "/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"]},
-\ 'allowlist': ['dart'],
-\ 'blocklist': ['filetype to blocklist'],
-\ 'config': {},
-\ 'workspace_config': {'param': {'enabled': v:true}},
-\ 'languageId': {server_info->'dart'},
-\ })
-
+" function! s:on_lsp_buffer_enabled() abort
+"   setlocal signcolumn=yes
+"   " inoremap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
+"
+"   nmap <buffer> gd <plug>(lsp-definition)
+"   nmap <buffer> <leader>pr <plug>(lsp-peek-definition)
+"   nmap <buffer> gs <plug>(lsp-document-symbol-search)
+"   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+"   nmap <buffer> gr <plug>(lsp-references)
+"   nmap <buffer> gi <plug>(lsp-implementation)
+"   " nmap <buffer> gt <plug>(lsp-type-definition)
+"   nmap <buffer> <leader>rn <plug>(lsp-rename)
+"   nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+"   nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+"   nmap <buffer> K <plug>(lsp-hover)
+"   nmap <buffer> <leader>c <plug>(lsp-code-lens)
+" endfunction
+"
+" augroup lsp_install
+"   au!
+"   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+" augroup END
+"
+" let s:dartBin = trim(system("echo \"$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin\""), "\n")
+" au User lsp_setup call lsp#register_server({
+" \ 'name': 'dart-analysis-server',
+" \ 'cmd': {server_info->[s:dartBin .. "/dart", s:dartBin .. "/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"]},
+" \ 'allowlist': ['dart'],
+" \ 'blocklist': ['filetype to blocklist'],
+" \ 'config': {},
+" \ 'workspace_config': {'param': {'enabled': v:true}},
+" \ 'languageId': {server_info->'dart'},
+" \ })
+"
 " let s:solargraph_port = '7658'
 " au User lsp_setup call lsp#register_server({
 " \ 'name': 'solargraph',
@@ -259,7 +259,7 @@ colorscheme sonokai
   call ddc#custom#patch_global('autoCompleteEvents',
       \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
 
-call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'file', 'line', 'tabnine'])
+call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'file', 'line', 'tabnine', 'nvim-lsp'])
 " call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
 " call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
 call ddc#custom#patch_global('sourceOptions', {
@@ -272,9 +272,10 @@ call ddc#custom#patch_global('sourceOptions', {
   \     'mark': 'Z',
   \     'maxCandidates': 10,
   \   },
-  \   'vim-lsp': {
+  \   'nvim-lsp': {
   \     'mark': 'lsp',
-  \     'maxCandidates': 10,
+  \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+  \     'maxSize': 10,
   \   },
   \   'skkeleton': {
   \     'mark': 'skkeleton',
@@ -318,6 +319,10 @@ call ddc#custom#patch_global('sourceOptions', {
   \   },
   \   'around': {
   \     'mark': 'around',
+  \     'maxCandidates': 5,
+  \   },
+  \   'line': {
+  \     'mark': 'line',
   \     'maxCandidates': 5,
   \   },
   \ })
@@ -372,21 +377,22 @@ call ddc#custom#patch_filetype(
 " endfunction
 "
 call ddc#enable()
+call popup_preview#enable()
 
 " deoppet.nvim
-call deoppet#initialize()
-call deoppet#custom#option('snippets',
-      \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-      \     "{ 'path': v:val }"))
-
-imap <C-k>  <Plug>(deoppet_expand)
-imap <C-f>  <Plug>(deoppet_jump_forward)
-imap <C-b>  <Plug>(deoppet_jump_backward)
-smap <C-f>  <Plug>(deoppet_jump_forward)
-smap <C-b>  <Plug>(deoppet_jump_backward)
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
+" call deoppet#initialize()
+" call deoppet#custom#option('snippets',
+"       \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+"       \     "{ 'path': v:val }"))
+"
+" imap <C-k>  <Plug>(deoppet_expand)
+" imap <C-f>  <Plug>(deoppet_jump_forward)
+" imap <C-b>  <Plug>(deoppet_jump_backward)
+" smap <C-f>  <Plug>(deoppet_jump_forward)
+" smap <C-b>  <Plug>(deoppet_jump_backward)
+"
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
 
 " BackAndForward
 nnoremap <C-h> :<C-u>Back<CR>
@@ -412,3 +418,6 @@ lua require('telescope').load_extension('fzf')
 lua require('octo').setup()
 nnoremap <leader>tb :<C-u>Telescope buffers<CR>
 nnoremap <leader>to :<C-u>Telescope oldfiles<CR>
+
+" projectconfig
+lua require('nvim-projectconfig').setup({ autocmd=true, project_dir = "~/.config/projects-config/" })
