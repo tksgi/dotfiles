@@ -38,7 +38,7 @@
 -- local dartBin = string.sub(vim.fn.system('which flutter | rev | cut -f 2- -d/ | rev'), 1, -2)
 --
 -- for flutter installed by asdf 
-local dartBin = string.sub(vim.fn.system([[echo "$ASDF_DIR/installs/flutter/$(asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' ')/bin"]]), 1, -2)
+local dartBin = string.sub(vim.fn.system([[echo "$(asdf where flutter)/bin"]]), 1, -2)
 
 -- $ asdf current flutter | sed -E 's/ +/ /g' | cut -f 2 -d ' '
 require'lspconfig'.dartls.setup{
