@@ -52,15 +52,36 @@ Plug 'vim-airline/vim-airline-themes'
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'pwntester/octo.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" Plug 'pwntester/octo.nvim'
 
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'Shougo/neomru.vim'
 " Plug 'chemzqm/denite-git'
 " Plug 'delphinus/vim-denite-memo'
 
+Plug 'Shougo/ddu.vim'
+Plug 'Shougo/ddu-commands.vim'
+Plug 'Shougo/ddu-ui-ff'
+Plug 'Shougo/ddu-kind-file'
+Plug 'Shougo/ddu-kind-word'
+Plug 'Shougo/ddu-filter-matcher_substring'
+Plug 'Shougo/ddu-source-rg'
+Plug 'Shougo/ddu-source-buffer'
+Plug 'Shougo/ddu-source-file_old'
+Plug 'Shougo/ddu-source-file_rec'
+Plug 'Shougo/ddu-source-file'
+Plug 'Shougo/ddu-source-line'
+Plug 'Shougo/ddu-source-register'
+Plug 'Shougo/ddu-source-action'
+Plug 'gamoutatsumi/ddu-source-nvim-lsp'
+Plug '4513ECHO/vim-readme-viewer', { 'on': 'PlugReadme' }
+Plug 'junegunn/vim-plug'
+Plug '4513ECHO/ddu-source-source'
+Plug '4513ECHO/ddu-source-ghq'
+Plug 'kmnk/denite-dirmark'
+Plug 'Bakudankun/ddu-source-dirmark'
 
 " builtin-lsp
 Plug 'neovim/nvim-lspconfig'
@@ -413,11 +434,101 @@ let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
 
 
 " Telescope
-lua require('telescope').setup()
-lua require('telescope').load_extension('fzf')
-lua require('octo').setup()
-nnoremap <leader>tb :<C-u>Telescope buffers<CR>
-nnoremap <leader>to :<C-u>Telescope oldfiles<CR>
+" lua require('telescope').setup()
+" lua require('telescope').load_extension('fzf')
+" lua require('octo').setup()
+" nnoremap <leader>tb :<C-u>Telescope buffers<CR>
+" nnoremap <leader>to :<C-u>Telescope oldfiles<CR>
+
+" DDU
+call ddu#custom#patch_global({
+    \ 'ui': 'ff',
+    \ 'uiParams': {
+    \   'ff' : {
+    \     'prompt': '>',
+    \     'split': 'floating',
+    \ }
+    \ }
+    \ })
+call ddu#custom#patch_global({
+      \ 'kindOptions': {
+      \   'readme_viewer': {
+      \     'defaultAction': 'open',
+      \ }}})
+let g:readme_viewer#plugin_manager = 'vim-plug'
+
+call ddu#custom#patch_global({
+    \   'kindOptions': {
+    \     'file': {
+    \       'defaultAction': 'open',
+    \     },
+    \     'action': {
+    \       'defaultAction': 'do',
+    \     },
+    \   }
+    \ })
+call ddu#custom#patch_global({
+    \   'sourceOptions': {
+    \     '_': {
+    \       'matchers': ['matcher_substring'],
+    \     },
+    \   }
+    \ })
+call ddu#custom#patch_global({
+    \   'sourceParams' : {
+    \     'rg' : {
+    \       'args': ['--column', '--no-heading', '--color', 'never'],
+    \     },
+    \   },
+    \ })
+call ddu#custom#patch_global({
+    \   'sourceOptions': {
+    \     'register': {
+      \       'defaultAction': ['append'],
+    \     },
+    \   }
+    \ })
+
+command! DduFzReadme call fzf#run(fzf#wrap(#{
+          \ source: values(map(copy(g:plugs), {k,v-> k.' '.get(split(globpath(get(v,'dir',''), '\creadme.*'), '\n'), 0, '')})),
+          \ options: ['--with-nth=1', '--preview', 'bat --color=always --plain {2}'],
+          \ sink: funcref('s:PlugReadmeFzf')}))
+function s:PlugReadmeFzf(name_and_path) abort
+  execute 'PlugReadme' substitute(a:name_and_path, ' .*', '', '')
+endfunction
+
+autocmd FileType ddu-ff call s:ddu_ff_my_settings()
+function! s:ddu_ff_my_settings() abort
+  nnoremap <buffer> <CR>
+        \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+  nnoremap <buffer> <Space>
+        \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer> i
+        \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+  nnoremap <buffer> p
+        \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+  nnoremap <buffer> q
+        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+  nnoremap <buffer> E
+        \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+        " \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+        " \ {'params': eval(input('params: '))})<CR>
+endfunction
+
+autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+function! s:ddu_filter_my_settings() abort
+  inoremap <buffer> <CR>
+        \ <Esc><Cmd>close<CR>
+  nnoremap <buffer> <CR>
+        \ <Cmd>close<CR>
+  nnoremap <buffer> <Esc>
+        \ <Cmd>close<CR>
+  nnoremap <buffer> q
+        \ <Cmd>close<CR>
+endfunction
+
+" command! DduBuffer call ddu#start({'sources': [{'name': 'buffer'}]})
 
 " projectconfig
 lua require('nvim-projectconfig').setup({ autocmd=true, project_dir = "~/.config/projects-config/" })
+
