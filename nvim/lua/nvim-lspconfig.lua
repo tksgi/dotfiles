@@ -1,3 +1,4 @@
+require('nvim-lsp-installer')
 -- vim.cmd('packadd nvim-lspconfig')
 
 -- Aerial config
@@ -82,9 +83,23 @@ require'lspconfig'.vuels.setup{
 require'lspconfig'.yamlls.setup{
   on_attach = custom_attach,
 }
+-- require'lspconfig'.pyright.setup{
+--   on_attach = custom_attach,
+-- }
 require'lspconfig'.dockerls.setup{
   on_attach = custom_attach,
 }
+
+-- for rust
+require('rust-tools').setup({
+  server = {
+    cargo = {
+      loadOutDirsFromCheck = true
+    }
+  }
+})
+
+
 -- lua lsp start
 local function sumneko_command()
   local cache_location = vim.fn.stdpath('cache')
