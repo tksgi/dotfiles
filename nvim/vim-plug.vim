@@ -34,6 +34,7 @@ Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'sainnhe/sonokai' " colorscheme
+Plug 'cohama/lexima.vim'
 
 " 日付等のインクリメント
 Plug 'monaqa/dial.nvim'
@@ -176,10 +177,10 @@ call hook#add#vim_airline#load()
 " skkeleton
 function! s:skkeleton_init() abort
   call skkeleton#config({
-        \ 'eggLikeNewline': v:true,
         \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
         \ 'globalJisyoEncoding': 'utf-8',
         \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
+        \ 'tabCompletion': v:false,
         \ })
   call skkeleton#register_kanatable('rom', {
         \ "z\<Space>": ["\u3000", ''],
@@ -286,7 +287,7 @@ call ddc#custom#patch_global('completionMenu', 'pum.vim')
   call ddc#custom#patch_global('autoCompleteEvents',
       \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
 
-call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank'])
+call ddc#custom#patch_global('sources', ['skkeleton', 'nvim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank', 'tabnine'])
 call ddc#custom#patch_global('sourceOptions', {
   \   '_': {
   \     'matchers': ['matcher_fuzzy'],
@@ -372,7 +373,7 @@ cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-nnoremap :       <Cmd>call CommandlinePre()<CR>:
+" nnoremap :       <Cmd>call CommandlinePre()<CR>:
 " inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
@@ -384,20 +385,20 @@ inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 
 call pum#set_option('border', 'double')
 
-function! CommandlinePre() abort
-  " Overwrite sources
-  let s:prev_buffer_config = ddc#custom#get_buffer()
-  call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
-
-  autocmd CmdlineLeave * ++once call CommandlinePost()
-
-  " Enable command line completion
-  call ddc#enable_cmdline_completion()
-endfunction
-function! CommandlinePost() abort
-  " Restore sources
-  call ddc#custom#set_buffer(s:prev_buffer_config)
-endfunction
+" function! CommandlinePre() abort
+"   " Overwrite sources
+"   let s:prev_buffer_config = ddc#custom#get_buffer()
+"   call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
+"
+"   autocmd CmdlineLeave * ++once call CommandlinePost()
+"
+"   " Enable command line completion
+"   call ddc#enable_cmdline_completion()
+" endfunction
+" function! CommandlinePost() abort
+"   " Restore sources
+"   call ddc#custom#set_buffer(s:prev_buffer_config)
+" endfunction
 
 call ddc#enable()
 
