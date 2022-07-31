@@ -3,6 +3,8 @@ Plug 'vim-jp/vimdoc-ja'
 
 " Filer
 Plug 'antoinemadec/FixCursorHold.nvim'
+
+
 Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
@@ -18,17 +20,13 @@ Plug 'yuki-yano/fern-preview.vim'
 Plug 'lambdalisue/gina.vim'
 
 Plug 'thinca/vim-quickrun'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'jacoborus/tender.vim'
 Plug 'simeji/winresizer'
 Plug 'tpope/vim-rhubarb' " Gbrowse
 " Plug 'tyru/eskk.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'godlygeek/tabular'
-" Plug 'tomtom/tcomment_vim'
 Plug 'numToStr/Comment.nvim'
 Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
@@ -43,36 +41,29 @@ Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 let g:dart_format_on_save = 1
 
-Plug 'vim-ruby/vim-ruby'
-
 " statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
-" Plug 'hoob3rt/lualine.nvim'
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neomru.vim'
-Plug 'chemzqm/denite-git'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'anott03/nvim-lspinstall'
+Plug 'williamboman/mason.nvim' " auto-installer for lsp
 "Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
 Plug 'stevearc/aerial.nvim' " symbol
 Plug 'akinsho/flutter-tools.nvim'
+
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+
 " for rust
 Plug 'simrat39/rust-tools.nvim' " need rust-analyzer. execute `rustup component add rust-src`
-Plug 'mfussenegger/nvim-dap'
 
-" lsp install
-" Plug 'mattn/vim-lsp-settings'
+" Plug 'mfussenegger/nvim-dap'
 
 
 " better syntax highlighting
@@ -80,24 +71,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 " Plug 'ElPiloto/sidekick.nvim'
 
-" completion
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'aca/completion-tabnine', { 'do': './install.sh' }
-" Plug 'steelsojka/completion-buffers'
-" Plug 'nvim-treesitter/completion-treesitter'
+Plug 'vim-skk/skkeleton'
 
-" completion with Shougo ware
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'Shougo/neco-syntax'
-" Plug 'tbodt/deoplete-tabnine', {'do': './install.sh'}
-" Plug 'deoplete-plugins/deoplete-zsh'
-" Plug 'deoplete-plugins/deoplete-lsp'
 " completion with ddc
 Plug 'Shougo/ddc.vim'
 Plug 'Shougo/pum.vim'
 Plug 'Shougo/neco-vim'
 Plug 'vim-denops/denops.vim'
-Plug 'vim-skk/skkeleton'
 Plug 'Shougo/ddc-nvim-lsp'
 Plug 'Shougo/ddc-zsh'
 Plug 'Shougo/ddc-omni'
@@ -126,7 +106,7 @@ Plug 'Shougo/deol.nvim'
 Plug 'lambdalisue/edita.vim'
 
 " nvim-lua-api completion
-Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/nlua.nvim' " need to run duwnload_sumneko.lua script
 
 " Plug 'notomo/helpeek.vim'
 
@@ -213,21 +193,23 @@ vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
 
 " telescope
-" nnoremap <leader>tf <cmd>Telescope find_files<cr>
-" nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
-" nnoremap <leader>tb <cmd>Telescope buffers<cr>
-" nnoremap <leader>to <cmd>Telescope oldfiles<cr>
-" nnoremap <leader>th <cmd>Telescope help_tags<cr>
-" nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
-" nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
-" nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
-" nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
-" nnoremap <leader>tgs <cmd>Telescope git_status<cr>
-"
-" lua require('telescope').setup()
+nnoremap <leader>T <cmd>Telescope<cr>
+nnoremap <leader>tf <cmd>Telescope find_files<cr>
+nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
+nnoremap <leader>tb <cmd>Telescope buffers<cr>
+nnoremap <leader>to <cmd>Telescope oldfiles<cr>
+nnoremap <leader>th <cmd>Telescope help_tags<cr>
+nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
+nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
+nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
+nnoremap <leader>tgs <cmd>Telescope git_status<cr>
+nnoremap <leader>tsp <cmd>Telescope spell_suggest<cr>
+
+lua require('telescope').setup()
 " lua require('telescope').load_extension('snippets')
 
-" inoremap <C-i> <cmd>Telescope snippets<cr>
+inoremap <C-i> <cmd>Telescope snippets<cr>
 
 " denite
 call hook#add#denite#load()
@@ -285,7 +267,7 @@ lua require'treesitter'
 " ddc.vim
 call ddc#custom#patch_global('completionMenu', 'pum.vim')
   call ddc#custom#patch_global('autoCompleteEvents',
-      \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
+      \ ['InsertEnter', 'TextChangedI', 'TextChangedP'])
 
 call ddc#custom#patch_global('sources', ['skkeleton', 'nvim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank', 'tabnine'])
 call ddc#custom#patch_global('sourceOptions', {
@@ -296,63 +278,66 @@ call ddc#custom#patch_global('sourceOptions', {
   \   },
   \   'zsh': {
   \     'mark': 'Z',
-  \     'maxCandidates': 10,
+  \     'maxItems': 10,
   \   },
-  \   'vim-lsp': {
+  \   'nvim-lsp': {
   \     'mark': 'lsp',
-  \     'maxCandidates': 10,
+  \     'maxItems': 10,
+  \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
   \   },
   \   'skkeleton': {
   \     'mark': 'skkeleton',
   \     'matchers': ['skkeleton'],
-  \     'maxCandidates': 10,
+  \     'maxItems': 10,
   \   },
   \   'buffer': {
   \     'mark': 'buffer',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \   },
   \   'file': {
   \     'mark': 'F',
   \     'isVolatile': v:true,
   \     'forceCompletionPattern': '\S/\S*',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \   },
   \   'git-flie': {
   \     'mark': 'gitF',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \   },
   \   'git-commit': {
-  \     'mark': 'gitF',
-  \     'maxCandidates': 5,
+  \     'mark': 'gitC',
+  \     'maxItems': 5,
   \   },
   \   'git-branch': {
-  \     'mark': 'gitF',
-  \     'maxCandidates': 5,
+  \     'mark': 'gitB',
+  \     'maxItems': 5,
   \   },
   \   'necovim': {
   \     'mark': 'necovim',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \    },
   \   'tabnine': {
   \     'mark': 'TN',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \     'isVolatile': v:true,
   \   },
   \   'oldfiles': {
   \     'mark': 'oldfiles',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \   },
   \   'around': {
   \     'mark': 'around',
-  \     'maxCandidates': 5,
+  \     'maxItems': 5,
   \   },
   \   'yank': {
   \     'mark': 'Y',
-  \     'maxCandidates': 5,
-  \   }
+  \     'maxItems': 5,
+  \   },
+  \   'shell-history': {'mark': 'shell'}
   \ })
 
 call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
+	call ddc#custom#patch_filetype(['deol'], 'sources', ['shell-history', 'zsh'])
 
 call ddc#custom#patch_filetype(
     \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
@@ -367,15 +352,9 @@ call ddc#custom#patch_filetype(
     \   },
     \ }})
 
-" cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-" cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-cnoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-" nnoremap :       <Cmd>call CommandlinePre()<CR>:
 " inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-d>   <Cmd>call ddc#map#complete()<CR>
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
@@ -384,21 +363,6 @@ inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
 inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 
 call pum#set_option('border', 'double')
-
-" function! CommandlinePre() abort
-"   " Overwrite sources
-"   let s:prev_buffer_config = ddc#custom#get_buffer()
-"   call ddc#custom#patch_buffer('sources', ['necovim', 'git-file', 'git-commit', 'git-branch', 'around', 'oldfiles'])
-"
-"   autocmd CmdlineLeave * ++once call CommandlinePost()
-"
-"   " Enable command line completion
-"   call ddc#enable_cmdline_completion()
-" endfunction
-" function! CommandlinePost() abort
-"   " Restore sources
-"   call ddc#custom#set_buffer(s:prev_buffer_config)
-" endfunction
 
 call ddc#enable()
 
@@ -453,13 +417,6 @@ let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/sn
 
 
 
-" helpeek
-" nnoremap <leader>K :<C-u>Helpeek<CR>
-" " works in command-line mode by using <Cmd>
-" if has('nvim')
-"   cnoremap <C-y> <Cmd>Helpeek<CR>
-" endif
-
 " BackAndForward
 nnoremap <C-h> :<C-u>Back<CR>
 nnoremap <C-l> :<C-u>Forward<CR>
@@ -470,6 +427,7 @@ nnoremap <C-l> :<C-u>Forward<CR>
 
 " deol
 nnoremap <leader>bt :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
+g:deol#enable_ddc_completion = v:true
 
 " auto-session
 if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
