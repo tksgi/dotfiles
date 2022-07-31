@@ -49,6 +49,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 
 " lsp
@@ -99,7 +100,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
 Plug 'petertriho/cmp-git'
-Plug 'tzachar/cmp-tabnine'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'rinx/cmp-skkeleton'
 Plug 'ray-x/cmp-treesitter'
 Plug 'hrsh7th/nvim-cmp'
@@ -127,7 +128,7 @@ Plug 'Bakudankun/BackAndForward.vim'
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
+" Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
 
 call plug#end()
 
@@ -206,23 +207,7 @@ vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
 
 " telescope
-nnoremap <leader>T <cmd>Telescope<cr>
-nnoremap <leader>tf <cmd>Telescope find_files<cr>
-nnoremap <leader>tlg <cmd>Telescope live_grep<cr>
-nnoremap <leader>tb <cmd>Telescope buffers<cr>
-nnoremap <leader>to <cmd>Telescope oldfiles<cr>
-nnoremap <leader>th <cmd>Telescope help_tags<cr>
-nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
-nnoremap <leader>tc <cmd>Telescope lsp_code_actions<cr>
-nnoremap <leader>tgc <cmd>Telescope git_commits<cr>
-nnoremap <leader>tgb <cmd>Telescope git_branches<cr>
-nnoremap <leader>tgs <cmd>Telescope git_status<cr>
-nnoremap <leader>tsp <cmd>Telescope spell_suggest<cr>
-
-lua require('telescope').setup()
-" lua require('telescope').load_extension('snippets')
-
-inoremap <C-i> <cmd>Telescope snippets<cr>
+lua require'telescope-setting'
 
 " denite
 " call hook#add#denite#load()
@@ -454,3 +439,4 @@ lua require('Comment').setup()
 
 
 lua require('cmp-setting')
+
