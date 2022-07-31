@@ -7,6 +7,10 @@ aerial.setup({})
 local saga = require('lspsaga')
 saga.init_lsp_saga()
 
+-- Setup lspconfig with nvim-cmp
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
 -- diagnosticのマッピング
 local keyopts = { noremap=true, silent=true }
 vim.keymap.set('n', '<leader>D', vim.diagnostic.open_float, keyopts)
@@ -102,33 +106,42 @@ require'lspconfig'.dartls.setup{
     ['dart/textDocument/publishClosingLabels'] = require('flutter-tools').closing_tags,
     ['dart/textDocument/publishOutline'] = require('flutter-tools').outline,
   },
+  capabilities = capabilities
 }
 require'lspconfig'.gopls.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.pyls.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.solargraph.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.vimls.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.tsserver.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.vuels.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.yamlls.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 -- require'lspconfig'.pyright.setup{
 --   on_attach = custom_attach,
 -- }
 require'lspconfig'.dockerls.setup{
   on_attach = custom_attach,
+  capabilities = capabilities
 }
 
 -- for rust
@@ -138,7 +151,8 @@ require('rust-tools').setup({
     cargo = {
       loadOutDirsFromCheck = true
     }
-  }
+  },
+  capabilities = capabilities
 })
 
 
@@ -151,6 +165,7 @@ require('rust-tools').setup({
 --     -- Colorbuddy
 --     "Color", "c", "Group", "g", "s",
 --   }
+  -- capabilities = capabilities
 -- })
 require'lspconfig'.sumneko_lua.setup({
   on_attach = custom_attach,
@@ -176,6 +191,7 @@ require'lspconfig'.sumneko_lua.setup({
             },
         },
     },
+  capabilities = capabilities
 })
 
 

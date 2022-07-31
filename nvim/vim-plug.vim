@@ -1,10 +1,10 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'vim-jp/vimdoc-ja'
 
-" Filer
 Plug 'antoinemadec/FixCursorHold.nvim'
 
 
+" Filer
 Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
@@ -71,25 +71,38 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 " Plug 'ElPiloto/sidekick.nvim'
 
+Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
 
 " completion with ddc
-Plug 'Shougo/ddc.vim'
-Plug 'Shougo/pum.vim'
-Plug 'Shougo/neco-vim'
-Plug 'vim-denops/denops.vim'
-Plug 'Shougo/ddc-nvim-lsp'
-Plug 'Shougo/ddc-zsh'
-Plug 'Shougo/ddc-omni'
-Plug 'Shougo/ddc-cmdline-history'
-Plug 'tani/ddc-git'
-Plug 'tani/ddc-oldfiles'
-Plug 'tani/ddc-fuzzy'
-Plug 'ippachi/ddc-yank'
-Plug 'matsui54/ddc-buffer'
-Plug 'LumaKernel/ddc-tabnine'
-Plug 'LumaKernel/ddc-file'
-Plug 'delphinus/ddc-treesitter'
+" Plug 'Shougo/ddc.vim'
+" Plug 'Shougo/pum.vim'
+" Plug 'Shougo/neco-vim'
+" Plug 'Shougo/ddc-nvim-lsp'
+" Plug 'Shougo/ddc-zsh'
+" Plug 'Shougo/ddc-omni'
+" Plug 'Shougo/ddc-cmdline-history'
+" Plug 'tani/ddc-git'
+" Plug 'tani/ddc-oldfiles'
+" Plug 'tani/ddc-fuzzy'
+" Plug 'ippachi/ddc-yank'
+" Plug 'matsui54/ddc-buffer'
+" Plug 'LumaKernel/ddc-tabnine'
+" Plug 'LumaKernel/ddc-file'
+" Plug 'delphinus/ddc-treesitter'
+
+" completion with cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+Plug 'petertriho/cmp-git'
+Plug 'tzachar/cmp-tabnine'
+Plug 'rinx/cmp-skkeleton'
+Plug 'ray-x/cmp-treesitter'
+Plug 'hrsh7th/nvim-cmp'
 
 " snippet
 Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -212,7 +225,7 @@ lua require('telescope').setup()
 inoremap <C-i> <cmd>Telescope snippets<cr>
 
 " denite
-call hook#add#denite#load()
+" call hook#add#denite#load()
 
 " nvim_lspconfig
 lua require('nvim-lspconfig')
@@ -265,121 +278,121 @@ lua require'treesitter'
 " autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
 
 " ddc.vim
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
-  call ddc#custom#patch_global('autoCompleteEvents',
-      \ ['InsertEnter', 'TextChangedI', 'TextChangedP'])
-
-call ddc#custom#patch_global('sources', ['skkeleton', 'nvim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank', 'tabnine'])
-call ddc#custom#patch_global('sourceOptions', {
-  \   '_': {
-  \     'matchers': ['matcher_fuzzy'],
-  \     'sorters': ['sorter_fuzzy'],
-  \     'converters': ['converter_fuzzy']
-  \   },
-  \   'zsh': {
-  \     'mark': 'Z',
-  \     'maxItems': 10,
-  \   },
-  \   'nvim-lsp': {
-  \     'mark': 'lsp',
-  \     'maxItems': 10,
-  \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-  \   },
-  \   'skkeleton': {
-  \     'mark': 'skkeleton',
-  \     'matchers': ['skkeleton'],
-  \     'maxItems': 10,
-  \   },
-  \   'buffer': {
-  \     'mark': 'buffer',
-  \     'maxItems': 5,
-  \   },
-  \   'file': {
-  \     'mark': 'F',
-  \     'isVolatile': v:true,
-  \     'forceCompletionPattern': '\S/\S*',
-  \     'maxItems': 5,
-  \   },
-  \   'git-flie': {
-  \     'mark': 'gitF',
-  \     'maxItems': 5,
-  \   },
-  \   'git-commit': {
-  \     'mark': 'gitC',
-  \     'maxItems': 5,
-  \   },
-  \   'git-branch': {
-  \     'mark': 'gitB',
-  \     'maxItems': 5,
-  \   },
-  \   'necovim': {
-  \     'mark': 'necovim',
-  \     'maxItems': 5,
-  \    },
-  \   'tabnine': {
-  \     'mark': 'TN',
-  \     'maxItems': 5,
-  \     'isVolatile': v:true,
-  \   },
-  \   'oldfiles': {
-  \     'mark': 'oldfiles',
-  \     'maxItems': 5,
-  \   },
-  \   'around': {
-  \     'mark': 'around',
-  \     'maxItems': 5,
-  \   },
-  \   'yank': {
-  \     'mark': 'Y',
-  \     'maxItems': 5,
-  \   },
-  \   'shell-history': {'mark': 'shell'}
-  \ })
-
-call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
-	call ddc#custom#patch_filetype(['deol'], 'sources', ['shell-history', 'zsh'])
-
-call ddc#custom#patch_filetype(
-    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
-    \ 'sourceOptions': {
-    \   'file': {
-    \     'forceCompletionPattern': '\S\\\S*',
-    \   },
-    \ },
-    \ 'sourceParams': {
-    \   'file': {
-    \     'mode': 'win32',
-    \   },
-    \ }})
-
-" inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-" inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-d>   <Cmd>call ddc#map#complete()<CR>
-inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
-inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
-
-call pum#set_option('border', 'double')
-
-call ddc#enable()
+" call ddc#custom#patch_global('completionMenu', 'pum.vim')
+"   call ddc#custom#patch_global('autoCompleteEvents',
+"       \ ['InsertEnter', 'TextChangedI', 'TextChangedP'])
+"
+" call ddc#custom#patch_global('sources', ['skkeleton', 'nvim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch', 'yank', 'tabnine'])
+" call ddc#custom#patch_global('sourceOptions', {
+"   \   '_': {
+"   \     'matchers': ['matcher_fuzzy'],
+"   \     'sorters': ['sorter_fuzzy'],
+"   \     'converters': ['converter_fuzzy']
+"   \   },
+"   \   'zsh': {
+"   \     'mark': 'Z',
+"   \     'maxItems': 10,
+"   \   },
+"   \   'nvim-lsp': {
+"   \     'mark': 'lsp',
+"   \     'maxItems': 10,
+"   \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+"   \   },
+"   \   'skkeleton': {
+"   \     'mark': 'skkeleton',
+"   \     'matchers': ['skkeleton'],
+"   \     'maxItems': 10,
+"   \   },
+"   \   'buffer': {
+"   \     'mark': 'buffer',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'file': {
+"   \     'mark': 'F',
+"   \     'isVolatile': v:true,
+"   \     'forceCompletionPattern': '\S/\S*',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'git-flie': {
+"   \     'mark': 'gitF',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'git-commit': {
+"   \     'mark': 'gitC',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'git-branch': {
+"   \     'mark': 'gitB',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'necovim': {
+"   \     'mark': 'necovim',
+"   \     'maxItems': 5,
+"   \    },
+"   \   'tabnine': {
+"   \     'mark': 'TN',
+"   \     'maxItems': 5,
+"   \     'isVolatile': v:true,
+"   \   },
+"   \   'oldfiles': {
+"   \     'mark': 'oldfiles',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'around': {
+"   \     'mark': 'around',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'yank': {
+"   \     'mark': 'Y',
+"   \     'maxItems': 5,
+"   \   },
+"   \   'shell-history': {'mark': 'shell'}
+"   \ })
+"
+" call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
+" 	call ddc#custom#patch_filetype(['deol'], 'sources', ['shell-history', 'zsh'])
+"
+" call ddc#custom#patch_filetype(
+"     \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+"     \ 'sourceOptions': {
+"     \   'file': {
+"     \     'forceCompletionPattern': '\S\\\S*',
+"     \   },
+"     \ },
+"     \ 'sourceParams': {
+"     \   'file': {
+"     \     'mode': 'win32',
+"     \   },
+"     \ }})
+"
+" " inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" " inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+" inoremap <C-d>   <Cmd>call ddc#map#complete()<CR>
+" inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+" inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+" inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+" inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+" inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
+" inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
+"
+" call pum#set_option('border', 'double')
+"
+" call ddc#enable()
 
 " deoppet.nvim
-call deoppet#initialize()
-call deoppet#custom#option('snippets',
-      \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-      \     "{ 'path': v:val }"))
-
-imap <C-k>  <Plug>(deoppet_expand)
-imap <C-f>  <Plug>(deoppet_jump_forward)
-imap <C-b>  <Plug>(deoppet_jump_backward)
-smap <C-f>  <Plug>(deoppet_jump_forward)
-smap <C-b>  <Plug>(deoppet_jump_backward)
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
+" call deoppet#initialize()
+" call deoppet#custom#option('snippets',
+"       \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+"       \     "{ 'path': v:val }"))
+"
+" imap <C-k>  <Plug>(deoppet_expand)
+" imap <C-f>  <Plug>(deoppet_jump_forward)
+" imap <C-b>  <Plug>(deoppet_jump_backward)
+" smap <C-f>  <Plug>(deoppet_jump_forward)
+" smap <C-b>  <Plug>(deoppet_jump_backward)
+"
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
 
 " snippets.nvim
 " lua require'snippets-setting'
@@ -438,3 +451,6 @@ let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
 
 
 lua require('Comment').setup()
+
+
+lua require('cmp-setting')
