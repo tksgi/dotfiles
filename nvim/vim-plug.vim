@@ -174,13 +174,16 @@ function! s:skkeleton_init() abort
         \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
         \ 'globalJisyoEncoding': 'utf-8',
         \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
-        \ 'tabCompletion': v:false,
         \ })
   call skkeleton#register_kanatable('rom', {
         \ "z\<Space>": ["\u3000", ''],
         \ })
 endfunction
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
 
 imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
