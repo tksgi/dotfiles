@@ -1,7 +1,6 @@
 [core]
-	editor = vim
 	excludesFile = ~/.gitignore_global
-	#pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
 [user]
 	name = tksgi
 	email = 23550705+tksgi@users.noreply.github.com
@@ -11,6 +10,7 @@
 	co = checkout
   br = branch
   st = status
+	delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
 [init]
 	tmplatedir = .git_tmp
 [diff]
@@ -29,3 +29,12 @@
 	insteadOf = htps://github.com/
 #[url "https://github.com/"]
 #	insteadOf = git@github.com:
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+  features = side-by-side line-numbers decorations

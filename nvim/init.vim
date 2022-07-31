@@ -1,8 +1,12 @@
+" leaderをスペースに設定
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
+
 " windows設定
 if has("win64")
   let g:python3_host_prog = 'c:\Users\ttets\AppData\Local\Programs\Python\Python37-32'
 endif
-let g:python_host_prog = "~/.pyenv/versions/2.7.16/bin/python2.7"
 " let $TMPDIR = "~/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
@@ -10,11 +14,17 @@ set fenc=utf-8
 " helpを日本語に設定
 set helplang=ja,en
 " バックアップファイルを作らない
-set nobackup
+" set nobackup
 " スワップファイルを作らない
-set noswapfile
+" set noswapfile
 " スワップファイルのディレクトリ設定
-" set directory=~/.vim/tmp
+set directory=~/.nvim/tmp
+" 永続undo
+set undofile
+if !isdirectory(expand("$HOME/.nvim/undodir"))
+  call mkdir(expand("$HOME/.nvim/undodir"), "p")
+endif
+set undodir=$HOME/.nvim/undodir
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -37,6 +47,22 @@ set backspace=indent,eol,start
 set backupskip=/tmp/*,/private/tmp/*
 " :Eでカレントディレクトリを開く
 command -nargs=? E Explore <args>
+
+" leaderをスペースに設定
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
+
+" timeoutを設定
+" set timeout timeoutlen=3000 ttimeoutlen=100
+" augroup FastEscape
+"   autocmd!
+"   au InsertEnter * set timeoutlen=0
+"   au InsertLeave * set timeoutlen=100
+" augroup END
+
+
+
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
@@ -137,8 +163,9 @@ endif
 " augroup END
 
 " 折りたたみ設定
-"let g:vimsyn_folding = 'r'
-"set foldmethod=syntax
+" let g:vimsyn_folding = 'aflPr'
+" set foldmethod=indent
+" autocmd BufRead * normal zR
 
 "コマンドのエイリアス設定
 command Binary %!xxd
@@ -148,56 +175,6 @@ let g:outher_package_path = $HOME . '/tools'
 
 "VIM上のターミナルでもaliasを使えるようにする
 " let $ZSH_ENV='~/.zshrc'
-
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " プラグイン管理
-  let s:toml_dir  = $HOME . '/.config/nvim/plugins'
-  let s:toml = s:toml_dir . '/plugin.toml'
-  let s:lazy_toml = s:toml_dir . '/lazy_plugin.toml'
-
-  call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
- call dein#install()
-endif
-
-"End dein Scripts-------------------------
-
-
-"deoplete設定u
-highlight Pmenu ctermbg=4
-highlight PmenuSel ctermbg=1
-highlight PMenuSbar ctermbg=4
-
-" 補完ウィンドウの設定
-" set completeopt=menuone
 
 
 "括弧の補完
@@ -227,7 +204,7 @@ tnoremap <C-w>l <C-\><C-n><C-w>l
 command CeatSheets :e ~/.config/nvim/how_to_use
 
 " カラースキームを設定
-colorscheme molokai
+" colorscheme molokai
 
 
 " バッファ移動をタブと同じように行なう
@@ -239,11 +216,6 @@ command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/n
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
 cmap <expr> E<SPACE> 'e ' . expand('%:h')
-
-" leaderをスペースに設定
-noremap <Space> <Nop>
-let g:mapleader = "\<Space>"
-let g:maplocalleader = "\\"
 
 
 " ずれ確認用
@@ -264,4 +236,39 @@ command! -bar -bang -nargs=? -complete=file Scouter
 \        echo Scouter(empty(<q-args>) ? $MYVIMRC : expand(<q-args>), <bang>0)
 command! -bar -bang -nargs=? -complete=file GScouter
 \        echo Scouter(empty(<q-args>) ? $MYGVIMRC : expand(<q-args>), <bang>0)
+
+
+
+source ~/dotfiles/nvim/vim-plug.vim
+
+
+" 背景透過
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
+
+" Focus floating window with <C-w><C-w> {{{
+if has('nvim')
+  function! s:focus_floating() abort
+    if !empty(nvim_win_get_config(win_getid()).relative)
+      wincmd p
+      return
+    endif
+    for winnr in range(1, winnr('$'))
+      let winid = win_getid(winnr)
+      let conf = nvim_win_get_config(winid)
+      if conf.focusable && !empty(conf.relative)
+        call win_gotoid(winid)
+        return
+      endif
+    endfor
+  endfunction
+  nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
+endif
+
+" nvim 0.6.0でmatchitがプリインストールされており、nomalモードでのYコマンドが意図しない挙動になっていたことの対応
+nunmap Y
+
 

@@ -5,9 +5,9 @@ function! hook#source#deoplete#load() abort
   " Use deoplete.
   let g:deoplete#enable_at_startup = 1
   " Use smartcase.
-  let g:deoplete#enable_smart_case = 1
+  " let g:deoplete#enable_smart_case = 1
   " Set minimum syntax keyword length.
-  let g:deoplete#sources#syntax#min_keyword_length = 3
+  " let g:deoplete#sources#syntax#min_keyword_length = 3
 
   " Define dictionary.
   let g:deoplete#sources#dictionary#dictionaries = {
@@ -17,10 +17,10 @@ function! hook#source#deoplete#load() abort
         \ }
 
   " Define keyword.
-  if !exists('g:deoplete#keyword_patterns')
-    let g:deoplete#keyword_patterns = {}
-  endif
-  let g:deoplete#keyword_patterns['default'] = '\h\w*'
+  " if !exists('g:deoplete#keyword_patterns')
+  "   let g:deoplete#keyword_patterns = {}
+  " endif
+  " let g:deoplete#keyword_patterns['default'] = '\h\w*'
 
   " Plugin key-mappings.
   inoremap <expr><C-g>     deoplete#undo_completion()
@@ -60,15 +60,19 @@ function! hook#source#deoplete#load() abort
   endif
   let g:deoplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 
-  if !exists('g:deoplete#keyword_patterns')
-    let g:deoplete#keyword_patterns = {}
-  endif
-  let g:deoplete#keyword_patterns['default'] = '\h\w*'
-
-  let g:deoplete#force_omni_input_patterns.c =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-  let g:deoplete#force_omni_input_patterns.cpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+  " if !exists('g:deoplete#keyword_patterns')
+  "   let g:deoplete#keyword_patterns = {}
+  " endif
+  " let g:deoplete#keyword_patterns['default'] = '\h\w*'
+  "
+  " let g:deoplete#force_omni_input_patterns.c =
+  "       \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  " let g:deoplete#force_omni_input_patterns.cpp =
+  "       \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
   " call deoplete#custom#option('auto_refresh_delay': 200)
+    call deoplete#custom#option({
+    \ 'auto_complete_delay': 200,
+    \ 'smart_case': v:true,
+    \ })
 endfunction

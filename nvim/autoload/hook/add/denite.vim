@@ -1,18 +1,6 @@
 function! hook#add#denite#load() abort
-  nnoremap [denite] <Nop>
-  nmap <C-s> [denite]
-
-  "現在開いているファイルのディレクトリ下のファイル一覧。
-  nnoremap <silent> [denite]f :<C-u>DeniteBufferDir
-        \ -direction=topleft -cursor-wrap=true file file:new<CR>
-  "バッファ一覧
-  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
-  "レジスタ一覧
-  nnoremap <silent> [denite]r :<C-u>Denite -buffer-name=register register<CR>
-  "最近使用したファイル一覧
-  nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
-  "gtags
-  nmap <silent> [denite]<C-D> :Denite -buffer-name=gtags_completion gtags_completion<cr>
+  " nnoremap [denite] <Nop>
+  " nmap <C-s> [denite]
 
   " "ブックマーク関連
   " nnoremap [denite-dirmark] <Nop>
@@ -22,15 +10,20 @@ function! hook#add#denite#load() abort
   " "ブックマークに追加
   " nnoremap <silent> [denite-dirmark]a :<C-u>Denite dirmark/add<CR>
 
-  ".git以下のディレクトリ検索
-  nnoremap <silent> [denite]k :<C-u>Denite -direction=topleft -cursor-wrap=true
-        \ -path=`substitute(finddir('.git', './;'), '.git', '', 'g')`
-        \ file_rec/git<CR>
+  nnoremap <leader>df <cmd>Denite file/rec<CR>
+  nnoremap <leader>db <cmd>Denite buffer<cr>
+  nnoremap <leader>dm <cmd>Denite file_mru<cr>
+  nnoremap <leader>dgr <cmd>Denite grep<cr>
+  nnoremap <leader>dh <cmd>Denite help<cr>
+  nnoremap <leader>dr <cmd>Denite -resume<cr>
 
-  call denite#custom#source('file'    , 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
+  nnoremap <leader>dgl <cmd>Denite gitlog:all<cr>
+  nnoremap <leader>dgs <cmd>Denite gitstatus<cr>
+  nnoremap <leader>dgb <cmd>Denite gitbranch<cr>
 
-  call denite#custom#source('buffer'  , 'matchers', ['matcher_regexp'])
-  call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
+  call denite#custom#source('file'    , 'matchers', ['matcher_fuzzy'])
+  call denite#custom#source('buffer'  , 'matchers', ['matcher_fuzzy'])
+  call denite#custom#source('file_mru', 'matchers', ['matcher_fuzzy'])
 
   " call denite#custom#alias('source', 'file_rec/git', 'file_rec')
   if executable('ag')
@@ -63,6 +56,10 @@ function! hook#add#denite#load() abort
     nnoremap <silent><buffer><expr> q denite#do_map('quit')
     nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+
+    " for git
+    nnoremap <silent><buffer><expr> a denite#do_map('do_action', 'add')
+    nnoremap <silent><buffer><expr> r denite#do_map('do_action', 'reset')
   endfunction
 
 
@@ -73,4 +70,13 @@ function! hook#add#denite#load() abort
       \ 'split': 'horizontal',
       \ 'winheight': 10,
       \ })
+
+  " grepする
+  command! Dgrep execute(":Denite grep -buffer-name=grep-buffer-denite")
+  " Denite grep結果を再表示する
+  command! Dresume execute(":Denite -resume -buffer-name=grep-buffer-denite")
+  " resumeしたgrep結果の次の行の結果へ飛ぶ
+  command! Dnext execute(":Denite -resume -buffer-name=grep-buffer-denite -select=+1 -immediately")
+  " resumeしたgrep結果の前の行の結果へ飛ぶ
+  command! Dprev execute(":Denite -resume -buffer-name=grep-buffer-denite -select=-1 -immediately")
 endfunction

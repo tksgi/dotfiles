@@ -1,3 +1,11 @@
+" ずれ確認用
+" 0123456789012345678901234567890123456789
+" ｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵ
+" あいうえおあいうえおあいうえおあいうえお
+"
+"
+let g:python3_host_prog = '/Users/tetsu/.pyenv/shims'
+let g:python_host_prog = '/Users/tetsu/.pyenv/shims'
 " let $TMPDIR = "/Users/tetsu/.vim-tmp"
 " setting
 "文字コードをUFT-8に設定
@@ -8,9 +16,11 @@ set fenc=utf-8
 " set noswapfile
 " スワップファイルのディレクトリ設定
 set directory=~/.vim/tmp
-if !isdirectory('~/.vim/tmp')
-  !mkdir -p ~/.vim/tmp
-endif
+" if !isdirectory('~/.vim/tmp')
+"   !mkdir -p ~/.vim/tmp
+" endif
+" tmp ディレクトリではバックアップを行わない
+set backupskip=/tmp/*,/private/tmp/*,~/.vim/tmp/*
 
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
@@ -27,10 +37,13 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
   autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
-" tmp ディレクトリではバックアップを行わない
-set backupskip=/tmp/*,/private/tmp/*
 " :Eでカレントディレクトリを開く
 command -nargs=? E Explore <args>
+"
+" leaderをスペースに設定
+noremap <Space> <Nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
 
 " 見た目系
 " 行末の1文字先までカーソルを移動できるように
@@ -55,7 +68,7 @@ set showmatch
 set matchtime=1
 "コードの色分け
 syntax on
-"set number
+set number
 "set statusline=%F%{fugitive#statusline()}
 set statusline+=%=
 set statusline+=%l-%v/%L
@@ -71,6 +84,8 @@ set diffopt+=vertical
 set scrolloff=3
 " カーソル行を常にハイライト
 set cursorline
+" カラースキーム
+colorscheme desert
 
 " Tab系
 " 不可視文字を可視化(タブが「▸-」と表示される)
@@ -122,51 +137,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 
 " プラギン
-" if !filereadable('~/.vim/autoload/plug.vim')
-"   !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" endif
-call plug#begin('~/.vim/plugged')
-
-" vim8.2 game
-Plug 'vim/killersheep'
-
-" 日本語入力
-Plug 'tyru/eskk.vim'
-
-" markdown
-Plug 'gabrielelana/vim-markdown'
-Plug 'shime/vim-livedown'
-
-" help日本語化
-Plug 'vim-jp/vimdoc-ja'
-
-" 横揃え
-Plug 'godlygeek/tabular'
-
-" その場で実行
-Plug 'thinca/vim-quickrun'
-
-Plug 'scrooloose/nerdtree'
-
-call plug#end()
-
-" eskk設定
-let g:eskk#server = {
-  \   'host': 'localhost',
-  \   'port': 55100,
-  \}
-let g:eskk#dictionary = { 'path': "~/.skk/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-let g:eskk#large_dictionary = { 'path': "~/.skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
-let g:eskk#show_candidates_count = 1
-
-" vim-markdown設定
-let g:markdown_enable_spell_checking = 0
-
-" NERDTree設定
-let NERDTreeShowHidden=1
-
-
-
+source ~/dotfiles/vim/plugin.vim
 
 " バッファ移動をタブと同じように行なう
 nnoremap <silent> gb :b#<CR>
@@ -175,17 +146,13 @@ nnoremap <silent> gb :b#<CR>
 cmap <expr> D<TAB> expand('%:h')
 cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
-" leaderをスペースに設定
-noremap <Space> <Nop>
-let g:mapleader = "\<Space>"
-let g:maplocalleader = "\\"
+" terminal buffer内で <C-W>[ でノーマルモードに移行(tmux like)
+tnoremap <C-w>[ <C-\><C-n>
+tnoremap <C-w><C-[> <C-\><C-n>
 
-" ずれ確認用
-" 0123456789012345678901234567890123456789
-" ｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵ
-" あいうえおあいうえおあいうえおあいうえお
-"
-"
+" terminalをcurrent windowで開く
+command! Ter terminal ++curwin
+
 function! Scouter(file, ...)
   let pat = '^\s*$\|^\s*"'
   let lines = readfile(a:file)
