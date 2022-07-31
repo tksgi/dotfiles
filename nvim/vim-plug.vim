@@ -1,5 +1,10 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'vim-jp/vimdoc-ja'
+
+Plug 'antoinemadec/FixCursorHold.nvim'
+
+
+" Filer
 Plug 'lambdalisue/fern.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -10,21 +15,23 @@ Plug 'lambdalisue/fern-mapping-git.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-bookmark.vim'
 Plug 'lambdalisue/fern-mapping-quickfix.vim'
+Plug 'yuki-yano/fern-preview.vim'
 
 Plug 'lambdalisue/gina.vim'
 
 Plug 'thinca/vim-quickrun'
-Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
-" Plug 'jacoborus/tender.vim' " colorscheme
 Plug 'simeji/winresizer'
+Plug 'tpope/vim-rhubarb' " Gbrowse
+" Plug 'tyru/eskk.vim'
 Plug 'tyru/open-browser.vim'
 " Plug 'Shougo/context_filetype.vim' " TreeSitterがあるので
-Plug 'godlygeek/tabular', { 'for': 'markdown' }
-Plug 'tomtom/tcomment_vim'
+Plug 'godlygeek/tabular'
+Plug 'numToStr/Comment.nvim'
 Plug 'mbbill/undotree'
 Plug 'easymotion/vim-easymotion'
 Plug 'sainnhe/sonokai' " colorscheme
+Plug 'cohama/lexima.vim'
 
 " 日付等のインクリメント
 Plug 'monaqa/dial.nvim'
@@ -47,52 +54,27 @@ Plug 'tpope/vim-rails', { 'for': 'ruby' }
 " statusline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'hoob3rt/lualine.nvim'
 
 " fuzzy finder
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-" Plug 'pwntester/octo.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
-" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/neomru.vim'
-" Plug 'chemzqm/denite-git'
-" Plug 'delphinus/vim-denite-memo'
 
-Plug 'Shougo/ddu.vim'
-Plug 'Shougo/ddu-commands.vim'
-Plug 'Shougo/ddu-ui-ff'
-Plug 'Shougo/ddu-kind-file'
-Plug 'Shougo/ddu-kind-word'
-Plug 'Shougo/ddu-filter-matcher_substring'
-Plug 'Shougo/ddu-source-rg'
-Plug 'Shougo/ddu-source-buffer'
-Plug 'Shougo/ddu-source-file_old'
-Plug 'Shougo/ddu-source-file_rec'
-Plug 'Shougo/ddu-source-file'
-Plug 'Shougo/ddu-source-line'
-Plug 'Shougo/ddu-source-register'
-Plug 'Shougo/ddu-source-action'
-Plug 'gamoutatsumi/ddu-source-nvim-lsp'
-Plug '4513ECHO/vim-readme-viewer', { 'on': 'PlugReadme' }
-Plug 'junegunn/vim-plug'
-Plug '4513ECHO/ddu-source-source'
-Plug '4513ECHO/ddu-source-ghq'
-Plug 'kmnk/denite-dirmark'
-Plug 'Bakudankun/ddu-source-dirmark'
-
-" builtin-lsp
+" lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
-" nvim-lspのprogress indicator
-Plug 'j-hui/fidget.nvim'
-Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim6.0' }
+Plug 'williamboman/mason.nvim' " auto-installer for lsp
+"Plug 'nvim-lua/lsp_extensions.nvim' " 閉括弧のhint
+Plug 'stevearc/aerial.nvim' " symbol
+Plug 'akinsho/flutter-tools.nvim'
 
-" vim-lsp
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+
+" for rust
+Plug 'simrat39/rust-tools.nvim' " need rust-analyzer. execute `rustup component add rust-src`
+
+" Plug 'mfussenegger/nvim-dap'
 
 " symbol viewer
 Plug 'liuchengxu/vista.vim'
@@ -102,30 +84,39 @@ Plug 'liuchengxu/vista.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 
-" completion with ddc
-Plug 'Shougo/ddc.vim'
-" Plug 'Shougo/pum.vim'
-Plug 'Shougo/neco-vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
-Plug 'Shougo/ddc-nvim-lsp'
-Plug 'Shougo/ddc-zsh'
-Plug 'Shougo/ddc-omni'
-Plug 'Shougo/ddc-line'
+
+" completion with ddc
+" Plug 'Shougo/ddc.vim'
+" Plug 'Shougo/pum.vim'
+" Plug 'Shougo/neco-vim'
+" Plug 'Shougo/ddc-nvim-lsp'
+" Plug 'Shougo/ddc-zsh'
+" Plug 'Shougo/ddc-omni'
 " Plug 'Shougo/ddc-cmdline-history'
 " Plug 'tani/ddc-git'
 " Plug 'tani/ddc-oldfiles'
-Plug 'tani/ddc-fuzzy'
-Plug 'ippachi/ddc-yank'
-Plug 'matsui54/ddc-buffer'
-Plug 'matsui54/denops-popup-preview.vim'
-Plug 'LumaKernel/ddc-tabnine'
-Plug 'LumaKernel/ddc-file'
-" snippet
-" Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/neosnippet-snippets'
-" Plug 'honza/vim-snippets'
+" Plug 'tani/ddc-fuzzy'
+" Plug 'ippachi/ddc-yank'
+" Plug 'matsui54/ddc-buffer'
+" Plug 'LumaKernel/ddc-tabnine'
+" Plug 'LumaKernel/ddc-file'
+" Plug 'delphinus/ddc-treesitter'
+
+" completion with cmp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
+Plug 'petertriho/cmp-git'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'rinx/cmp-skkeleton'
+Plug 'ray-x/cmp-treesitter'
+Plug 'hrsh7th/nvim-cmp'
+
 
 Plug 'Shougo/deol.nvim'
 
@@ -133,7 +124,7 @@ Plug 'Shougo/deol.nvim'
 Plug 'lambdalisue/edita.vim'
 
 " nvim-lua-api completion
-Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/nlua.nvim' " need to run duwnload_sumneko.lua script
 
 " Plug 'notomo/helpeek.vim'
 
@@ -144,9 +135,10 @@ Plug 'Bakudankun/BackAndForward.vim'
 Plug 'romgrk/barbar.nvim'
 
 
-
 " プロジェクト固有設定
 Plug 'windwp/nvim-projectconfig'
+
+" Plug 'rmagatti/auto-session', { 'do': 'mkdir -p ~/.cache/nvim/auto-session'}
 
 call plug#end()
 
@@ -172,29 +164,55 @@ function! s:fern_init() abort
         \ )
 endfunction
 
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
+
 " quickrun
 call hook#add#quickrun#load()
 
 " vim_airline
 call hook#add#vim_airline#load()
 
+" eskk
+" let g:eskk#server = {
+"   \   'host': 'localhost',
+"   \   'port': 55100,
+"   \}
+" let g:eskk#dictionary = { 'path': "~/skk_dictionary/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+" let g:eskk#large_dictionary = { 'path': "~/skk_dictionary/SKK-JISYO.L", 'sorted': 1, 'encoding': 'utf-8', }
+" let g:eskk#show_candidates_count = 1
+" " silent! imap <unique> <C-j>   <cmd>call eskk#enable()<CR>
+" autocmd VimEnter * imap <C-j> <Plug>(eskk:enable)
+" autocmd VimEnter * cmap <C-j> <Plug>(eskk:enable)
+
 " skkeleton
 function! s:skkeleton_init() abort
   call skkeleton#config({
-        \ 'eggLikeNewline': v:true,
-        \ 'globalJisyo': "~/.skk/SKK-JISYO.L",
+        \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
         \ 'globalJisyoEncoding': 'utf-8',
-        \ 'userJisyo': "~/.skk/.skk-jisyo",
+        \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
         \ })
   call skkeleton#register_kanatable('rom', {
         \ "z\<Space>": ["\u3000", ''],
         \ })
 endfunction
-autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
 
 imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
-
 
 " open-browser 
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -219,6 +237,9 @@ vmap <C-a> <Plug>(dial-increment)
 vmap <C-x> <Plug>(dial-decrement)
 vmap g<C-a> <Plug>(dial-increment-additional)
 vmap g<C-x> <Plug>(dial-decrement-additional)
+
+" telescope
+lua require'telescope-setting'
 
 " denite
 " call hook#add#denite#load()
@@ -277,92 +298,92 @@ colorscheme sonokai
 
 " ddc.vim
 " call ddc#custom#patch_global('completionMenu', 'pum.vim')
-  call ddc#custom#patch_global('autoCompleteEvents',
-      \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
-
-call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'file', 'line', 'tabnine', 'nvim-lsp'])
-" call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
-" call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
-call ddc#custom#patch_global('sourceOptions', {
-  \   '_': {
-  \     'matchers': ['matcher_fuzzy'],
-  \     'sorters': ['sorter_fuzzy'],
-  \     'converters': ['converter_fuzzy']
-  \   },
-  \   'zsh': {
-  \     'mark': 'Z',
-  \     'maxCandidates': 10,
-  \   },
-  \   'nvim-lsp': {
-  \     'mark': 'lsp',
-  \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-  \     'maxSize': 10,
-  \   },
-  \   'skkeleton': {
-  \     'mark': 'skkeleton',
-  \     'matchers': ['skkeleton'],
-  \     'maxCandidates': 10,
-  \   },
-  \   'buffer': {
-  \     'mark': 'buffer',
-  \     'maxCandidates': 5,
-  \   },
-  \   'file': {
-  \     'mark': 'F',
-  \     'isVolatile': v:true,
-  \     'forceCompletionPattern': '\S/\S*',
-  \     'maxCandidates': 5,
-  \   },
-  \   'git-flie': {
-  \     'mark': 'gitF',
-  \     'maxCandidates': 5,
-  \   },
-  \   'git-commit': {
-  \     'mark': 'gitF',
-  \     'maxCandidates': 5,
-  \   },
-  \   'git-branch': {
-  \     'mark': 'gitF',
-  \     'maxCandidates': 5,
-  \   },
-  \   'necovim': {
-  \     'mark': 'necovim',
-  \     'maxCandidates': 5,
-  \    },
-  \   'tabnine': {
-  \     'mark': 'TN',
-  \     'maxCandidates': 5,
-  \     'isVolatile': v:true,
-  \   },
-  \   'oldfiles': {
-  \     'mark': 'oldfiles',
-  \     'maxCandidates': 5,
-  \   },
-  \   'around': {
-  \     'mark': 'around',
-  \     'maxCandidates': 5,
-  \   },
-  \   'line': {
-  \     'mark': 'line',
-  \     'maxCandidates': 5,
-  \   },
-  \ })
-
-call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
-
-call ddc#custom#patch_filetype(
-    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
-    \ 'sourceOptions': {
-    \   'file': {
-    \     'forceCompletionPattern': '\S\\\S*',
-    \   },
-    \ },
-    \ 'sourceParams': {
-    \   'file': {
-    \     'mode': 'win32',
-    \   },
-    \ }})
-
+"   call ddc#custom#patch_global('autoCompleteEvents',
+"       \ ['InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged'])
+"
+" call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'file', 'line', 'tabnine', 'nvim-lsp'])
+" " call ddc#custom#patch_global('sources', ['skkeleton', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
+" " call ddc#custom#patch_global('sources', ['skkeleton', 'vim-lsp', 'buffer', 'git-file', 'file', 'git-commit', 'git-branch'])
+" call ddc#custom#patch_global('sourceOptions', {
+"   \   '_': {
+"   \     'matchers': ['matcher_fuzzy'],
+"   \     'sorters': ['sorter_fuzzy'],
+"   \     'converters': ['converter_fuzzy']
+"   \   },
+"   \   'zsh': {
+"   \     'mark': 'Z',
+"   \     'maxCandidates': 10,
+"   \   },
+"   \   'nvim-lsp': {
+"   \     'mark': 'lsp',
+"   \     'forceCompletionPattern': '\.\w*|:\w*|->\w*',
+"   \     'maxSize': 10,
+"   \   },
+"   \   'skkeleton': {
+"   \     'mark': 'skkeleton',
+"   \     'matchers': ['skkeleton'],
+"   \     'maxCandidates': 10,
+"   \   },
+"   \   'buffer': {
+"   \     'mark': 'buffer',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'file': {
+"   \     'mark': 'F',
+"   \     'isVolatile': v:true,
+"   \     'forceCompletionPattern': '\S/\S*',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'git-flie': {
+"   \     'mark': 'gitF',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'git-commit': {
+"   \     'mark': 'gitF',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'git-branch': {
+"   \     'mark': 'gitF',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'necovim': {
+"   \     'mark': 'necovim',
+"   \     'maxCandidates': 5,
+"   \    },
+"   \   'tabnine': {
+"   \     'mark': 'TN',
+"   \     'maxCandidates': 5,
+"   \     'isVolatile': v:true,
+"   \   },
+"   \   'oldfiles': {
+"   \     'mark': 'oldfiles',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'around': {
+"   \     'mark': 'around',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \   'line': {
+"   \     'mark': 'line',
+"   \     'maxCandidates': 5,
+"   \   },
+"   \ })
+"
+" call ddc#custom#patch_filetype(['zsh'], 'sources', ['zsh'])
+"
+" call ddc#custom#patch_filetype(
+"     \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+"     \ 'sourceOptions': {
+"     \   'file': {
+"     \     'forceCompletionPattern': '\S\\\S*',
+"     \   },
+"     \ },
+"     \ 'sourceParams': {
+"     \   'file': {
+"     \     'mode': 'win32',
+"     \   },
+"     \ }})
+"
 " cnoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
 " cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 " cnoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
@@ -397,8 +418,15 @@ call ddc#custom#patch_filetype(
 "   call ddc#custom#set_buffer(s:prev_buffer_config)
 " endfunction
 "
-call ddc#enable()
-call popup_preview#enable()
+" call ddc#enable()
+" call popup_preview#enable()
+
+
+" nvim-treesitter
+lua require'treesitter'
+" 折り畳み設定
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
 
 " deoppet.nvim
 " call deoppet#initialize()
@@ -415,6 +443,11 @@ call popup_preview#enable()
 " let g:neosnippet#enable_snipmate_compatibility = 1
 " let g:neosnippet#snippets_directory='~/.local/share/nvim/plugged/vim-snippets/snippets'
 
+" snippets.nvim
+" lua require'snippets-setting'
+
+
+
 " BackAndForward
 nnoremap <C-h> :<C-u>Back<CR>
 nnoremap <C-l> :<C-u>Forward<CR>
@@ -424,7 +457,8 @@ nnoremap <C-l> :<C-u>Forward<CR>
 " lua require'lualine_setting'
 
 " deol
-nnoremap <leader>de :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
+nnoremap <leader>bt :<C-u>Deol -split=floating -winheight=70 -winwidth=150<CR>
+g:deol#enable_ddc_completion = v:true
 
 " auto-session
 if !isdirectory(expand("$HOME/.cache/.nvim/auto-session"))
@@ -433,102 +467,100 @@ endif
 let g:auto_session_root_dir = expand("$HOME/.cache/nvim/auto-session")
 
 
-" Telescope
-" lua require('telescope').setup()
-" lua require('telescope').load_extension('fzf')
-" lua require('octo').setup()
-" nnoremap <leader>tb :<C-u>Telescope buffers<CR>
-" nnoremap <leader>to :<C-u>Telescope oldfiles<CR>
 
 " DDU
-call ddu#custom#patch_global({
-    \ 'ui': 'ff',
-    \ 'uiParams': {
-    \   'ff' : {
-    \     'prompt': '>',
-    \     'split': 'floating',
-    \ }
-    \ }
-    \ })
-call ddu#custom#patch_global({
-      \ 'kindOptions': {
-      \   'readme_viewer': {
-      \     'defaultAction': 'open',
-      \ }}})
-let g:readme_viewer#plugin_manager = 'vim-plug'
-
-call ddu#custom#patch_global({
-    \   'kindOptions': {
-    \     'file': {
-    \       'defaultAction': 'open',
-    \     },
-    \     'action': {
-    \       'defaultAction': 'do',
-    \     },
-    \   }
-    \ })
-call ddu#custom#patch_global({
-    \   'sourceOptions': {
-    \     '_': {
-    \       'matchers': ['matcher_substring'],
-    \     },
-    \   }
-    \ })
-call ddu#custom#patch_global({
-    \   'sourceParams' : {
-    \     'rg' : {
-    \       'args': ['--column', '--no-heading', '--color', 'never'],
-    \     },
-    \   },
-    \ })
-call ddu#custom#patch_global({
-    \   'sourceOptions': {
-    \     'register': {
-      \       'defaultAction': ['append'],
-    \     },
-    \   }
-    \ })
-
-command! DduFzReadme call fzf#run(fzf#wrap(#{
-          \ source: values(map(copy(g:plugs), {k,v-> k.' '.get(split(globpath(get(v,'dir',''), '\creadme.*'), '\n'), 0, '')})),
-          \ options: ['--with-nth=1', '--preview', 'bat --color=always --plain {2}'],
-          \ sink: funcref('s:PlugReadmeFzf')}))
-function s:PlugReadmeFzf(name_and_path) abort
-  execute 'PlugReadme' substitute(a:name_and_path, ' .*', '', '')
-endfunction
-
-autocmd FileType ddu-ff call s:ddu_ff_my_settings()
-function! s:ddu_ff_my_settings() abort
-  nnoremap <buffer> <CR>
-        \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
-  nnoremap <buffer> <Space>
-        \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer> i
-        \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
-  nnoremap <buffer> p
-        \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
-  nnoremap <buffer> q
-        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
-  nnoremap <buffer> E
-        \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
-        " \ <Cmd>call ddu#ui#ff#do_action('itemAction',
-        " \ {'params': eval(input('params: '))})<CR>
-endfunction
-
-autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
-function! s:ddu_filter_my_settings() abort
-  inoremap <buffer> <CR>
-        \ <Esc><Cmd>close<CR>
-  nnoremap <buffer> <CR>
-        \ <Cmd>close<CR>
-  nnoremap <buffer> <Esc>
-        \ <Cmd>close<CR>
-  nnoremap <buffer> q
-        \ <Cmd>close<CR>
-endfunction
+" call ddu#custom#patch_global({
+"     \ 'ui': 'ff',
+"     \ 'uiParams': {
+"     \   'ff' : {
+"     \     'prompt': '>',
+"     \     'split': 'floating',
+"     \ }
+"     \ }
+"     \ })
+" call ddu#custom#patch_global({
+"       \ 'kindOptions': {
+"       \   'readme_viewer': {
+"       \     'defaultAction': 'open',
+"       \ }}})
+" let g:readme_viewer#plugin_manager = 'vim-plug'
+"
+" call ddu#custom#patch_global({
+"     \   'kindOptions': {
+"     \     'file': {
+"     \       'defaultAction': 'open',
+"     \     },
+"     \     'action': {
+"     \       'defaultAction': 'do',
+"     \     },
+"     \   }
+"     \ })
+" call ddu#custom#patch_global({
+"     \   'sourceOptions': {
+"     \     '_': {
+"     \       'matchers': ['matcher_substring'],
+"     \     },
+"     \   }
+"     \ })
+" call ddu#custom#patch_global({
+"     \   'sourceParams' : {
+"     \     'rg' : {
+"     \       'args': ['--column', '--no-heading', '--color', 'never'],
+"     \     },
+"     \   },
+"     \ })
+" call ddu#custom#patch_global({
+"     \   'sourceOptions': {
+"     \     'register': {
+"       \       'defaultAction': ['append'],
+"     \     },
+"     \   }
+"     \ })
+"
+" command! DduFzReadme call fzf#run(fzf#wrap(#{
+"           \ source: values(map(copy(g:plugs), {k,v-> k.' '.get(split(globpath(get(v,'dir',''), '\creadme.*'), '\n'), 0, '')})),
+"           \ options: ['--with-nth=1', '--preview', 'bat --color=always --plain {2}'],
+"           \ sink: funcref('s:PlugReadmeFzf')}))
+" function s:PlugReadmeFzf(name_and_path) abort
+"   execute 'PlugReadme' substitute(a:name_and_path, ' .*', '', '')
+" endfunction
+"
+" autocmd FileType ddu-ff call s:ddu_ff_my_settings()
+" function! s:ddu_ff_my_settings() abort
+"   nnoremap <buffer> <CR>
+"         \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+"   nnoremap <buffer> <Space>
+"         \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+"   nnoremap <buffer> i
+"         \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+"   nnoremap <buffer> p
+"         \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+"   nnoremap <buffer> q
+"         \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+"   nnoremap <buffer> E
+"         \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+"         " \ <Cmd>call ddu#ui#ff#do_action('itemAction',
+"         " \ {'params': eval(input('params: '))})<CR>
+" endfunction
+"
+" autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
+" function! s:ddu_filter_my_settings() abort
+"   inoremap <buffer> <CR>
+"         \ <Esc><Cmd>close<CR>
+"   nnoremap <buffer> <CR>
+"         \ <Cmd>close<CR>
+"   nnoremap <buffer> <Esc>
+"         \ <Cmd>close<CR>
+"   nnoremap <buffer> q
+"         \ <Cmd>close<CR>
+" endfunction
 
 " command! DduBuffer call ddu#start({'sources': [{'name': 'buffer'}]})
 
 " projectconfig
 lua require('nvim-projectconfig').setup({ autocmd=true, project_dir = "~/.config/projects-config/" })
 
+lua require('Comment').setup()
+
+
+lua require('cmp-setting')

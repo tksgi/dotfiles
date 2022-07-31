@@ -71,28 +71,19 @@ set virtualedit=onemore
 set smartindent
 " ビープ音を可視化
 set visualbell
-" 括弧入力時の対応する括弧を表示
-set showmatch
 " ステータスラインを常に表示
 set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
+" set wildmode=longest:full
 "カーソルの回り込みができるようになる
 set whichwrap=b,s,[,],<,>
 "括弧入力時の対応する括弧を表示
 set showmatch
 set matchtime=1
-"コードの色分け
-syntax on
+"コードの色分けはtreesitterに
+syntax off
 set number
-"vimdiffの見た目
-hi DiffAdd    ctermfg=black ctermbg=2
-hi DiffChange ctermfg=black ctermbg=3
-hi DiffDelete ctermfg=black ctermbg=6
-hi DiffText   ctermfg=black ctermbg=7
-set diffopt=filler,context:10000
-"Gdiffを縦分割にする
-set diffopt+=vertical
 " カーソルの上下3行は常に表示
 set scrolloff=3
 " カーソル行を常にハイライト
@@ -127,7 +118,7 @@ endif
 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set ignorecase
 " 検索文字列に大文字が含まれている場合は区別して検索する
-" set smartcase
+set smartcase
 " 検索文字列入力時に順次対象文字列にヒットさせる
 set incsearch
 " 検索時に最後まで行ったら最初に戻る
@@ -138,29 +129,8 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " 置換時候補をインタラクティブに表示
 set inccommand=split
-"vimからファイルを開くときにリストを表示する
-set wildmenu wildmode=list:full
 " vimgrepでquickfixを開く
 autocmd QuickFixCmdPost *grep* cwindow
-" grepでgit管理下のファイルのみ検索する
-" set grepprg=git\ grep\ -I\ --line-number
-if executable('rg')
-  set grepprg=rg\ -i\ --vimgrep\ --no-heading
-endif
-" function! s:gitgrep(query)
-"   let l:current_grep = &grepreg " 前回の設定値の保存
-"   setlocal grepprg=git\ grep\ -I\ --line-number
-"   execute 'silent grep! ' . a:query
-"   let &grepprg = l:current_grep
-"   redraw!
-" endfunction
-"
-" command! -nargs=? Ggrep call s:gitgrep(<f-args>)
-"
-" augroup Vimrc
-"   autocmd!
-"   autocmd QuickFixCmdPost make,*grep* cwindow
-" augroup END
 
 " 折りたたみ設定
 " let g:vimsyn_folding = 'aflPr'
@@ -169,12 +139,6 @@ endif
 
 "コマンドのエイリアス設定
 command Binary %!xxd
-
-"LSP等の外部ツール置き場
-let g:outher_package_path = $HOME . '/tools'
-
-"VIM上のターミナルでもaliasを使えるようにする
-" let $ZSH_ENV='~/.zshrc'
 
 
 "括弧の補完
@@ -186,36 +150,26 @@ let g:outher_package_path = $HOME . '/tools'
 " inoremap <% <%%><LEFT>
 
 "htmlの閉じタグ補完
- augroup MyXML
-   autocmd!
-   autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
-   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
- augroup END
+ " augroup MyXML
+ "   autocmd!
+ "   autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+ "   autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+ " augroup END
 
 
-" ターミナル時<C-[>でノーマルモードに戻る
+" ターミナル時<C-w>でノーマルモードに戻る
 tnoremap <C-w><C-w> <C-\><C-n>
 tnoremap <C-w>h <C-\><C-n><C-w>h
 tnoremap <C-w>k <C-\><C-n><C-w>k
 tnoremap <C-w>j <C-\><C-n><C-w>j
 tnoremap <C-w>l <C-\><C-n><C-w>l
 
-" 自作のチートシートディレクトリを指定
-command CeatSheets :e ~/.config/nvim/how_to_use
-
-" カラースキームを設定
-" colorscheme molokai
-
 
 " バッファ移動をタブと同じように行なう
 nnoremap <silent> gb :b#<CR>
 
-" markdownプレビュー
-command! MarkdownPreview :silent call system('shiba ' . expand('%') . ' &>/dev/null 2>&1 &') | redraw!
-
 " D<TAB>でカレントディレクトリのパスを展開
 cmap <expr> D<TAB> expand('%:h')
-cmap <expr> E<SPACE> 'e ' . expand('%:h')
 
 
 " ずれ確認用
@@ -239,6 +193,7 @@ command! -bar -bang -nargs=? -complete=file GScouter
 
 
 
+" load plugin
 source ~/dotfiles/nvim/vim-plug.vim
 
 

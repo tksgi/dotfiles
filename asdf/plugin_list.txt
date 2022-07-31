@@ -10,5 +10,6 @@ ripgrep latest
 ruby latest
 # flutter latest
 exa latest
-bat latest
+fzf latest
+tmux latest
 deno latest

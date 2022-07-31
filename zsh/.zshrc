@@ -15,13 +15,9 @@ source ~/dotfiles/zsh/alias.zsh
 
 zsh ~/dotfiles/aarandom.zsh
 
-# manをnvimで開く
-export MANPAGER="nvim -c 'set ft=man' -"
-
-# 環境変数
-### .zshenvに書くべし ###
-
-# source ~/dotfiles/zsh/zinit.sh
+# asdf
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
 
 ###################################
 #              注意！             #

@@ -1,5 +1,5 @@
 local lualine = require('lualine')
-lualine.status()
+lualine.setup()
 
 lualine.theme = 'gruvbox'
 
