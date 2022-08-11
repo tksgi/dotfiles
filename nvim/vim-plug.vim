@@ -291,7 +291,7 @@ lua require('nvim-lspconfig')
 " \ })
 "
 " vista.vim
-let g:vista_default_executive = 'vim_lsp'
+let g:vista_default_executive = 'nvim_lsp'
 
 " colorscheme
 colorscheme sonokai
