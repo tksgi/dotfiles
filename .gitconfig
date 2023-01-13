@@ -1,6 +1,6 @@
 [core]
 	excludesFile = ~/.gitignore_global
-  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+  pager = delta
 [user]
 	name = tksgi
 	email = 23550705+tksgi@users.noreply.github.com
