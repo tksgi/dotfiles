@@ -1,4 +1,4 @@
-{ config, pkgs, lib, vimUitls, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -42,7 +42,7 @@
         config = ''
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  parser_install_dir = '~/.local/share/nvim/site/parser',
+  parser_install_dir = '~/.local/share/nvim/site',
   highlight = {
     enable = true,
     --disable = { "ruby", "python" }
@@ -70,29 +70,30 @@ EOF
         '';
       }
       vista-vim
-#      {
-#        plugin = skkeleton;
-#        config = ''
-#function! s:skkeleton_init() abort
-#  call skkeleton#config({
-#        \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
-#        \ 'globalJisyoEncoding': 'utf-8',
-#        \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
-#        \ })
-#  call skkeleton#register_kanatable('rom', {
-#        \ "z\<Space>": ["\u3000", ''],
-#        \ })
-#endfunction
-#
-#augroup skkeleton-initialize-pre
-#  autocmd!
-#  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
-#augroup END
-#
-#imap <C-j> <Plug>(skkeleton-toggle)
-#cmap <C-j> <Plug>(skkeleton-toggle)
-#        '';
-#      }
+      denops
+      {
+        plugin = skkeleton;
+        config = ''
+function! s:skkeleton_init() abort
+  call skkeleton#config({
+        \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
+        \ 'globalJisyoEncoding': 'utf-8',
+        \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
+        \ })
+  call skkeleton#register_kanatable('rom', {
+        \ "z\<Space>": ["\u3000", ""],
+        \ })
+endfunction
+
+augroup skkeleton-initialize-pre
+  autocmd!
+  autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+augroup END
+
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
+        '';
+      }
       {
         plugin = fern-vim;
         config = ''
@@ -347,6 +348,11 @@ require'lspconfig'.dockerls.setup{
   capabilities = capabilities
 }
 
+require'lspconfig'.rnix.setup{
+  on_attach = custom_attach,
+  capabilities = capabilities
+}
+
 -- for rust
 require('rust-tools').setup({
   on_attach = custom_attach,
@@ -446,7 +452,13 @@ EOF
       cmp-git
       #cmp-tabnine
       cmp-treesitter
-      #cmp-skkeleton
+      cmp-skkeleton
+      {
+        plugin = vimdoc-ja;
+        config = ''
+set helplang=ja,en
+        '';
+      }
     ];
     extraConfig = ''
       noremap <Space> <Nop>
@@ -467,7 +479,6 @@ EOF
       command -nargs=? E Explore <args>
 
       set fenc=utf-8
-      set helplang=ja,en
       set undofile
       " コマンドラインの補完
       set wildmode=list:longest
@@ -511,56 +522,56 @@ EOF
       endif
     '';
   };
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
-    defaultKeymap = "emacs";
-    initExtra = ''
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:*' formats '[%F{green}%b%f]'    
-zstyle ':vcs_info:*' actionformats '%F{green}%b%f(%F{red}%a%f)' 
-precmd() { vcs_info }
-
-# 時刻を表示したい
-export PREV_COMMAND_END_TIME
-export NEXT_COMMAND_BGN_TIME
-
-function show_command_end_time() {
-PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
-PROMPT="%F{blue}''${HOST}%f
-Dir: %F{red}%~%f ''${vcs_info_msg_0_}
-''${PREV_COMMAND_END_TIME} - __:__:__
-%F{red}$%f "
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd show_command_end_time
-
-show_command_begin_time() {
-NEXT_COMMAND_BGN_TIME=`date "+%H:%M:%S"`
-PROMPT="%F{blue}''${HOST}%f
-Dir: %F{red}%~%f ''${vcs_info_msg_0_}
-''${PREV_COMMAND_END_TIME} - ''${NEXT_COMMAND_BGN_TIME} 
-$ "
-zle .accept-line
-zle .reset-prompt
-}
-zle -N accept-line show_command_begin_time
-
-export CLICOLOR=1
-export LSCOLORS=DxGxcxdxCxegedabagacad
-
-#コマンド履歴検索(CTRL + P,N)
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
-if [ -e /home/tetsu/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tetsu/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-'';
-  };
+#  programs.zsh = {
+#    enable = true;
+#    enableAutosuggestions = true;
+#    enableSyntaxHighlighting = true;
+#    defaultKeymap = "emacs";
+#    initExtra = ''
+#autoload -Uz vcs_info
+#setopt prompt_subst
+#zstyle ':vcs_info:*' formats '[%F{green}%b%f]'    
+#zstyle ':vcs_info:*' actionformats '%F{green}%b%f(%F{red}%a%f)' 
+#precmd() { vcs_info }
+#
+## 時刻を表示したい
+#export PREV_COMMAND_END_TIME
+#export NEXT_COMMAND_BGN_TIME
+#
+#function show_command_end_time() {
+#PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
+#PROMPT="%F{blue}''${HOST}%f
+#Dir: %F{red}%~%f ''${vcs_info_msg_0_}
+#''${PREV_COMMAND_END_TIME} - __:__:__
+#%F{red}$%f "
+#}
+#autoload -Uz add-zsh-hook
+#add-zsh-hook precmd show_command_end_time
+#
+#show_command_begin_time() {
+#NEXT_COMMAND_BGN_TIME=`date "+%H:%M:%S"`
+#PROMPT="%F{blue}''${HOST}%f
+#Dir: %F{red}%~%f ''${vcs_info_msg_0_}
+#''${PREV_COMMAND_END_TIME} - ''${NEXT_COMMAND_BGN_TIME} 
+#$ "
+#zle .accept-line
+#zle .reset-prompt
+#}
+#zle -N accept-line show_command_begin_time
+#
+#export CLICOLOR=1
+#export LSCOLORS=DxGxcxdxCxegedabagacad
+#
+##コマンド履歴検索(CTRL + P,N)
+#autoload history-search-end
+#zle -N history-beginning-search-backward-end history-search-end
+#zle -N history-beginning-search-forward-end history-search-end
+#bindkey "^P" history-beginning-search-backward-end
+#bindkey "^N" history-beginning-search-forward-end
+#
+#if [ -e /home/tetsu/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tetsu/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+#'';
+#  };
 
   # ignore experimental-features warnings
   nix = {

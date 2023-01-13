@@ -8,14 +8,57 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim.url = "github:pta2002/nixvim";
     flake-utils.url = "github:numtide/flake-utils";
+    vimdoc-ja = {
+      url = "github:vim-jp/vimdoc-ja";
+      flake = false;
+    };
+    denops = {
+      url = "github:vim-denops/denops.vim";
+      flake = false;
+    };
+    skkeleton = {
+      url = "github:vim-skk/skkeleton";
+      flake = false;
+    };
+    cmp-skkeleton = {
+      url = "github:rinx/cmp-skkeleton";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, home-manager, nixvim, flake-utils, ... }:
-    let
+  outputs = { nixpkgs, home-manager, flake-utils, ... }@inputs:
+  let
     system = "x86_64-linux";
-  pkgs = nixpkgs.legacyPackages.${system};
+    overlay = (final: prev: {
+      vimPlugins = prev.vimPlugins // {
+        vimdoc-ja = buildVimPluginFrom2Nix {
+          pname = "vimdoc-ja";
+          version = "2023-01-14";
+          src = inputs.vimdoc-ja;
+        };
+        denops = buildVimPluginFrom2Nix {
+          pname = "denops";
+          version = "2023-01-14";
+          src = inputs.denops;
+        };
+        skkeleton = buildVimPluginFrom2Nix {
+          pname = "skkeleton";
+          version = "2023-01-14";
+          src = inputs.skkeleton;
+        };
+        cmp-skkeleton = buildVimPluginFrom2Nix {
+          pname = "cmp-skkeleton";
+          version = "2023-01-14";
+          src = inputs.cmp-skkeleton;
+        };
+      };
+    });
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [ overlay ];
+    };
+    inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
   in {
     homeConfigurations.tetsu = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
