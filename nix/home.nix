@@ -16,7 +16,6 @@
     pkgs.rustc
     pkgs.cargo
     pkgs.fzf
-    pkgs.myVim
   ];
 
   # This value determines the Home Manager release that your
@@ -44,6 +43,7 @@
   programs.neovim = {
     enable = true;
     withNodeJs = true;
+    defaultEditor = true;
     extraPackages = with pkgs; [
       tree-sitter
       clang
@@ -85,6 +85,7 @@
           EOF
         '';
       }
+      nvim-treesitter-context
       vista-vim
       denops
       {
@@ -149,6 +150,14 @@
       }
       vim-devicons
       nvim-web-devicons
+      nerdfont
+      fern-renderer-nerdfont
+      fern-git-status
+      fern-mapping-git
+      fern-hijack
+      fern-bookmark
+      fern-mapping-quickfix
+      fern-preview
       gina-vim
       quickrun
       indentLine
@@ -305,7 +314,7 @@
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
             vim.keymap.set('n', '<c-k>', vim.lsp.buf.signature_help, bufopts)
-            vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+            vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)
             vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
 
@@ -474,6 +483,7 @@
           set helplang=ja,en
         '';
       }
+      back-and-forward
     ];
     extraConfig = ''
       noremap <Space> <Nop>

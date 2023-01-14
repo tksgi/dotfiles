@@ -24,6 +24,42 @@
       url = "github:rinx/cmp-skkeleton";
       flake = false;
     };
+    back-and-forward = {
+      url = "github:Bakudankun/BackAndForward.vim";
+      flake = false;
+    };
+    nerdfont = {
+      url = "github:lambdalisue/nerdfont.vim";
+      flake = false;
+    };
+    fern-renderer-nerdfont = {
+      url = "github:lambdalisue/fern-renderer-nerdfont.vim";
+      flake = false;
+    };
+    fern-git-status = {
+      url = "github:lambdalisue/fern-git-status.vim";
+      flake = false;
+    };
+    fern-mapping-git = {
+      url = "github:lambdalisue/fern-mapping-git.vim";
+      flake = false;
+    };
+    fern-hijack = {
+      url = "github:lambdalisue/fern-hijack.vim";
+      flake = false;
+    };
+    fern-bookmark = {
+      url = "github:lambdalisue/fern-bookmark.vim";
+      flake = false;
+    };
+    fern-mapping-quickfix = {
+      url = "github:lambdalisue/fern-mapping-quickfix.vim";
+      flake = false;
+    };
+    fern-preview = {
+      url = "github:yuki-yano/fern-preview.vim";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -51,30 +87,50 @@
             version = "2023-01-14";
             src = inputs.cmp-skkeleton;
           };
-        };
-        myVim = pkgs.vim.customize {
-          name = "myVim";
-          vimrcConfig.customRC = ''
-            function! s:skkeleton_init() abort
-            call skkeleton#config({
-              \ 'globalJisyo': "${pkgs.skk-dicts}/share/SKK-JISYO.L",
-              \ 'globalJisyoEncoding': 'utf-8',
-              \ })
-              call skkeleton#register_kanatable('rom', {
-                \ "z\<Space>": ["\u3000", ""],
-                \ })
-                endfunction
-
-                augroup skkeleton-initialize-pre
-                autocmd!
-                autocmd User skkeleton-initialize-pre call s:skkeleton_init()
-                augroup END
-
-                imap <C-j> <Plug>(skkeleton-toggle)
-                cmap <C-j> <Plug>(skkeleton-toggle)
-          '';
-          vimrcConfig.packages.myVimPackage = with prev.vimPlugins; {
-            start = [ committia-vim skkeleton ];
+          back-and-forward = buildVimPluginFrom2Nix {
+            pname = "back-and-forward";
+            version = "2023-01-14";
+            src = inputs.back-and-forward;
+          };
+          nerdfont = buildVimPluginFrom2Nix {
+            pname = "nerdfont";
+            version = "2023-01-14";
+            src = inputs.nerdfont;
+          };
+          fern-renderer-nerdfont = buildVimPluginFrom2Nix {
+            pname = "fern-renderer-nerdfont";
+            version = "2023-01-14";
+            src = inputs.fern-renderer-nerdfont;
+          };
+          fern-git-status = buildVimPluginFrom2Nix {
+            pname = "fern-git-status";
+            version = "2023-01-14";
+            src = inputs.fern-git-status;
+          };
+          fern-mapping-git = buildVimPluginFrom2Nix {
+            pname = "fern-mapping-git";
+            version = "2023-01-14";
+            src = inputs.fern-mapping-git;
+          };
+          fern-hijack = buildVimPluginFrom2Nix {
+            pname = "fern-hijack";
+            version = "2023-01-14";
+            src = inputs.fern-hijack;
+          };
+          fern-bookmark = buildVimPluginFrom2Nix {
+            pname = "fern-bookmark";
+            version = "2023-01-14";
+            src = inputs.fern-bookmark;
+          };
+          fern-mapping-quickfix = buildVimPluginFrom2Nix {
+            pname = "fern-mapping-quickfix";
+            version = "2023-01-14";
+            src = inputs.fern-mapping-quickfix;
+          };
+          fern-preview = buildVimPluginFrom2Nix {
+            pname = "fern-preview";
+            version = "2023-01-14";
+            src = inputs.fern-preview;
           };
         };
       });
