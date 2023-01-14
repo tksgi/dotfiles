@@ -9,12 +9,14 @@
   # install package from pkgs
   home.packages = [
     pkgs.sl
+    pkgs.bat
     pkgs.delta
     pkgs.nixpkgs-fmt
     pkgs.skk-dicts
     pkgs.rustc
     pkgs.cargo
     pkgs.fzf
+    pkgs.myVim
   ];
 
   # This value determines the Home Manager release that your
@@ -29,6 +31,14 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # ignore experimental-features warnings
+  nix = {
+    package = pkgs.nixFlakes;
+    settings = {
+      experimental-features = "nix-command flakes";
+    };
+  };
 
   # install program from home-manager repository's config
   programs.neovim = {
@@ -578,11 +588,31 @@
   #'';
   #  };
 
-  # ignore experimental-features warnings
-  nix = {
-    package = pkgs.nixFlakes;
-    settings = {
-      experimental-features = "nix-command flakes";
+  programs.git = {
+    enable = true;
+    userName = "tksgi";
+    userEmail = "23550705+tksgi@users.noreply.github.com";
+    aliases = {
+      co = "checkout";
+      bt = "branch";
+      st = "status";
+      delete-merged-branches = "!git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %";
     };
+    delta = {
+      enable = true;
+      options = {
+        features = "side-by-side line-numbers decorations";
+      };
+    };
+    ignores = [
+      "*~"
+      ".DS_Store"
+      "ctags"
+      "GTAGS"
+      "GPATH"
+      "GRTAGS"
+      "Session.vim"
+      "memo.md"
+    ];
   };
 }
