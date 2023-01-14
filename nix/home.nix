@@ -11,6 +11,7 @@
     pkgs.sl
     pkgs.delta
     pkgs.nixpkgs-fmt
+    pkgs.skk-dicts
   ];
 
   # This value determines the Home Manager release that your
@@ -78,7 +79,7 @@
         config = ''
           function! s:skkeleton_init() abort
             call skkeleton#config({
-                  \ 'globalJisyo': "~/skk_dictionary/SKK-JISYO.L",
+                  \ 'globalJisyo': "${pkgs.skk-dicts}/share/SKK-JISYO.L",
                   \ 'globalJisyoEncoding': 'utf-8',
                   \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
                   \ })
