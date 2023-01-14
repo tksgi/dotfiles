@@ -37,6 +37,7 @@ in
     pkgs.rustc
     pkgs.cargo
     pkgs.fzf
+    pkgs.deno
   ];
 
   # This value determines the Home Manager release that your
@@ -560,6 +561,8 @@ in
     ];
     extraConfig = ''
     ${skkeleton-config}
+    set fenc=utf-8
+    set encoding=utf-8
     '';
   };
   #  programs.zsh = {
@@ -639,5 +642,10 @@ in
       "Session.vim"
       "memo.md"
     ];
+    extraConfig = {
+      core = {
+        editor = "vim";
+      };
+    };
   };
 }
