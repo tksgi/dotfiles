@@ -12,6 +12,8 @@
     pkgs.delta
     pkgs.nixpkgs-fmt
     pkgs.skk-dicts
+    pkgs.rustc
+    pkgs.cargo
   ];
 
   # This value determines the Home Manager release that your
@@ -41,7 +43,7 @@
     plugins = with pkgs.vimPlugins; [
       vim-nix
       {
-        plugin = nvim-treesitter;
+        plugin = nvim-treesitter.withAllGrammars;
         config = ''
           lua << EOF
           require'nvim-treesitter.configs'.setup {
@@ -81,7 +83,6 @@
             call skkeleton#config({
                   \ 'globalJisyo': "${pkgs.skk-dicts}/share/SKK-JISYO.L",
                   \ 'globalJisyoEncoding': 'utf-8',
-                  \ 'userJisyo': "~/skk_dictionary/.skk-jisyo",
                   \ })
             call skkeleton#register_kanatable('rom', {
                   \ "z\<Space>": ["\u3000", ""],
