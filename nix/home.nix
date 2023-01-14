@@ -1,5 +1,26 @@
 { config, pkgs, lib, ... }:
 
+let
+  skkeleton-config = ''
+    function! s:skkeleton_init() abort
+    call skkeleton#config({
+      \ 'globalJisyo': "${pkgs.skk-dicts}/share/SKK-JISYO.L",
+      \ 'globalJisyoEncoding': 'utf-8',
+      \ })
+    call skkeleton#register_kanatable('rom', {
+      \ "z\<Space>": ["\u3000", ""],
+      \ })
+    endfunction
+
+    augroup skkeleton-initialize-pre
+    autocmd!
+    autocmd User skkeleton-initialize-pre call s:skkeleton_init()
+    augroup END
+
+    imap <C-j> <Plug>(skkeleton-toggle)
+    cmap <C-j> <Plug>(skkeleton-toggle)
+  '';
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -90,25 +111,7 @@
       denops
       {
         plugin = skkeleton;
-        config = ''
-          function! s:skkeleton_init() abort
-            call skkeleton#config({
-                  \ 'globalJisyo': "${pkgs.skk-dicts}/share/SKK-JISYO.L",
-                  \ 'globalJisyoEncoding': 'utf-8',
-                  \ })
-            call skkeleton#register_kanatable('rom', {
-                  \ "z\<Space>": ["\u3000", ""],
-                  \ })
-          endfunction
-
-          augroup skkeleton-initialize-pre
-            autocmd!
-            autocmd User skkeleton-initialize-pre call s:skkeleton_init()
-          augroup END
-
-          imap <C-j> <Plug>(skkeleton-toggle)
-          cmap <C-j> <Plug>(skkeleton-toggle)
-        '';
+        config = skkeleton-config;
       }
       {
         plugin = fern-vim;
@@ -332,7 +335,7 @@
             vim.api.nvim_buf_create_user_command(bufnr, "LspReferences", vim.lsp.buf.references, {})
             vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", vim.lsp.buf.code_action, {})
             vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, {})
-            vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", vim.lsp.buf.formatting, {})
+            vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", vim.lsp.buf.format, {})
             vim.api.nvim_buf_create_user_command(bufnr, "LspShowLineDiagnostivs", vim.diagnostic.open_float, {})
             vim.api.nvim_buf_create_user_command(bufnr, "LspAddWorkspaceFolder", function() vim.lsp.buf.add_workspace_folder() end, {})
             vim.api.nvim_buf_create_user_command(bufnr, "LspRemoveWorkspaceFolder", vim.lsp.buf.remove_workspace_folder, {})
@@ -524,6 +527,7 @@
       nmap <Esc><Esc> :nohlsearch<CR><Esc>
       " 置換時候補をインタラクティブに表示
       set inccommand=split
+      set sw=2
       " vimgrepでquickfixを開く
       autocmd QuickFixCmdPost *grep* cwindow
 
@@ -545,6 +549,17 @@
       endfunction
       nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
       endif
+    '';
+  };
+  programs.vim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      committia-vim
+      skkeleton
+      denops
+    ];
+    extraConfig = ''
+    ${skkeleton-config}
     '';
   };
   #  programs.zsh = {
