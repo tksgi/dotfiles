@@ -8,7 +8,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
     vimdoc-ja = {
       url = "github:vim-jp/vimdoc-ja";
       flake = false;
@@ -27,7 +26,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, flake-utils, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       overlay = (final: prev: {
@@ -71,5 +70,7 @@
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
       };
+
+      formatter.x86_64-linux = pkgs.nixpkgs-fmt;
     };
 }

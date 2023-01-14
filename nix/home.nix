@@ -14,6 +14,7 @@
     pkgs.skk-dicts
     pkgs.rustc
     pkgs.cargo
+    pkgs.fzf
   ];
 
   # This value determines the Home Manager release that your
