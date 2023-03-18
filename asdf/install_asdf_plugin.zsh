@@ -18,7 +18,7 @@ do
     done
     latest=`asdf latest ${ary[1]}`
     versionsStr=`echo ${ary[2]} | tr -s ',' ' ' | sed -e s/latest/"$latest"/`
-    asdf global "${ary[1]}" "$versionsStr"
+    asdf global "${ary[1]}" latest
   else
     echo "the line '${line}' is invalid"
   fi

@@ -13,3 +13,4 @@ exa latest
 fzf latest
 tmux latest
 deno latest
+sqlite latest
