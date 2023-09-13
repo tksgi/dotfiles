@@ -1,0 +1,106 @@
+snippets:
+  - name: reload current shell
+    keyword: reload
+    snippet: exec $SHELL -l
+
+  - name: change ls to exa
+    keyword: ls
+    snippet: exa --all
+    global: true
+
+  - name: git
+    keyword: g
+    snippet: git
+
+  - name: git fetch
+    keyword: f
+    snippet: fetch
+    context:
+      lbuffer: ^git\s
+
+  - name: git fetch prune
+    keyword: fp
+    snippet: fetch --prune
+    context:
+      lbuffer: ^git\s
+
+  - name: git branch
+    keyword: b
+    snippet: branch
+    context:
+      lbuffer: ^git\s
+
+  - name: git branch --all
+    keyword: ba
+    snippet: branch --all
+    context:
+      lbuffer: ^git\s
+
+  - name: git status --short
+    keyword: s
+    snippet: status --short
+    context:
+      lbuffer: ^git\s
+
+  - name: git status
+    keyword: S
+    snippet: status
+    context:
+      lbuffer: ^git\s
+
+  - name: git reset --hard
+    keyword: h
+    snippet: reset --hard
+    context:
+      lbuffer: ^git\sreset\s
+
+  - name: git commit
+    keyword: cm
+    snippet: commit
+    context:
+      lbuffer: ^git\s
+
+  - name: git commit --amend
+    keyword: a
+    snippet: commit --amend
+    context:
+      lbuffer: ^git\scommit\s
+      
+  - name: replace -f to --force-with-lease for git push 
+    keyword: -f
+    snippet: --force-with-lease
+    context:
+      lbuffer: ^git\spush\s
+
+  - name: git diff
+    keyword: df
+    snippet: diff
+    context:
+      lbuffer: ^git\sp
+
+  - name: git diff --stat
+    keyword: s
+    snippet: --stat
+    context:
+      lbuffer: ^git\sdiff\s
+
+completion:
+  - name: kill signal
+    patterns:
+      - "^kill -s $"
+    sourceCommand: "kill -l | tr ' ' '\\n'"
+    options:
+      --prompt: "'Kill Signal> '"
+
+  - name: kill pid
+    patterns:
+      - "^kill( .*)? $"
+    excludePatterns:
+      # -l, -n or -s is followed by SIGNAL instead of PID
+      - " -[lns] $"
+    sourceCommand: "LANG=C ps -ef | sed 1d"
+    options:
+      --multi: true
+      --prompt: "'Kill Process> '"
+    callback: "awk '{print $2}'"
+
