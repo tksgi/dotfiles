@@ -55,6 +55,55 @@ vim.api.nvim_exec(
   ]], false
 )
 
+-- : Ter コマンドでBufferにterminalがあればそれを表示、なければ:terコマンド実行
+function Ter()
+  local buflist = vim.fn.getbufinfo({ buflisted = 1 })
+  local termBufList = {}
+  local msg = 'select listed terminal buffer or type N to open new terminal'
+  local choices = ''
+  for _, bufinfo in ipairs(buflist) do
+    if string.find(bufinfo['name'], '^term://') then
+      table.insert(termBufList, bufinfo)
+      choices = choices .. '&' .. tostring(table.maxn(termBufList)) .. string.gsub(bufinfo['name'], 'term:.-:', '') .. '\n'
+    end
+  end
+  choices = choices .. 'Type &N to open new terminal'
+  if table.maxn(termBufList) == 0 then
+    vim.api.nvim_cmd({ cmd = 'terminal' }, {})
+  else
+    local choice = vim.fn.confirm(msg, choices, 0, "General")
+    if choice > table.maxn(termBufList) then
+      vim.api.nvim_cmd({ cmd = 'terminal' }, {})
+    elseif choice ~= 0 then
+      vim.cmd({ cmd = 'buffer', args = { tostring(termBufList[choice]['bufnr']) }})
+    end
+  end
+end
+vim.api.nvim_create_user_command("Ter", function() Ter() end, {})
+
+
+-- Terminal内でenter押したタイミングでbuffer名をupdate
+vim.api.nvim_exec(
+  [[
+    function! s:set_title(prompt_pattern, max_length) abort
+        let path = nvim_buf_get_name(0)
+        let shell = split(fnamemodify(path, ':t'), ':')[0]
+        let term_path = printf('%s/%s', fnamemodify(path, ':h'), shell)
+
+        let prompt_line = getline(search(a:prompt_pattern, 'nbcW'))
+        let prompt = matchstr(prompt_line, a:prompt_pattern)
+        let cmd = prompt_line[strlen(prompt) : a:max_length]
+        let cmd = substitute(cmd, '/', '\\', 'g') " fnamemodify(path, ':t') の邪魔なので置き換えちゃう
+
+        call nvim_buf_set_name(0, printf('%s:%s', term_path, cmd))
+        redrawtabline " nvim_buf_set_name()は`:file {name}`と異なり純粋にバッファ名を変えるだけなので必要に応じて
+    endfunction
+
+    tnoremap <CR> <Cmd>call <SID>set_title('^\$ ', 24)<CR><CR>
+  ]], false
+)
+
+
 -- <C-w><C-w>でフローティングウィンドウにフォーカス
 function Focus_floating()
   if vim.api.nvim_win_get_config(vim.fn.win_getid())['relative'] then
@@ -183,6 +232,7 @@ require("lazy").setup({
   },
 
   { 'vim-denops/denops.vim',   lazy = false },
+  { 'tyru/open-browser.vim' },
   {
     'lambdalisue/guise.vim',
     dependencies = { 'vim-denops/denops.vim' },
@@ -225,6 +275,7 @@ require("lazy").setup({
           nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
           nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
           nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+          nnoremap <silent> <buffer> D <Plug>(fern-action-remove)
         endfunction
   
         augroup fern-settings
@@ -385,11 +436,12 @@ require("lazy").setup({
           lualine_a = {
             { 'tabs', mode = 2, },
           },
-          lualine_x = {
-            { function() return vim.api.nvim_exec('pwd', true) end },
-          },
+          -- lualine_x = {
+          --   { function() return vim.api.nvim_exec('pwd', true) end },
+          -- },
           lualine_z = {
-            { function() return os.date('%m/%d(%a) %H:%M:%S') end }
+            -- { function() return os.date('%m/%d(%a) %H:%M:%S') end }
+            { function() return vim.api.nvim_exec('pwd', true) end },
           }
         },
         winbar = {
@@ -437,6 +489,12 @@ require("lazy").setup({
     end
   },
   {
+    'kwkarlwang/bufresize.nvim',
+    config = function ()
+      vim.api.nvim_create_user_command("ResizeWin", require('bufresize').resize, {})
+    end
+  },
+  {
     'glepnir/dashboard-nvim',
     event = 'VimEnter',
     config = function()
@@ -446,11 +504,67 @@ require("lazy").setup({
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
+  { 'machakann/vim-sandwich' },
 
   -- filetype plugin
   { 'kevinhwang91/nvim-bqf',   ft = 'qf' },
-  { 'ixru/nvim-markdown', ft = { 'markdown' } },
-  -- { 'previm/previm',           ft = { 'markdown' } },
+  {
+    'ixru/nvim-markdown',
+    ft = { 'markdown' },
+    config = function()
+      vim.g.vim_markdown_no_default_key_mappings = 1
+    end
+  },
+  -- {
+  --   'epwalsh/obsidian.nvim',
+  --   --[[ lazy = true,
+  --   event = { "BufReadPre " .. vim.fn.expand "~" .. "/markdown/**.md" }, ]]
+  --   dependencies = {
+  --     'plenary.nvim',
+  --     'nvim-cmp',
+  --     'telescope.nvim',
+  --     "tabular",
+  --   },
+  --   opts = {
+  --     dir = "~/markdown",
+  --     daily_notes = {
+  --       -- Optional, if you keep daily notes in a separate directory.
+  --       folder = "dailies",
+  --       -- Optional, if you want to change the date format for daily notes.
+  --       date_format = "%Y-%m-%d"
+  --     },
+  --     completion = {
+  --       -- If using nvim-cmp, otherwise set to false
+  --       nvim_cmp = true,
+  --       -- Trigger completion at 2 chars
+  --       min_chars = 2,
+  --       -- Where to put new notes created from completion. Valid options are
+  --       --  * "current_dir" - put new notes in same directory as the current buffer.
+  --       --  * "notes_subdir" - put new notes in the default notes subdirectory.
+  --       new_notes_location = "current_dir"
+  --     },
+  --     finder = "telescope.nvim",
+  --   },
+  --   config = function(_, opts)
+  --     require("obsidian").setup(opts)
+
+  --     -- Optional, override the 'gf' keymap to utilize Obsidian's search functionality.
+  --     -- see also: 'follow_url_func' config option above.
+  --     vim.keymap.set("n", "gf", function()
+  --       if require("obsidian").util.cursor_on_markdown_link() then
+  --         return "<cmd>ObsidianFollowLink<CR>"
+  --       else
+  --         return "gf"
+  --       end
+  --     end, { noremap = false, expr = true })
+  --   end,
+  -- },
+  -- {
+  --   '0x00-ketsu/markdown-preview.nvim',
+  --   ft = {'md', 'markdown', 'mkd', 'mkdn', 'mdwn', 'mdown', 'mdtxt', 'mdtext', 'rmd', 'wiki'},
+  --   config = true,
+  -- },
+  { 'previm/previm',           ft = { 'markdown' } },
   { 'keith/rspec.vim',         ft = { 'ruby' } },
   {
     'nvim-orgmode/orgmode',
@@ -478,7 +592,7 @@ require("lazy").setup({
       { 'haringsrob/nvim_context_vt', enabled = false},
       'RRethy/vim-illuminate',
       'RRethy/nvim-treesitter-endwise',
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      -- "nvim-treesitter/nvim-treesitter-textobjects",
       'orgmode'
     },
     build = ":TSUpdate",
@@ -532,11 +646,25 @@ require("lazy").setup({
           vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
         end
       })
-  
+
       vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>', { noremap = true })
     end
   },
-  
+  -- Linter
+  {
+    'mfussenegger/nvim-lint',
+    config = function()
+      require('lint').linters_by_ft = {
+        ruby = {'rubocop',}
+      }
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end
+  },
+
   -- builtin LSP
   { 'williamboman/mason.nvim',           config = true },
   { 'williamboman/mason-lspconfig.nvim', config = true, lazy = true },
@@ -545,19 +673,22 @@ require("lazy").setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       'neodev.nvim',
-      {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = function()
-          local null_ls = require 'null-ls'
-  
-          null_ls.setup({
-            sources = {
-              null_ls.builtins.diagnostics.rubocop
-            }
-          })
-        end,
-        dependencies = { 'plenary.nvim' },
-      },
+      -- {
+      --   'jose-elias-alvarez/null-ls.nvim',
+      --   config = function()
+      --     local null_ls = require 'null-ls'
+      --
+      --     null_ls.setup({
+      --       sources = {
+      --         null_ls.builtins.diagnostics.rubocop.with({
+      --           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+      --         }),
+      --         null_ls.builtins.formatting.prettier,
+      --       }
+      --     })
+      --   end,
+      --   dependencies = { 'plenary.nvim' },
+      -- },
       {"SmiteshP/nvim-navic", enabled = true},
     },
     config = function()
@@ -585,10 +716,10 @@ require("lazy").setup({
         vim.api.nvim_buf_create_user_command(bufnr, "LspSignatureHelp", vim.lsp.buf.signature_help, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspTypeDefinition", vim.lsp.buf.type_definition, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspReferences", vim.lsp.buf.references, {})
-        vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", vim.lsp.buf.code_action, {})
+        vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", function() vim.lsp.buf.code_action() end, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", function() vim.lsp.buf.format({}) end, {})
-        vim.api.nvim_buf_create_user_command(bufnr, "LspShowLineDiagnostivs", vim.diagnostic.open_float, {})
+        vim.api.nvim_buf_create_user_command(bufnr, "LspShowLineDiagnostics", vim.diagnostic.open_float, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspAddWorkspaceFolder",
           function() vim.lsp.buf.add_workspace_folder() end, {})
         vim.api.nvim_buf_create_user_command(bufnr, "LspRemoveWorkspaceFolder", vim.lsp.buf.remove_workspace_folder, {})
@@ -627,6 +758,29 @@ require("lazy").setup({
           },
         },
       })
+    end
+  },
+  -- dap
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'mason.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
+    },
+    config = function()
+      local dap = require'dap'
+      dap.configurations.typescriptreact = {
+    {
+        type = "chrome",
+        request = "attach",
+        program = "${file}",
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = "inspector",
+        port = 9222,
+        webRoot = "${workspaceFolder}"
+    }
+}
     end
   },
   -- nvim-cmp
@@ -902,7 +1056,7 @@ require("lazy").setup({
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
       { 'petertriho/cmp-git' },
-      { 'tzachar/cmp-tabnine' },
+      { 'tzachar/cmp-tabnine', enabled = false },
       { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
       { "windwp/nvim-autopairs",               config = true, },
       { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
@@ -976,7 +1130,7 @@ require("lazy").setup({
             { name = 'luasnip' },
             { name = 'nvim_lsp' },
             { name = 'nvim_lsp_document_symbol' },
-            { name = 'cmp_tabnine' },
+            -- { name = 'cmp_tabnine' },
             buffer_source,
             { name = 'path' },
           }),
@@ -994,7 +1148,7 @@ require("lazy").setup({
           { name = 'luasnip' },
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_document_symbol' },
-          { name = 'cmp_tabnine' },
+          -- { name = 'cmp_tabnine' },
           buffer_source,
         })
       })
@@ -1005,7 +1159,7 @@ require("lazy").setup({
           view = { entries = 'native' },
         },
         { name = 'luasnip' },
-        { name = 'cmp_tabnine' },
+        -- { name = 'cmp_tabnine' },
         buffer_source,
         { name = 'path' },
       })
@@ -1040,7 +1194,7 @@ require("lazy").setup({
         })
       })
 
-      vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
+      -- vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
       vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')
       vim.keymap.set('i', '<c-f>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "path"}} } })<cr>')
     end
@@ -1059,20 +1213,20 @@ require("lazy").setup({
       require 'luasnip'.filetype_extend("ruby", { "rails" })
     end
   },
-  
+
   -- Telescope
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      {
-        'nvim-telescope/telescope-frecency.nvim',
-        dependencies = {
-          { 'kkharji/sqlite.lua' },
-          { 'nvim-tree/nvim-web-devicons' },
-        },
-      },
+      -- {
+      --   'nvim-telescope/telescope-frecency.nvim',
+      --   dependencies = {
+      --     { 'kkharji/sqlite.lua' },
+      --     { 'nvim-tree/nvim-web-devicons' },
+      --   },
+      -- },
       { 'nvim-telescope/telescope-packer.nvim' },
       { 'nvim-telescope/telescope-symbols.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
@@ -1097,25 +1251,26 @@ require("lazy").setup({
       { '\\ff', '<cmd>Telescope find_files<cr>',     desc = 'Telescope find_files' },
       { '\\lg', '<cmd>Telescope live_grep<cr>',      desc = 'Telescope live_grep' },
       { '\\ls', '<cmd>Telescope buffers<cr>',        desc = 'Telescope buffers' },
-      { '\\O',  '<cmd>Telescope oldfiles<cr>',       desc = 'Telescope oldfiles' },
+      { '\\o',  '<cmd>Telescope oldfiles<cr>',       desc = 'Telescope oldfiles' },
       { '\\ht', '<cmd>Telescope help_tags<cr>',      desc = 'Telescope help_tags' },
       { '\\lr', '<cmd>Telescope lsp_references<cr>', desc = 'Telescope lsp_references' },
       { '\\gc', '<cmd>Telescope git_commits<cr>',    desc = 'Telescope git_commits' },
       { '\\gb', '<cmd>Telescope git_branches<cr>',   desc = 'Telescope git_branches' },
       { '\\gs', '<cmd>Telescope git_status<cr>',     desc = 'Telescope git_status' },
       { '\\sp', '<cmd>Telescope spell_suggest<cr>',  desc = 'Telescope spell_suggest' },
-      {
-        '\\o',
-        '<cmd>Telescope frecency<cr>',
-        desc =
-        'Telescope frequentry used files in workspace'
-      },
-      {
-        '\\\\',
-        '<cmd>Telescope frecency workspace=CWD<cr>',
-        desc =
-        'Telescope frequentry used files in workspace'
-      },
+      { '\\dlg', '<cmd>Telescope live_grep<cr>',      desc = 'Telescope live_grep' },
+      -- {
+      --   '\\o',
+      --   '<cmd>Telescope frecency<cr>',
+      --   desc =
+      --   'Telescope frequentry used files in workspace'
+      -- },
+      -- {
+      --   '\\\\',
+      --   '<cmd>Telescope frecency workspace=CWD<cr>',
+      --   desc =
+      --   'Telescope frequentry used files in workspace'
+      -- },
       { '\\u',  '<cmd>Telescope undo<cr>',         desc = 'Telescope undo' },
       { '\\fb', '<cmd>Telescope file_browser<cr>', desc = 'Telescope file_browser' },
     },
@@ -1147,7 +1302,7 @@ require("lazy").setup({
         }
       })
       require "telescope".load_extension("fzf")
-      require "telescope".load_extension("frecency")
+      -- require "telescope".load_extension("frecency")
       require "telescope".load_extension("undo")
       require "telescope".load_extension("file_browser")
       require "telescope".load_extension("ghq")
@@ -1160,11 +1315,6 @@ require("lazy").setup({
   }
 }, {
     custom_keys = {
-      ["<localleader>l"] = function(plugin)
-        require("lazy.util").float_term({ "lazygit", "log" }, {
-          cwd = plugin.dir,
-        })
-      end,
       ["<localleader>t"] = function(plugin)
         require("lazy.util").float_term(nil, {
           cwd = plugin.dir,
