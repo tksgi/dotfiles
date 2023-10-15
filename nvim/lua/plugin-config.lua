@@ -1,5 +1,3 @@
-
-
 vim.g.completion_plugin = 'cmp' -- set cmp or ddc
 
 
@@ -59,8 +57,11 @@ require("lazy").setup({
     'chentoast/marks.nvim',
     config = true,
   },
-  { 'godlygeek/tabular', cmd = { 'Tabularize' } },
-  { 'simeji/winresizer', keys = { '<c-e>' } },
+  { 'godlygeek/tabular',
+    cmd = { 'Tabularize' },
+    ft = { 'markdown' },
+  },
+  { 'simeji/winresizer',     keys = { '<c-e>' } },
   {
     'Bakudankun/BackAndForward.vim',
     keys = {
@@ -148,8 +149,8 @@ require("lazy").setup({
       { 'lambdalisue/fern-mapping-quickfix.vim' },
       { 'yuki-yano/fern-preview.vim' },
     },
-    init = require'plugins.fern'.init,
-    config = require'plugins.fern'.config,
+    init = require 'plugins.fern'.init,
+    config = require 'plugins.fern'.config,
   },
   {
     'folke/noice.nvim',
@@ -158,12 +159,12 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim",
       'nvim-notify'
     },
-    config = require'plugins.noice'.config,
+    config = require 'plugins.noice'.config,
   },
   {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
-    config = require'plugins.notify'.config,
+    config = require 'plugins.notify'.config,
   },
   {
     'folke/trouble.nvim',
@@ -245,7 +246,7 @@ require("lazy").setup({
   {
     'machakann/vim-sandwich',
     lazy = false,
-    config = require'plugins.sandwich'.config,
+    config = require 'plugins.sandwich'.config,
   },
   {
     'NvChad/nvim-colorizer.lua',
@@ -299,7 +300,7 @@ require("lazy").setup({
       'orgmode'
     },
     build = ":TSUpdate",
-    config = require'plugins.treesitter'.config,
+    config = require 'plugins.treesitter'.config,
   },
   {
     'stevearc/aerial.nvim',
@@ -355,7 +356,7 @@ require("lazy").setup({
       -- },
       { "SmiteshP/nvim-navic", enabled = true },
     },
-    config = require'plugins.lspconfig'.config,
+    config = require 'plugins.lspconfig'.config,
   },
   -- dap
   {
@@ -385,8 +386,8 @@ require("lazy").setup({
     'vim-skk/skkeleton',
     lazy = false,
     dependencies = { 'vim-denops/denops.vim' },
-    config = require'plugins.skkeleton'.config,
-    build = require'plugins.skkeleton'.build,
+    config = require 'plugins.skkeleton'.config,
+    build = require 'plugins.skkeleton'.build,
   },
   {
     'Shougo/ddc.vim',
@@ -460,7 +461,7 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
       { 'orgmode' },
     },
-    config = require'plugins.cmp'.config,
+    config = require 'plugins.cmp'.config,
   },
 
   -- snippet
@@ -494,9 +495,9 @@ require("lazy").setup({
       { "benfowler/telescope-luasnip.nvim" },
       { "xiyaowong/telescope-emoji.nvim" },
       { 'folke/trouble.nvim' },
-      { "princejoogie/dir-telescope.nvim", confog = true, }
+      { "princejoogie/dir-telescope.nvim",           confog = true, }
     },
-    keys = require'plugins.telescope'.keys,
+    keys = require 'plugins.telescope'.keys,
     config = require 'plugins.telescope'.config,
   },
   -- ddu.vim
@@ -541,5 +542,9 @@ require("lazy").setup({
         cwd = plugin.dir,
       })
     end,
+  },
+  readme = {
+    enabled = true,
+    skip_if_doc_exists = true,
   }
 })
