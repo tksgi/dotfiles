@@ -19,10 +19,6 @@
   cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
 [mergetool "nvimdiff"]
   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
-[web]
-    browser = open
-[browser "chrome"]
-    cmd = open -a 'Firefox.app'
 [url ":git@github.com:"]
 	insteadOf = htps://github.com/
 #[url "https://github.com/"]
@@ -36,3 +32,5 @@
     diffFilter = delta --color-only
 [delta]
   features = side-by-side line-numbers decorations
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
