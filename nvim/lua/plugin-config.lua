@@ -307,6 +307,9 @@ require("lazy").setup({
     config = require 'plugins.treesitter'.config,
   },
   {
+    'nvim-treesitter/playground'
+  },
+  {
     'stevearc/aerial.nvim',
     config = function()
       require 'aerial'.setup({
@@ -489,7 +492,6 @@ require("lazy").setup({
     cmd = { "Telescope" },
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-packer.nvim' },
       { 'nvim-telescope/telescope-symbols.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
       -- { 'nvim-telescope/telescope-command-palette.nvim' },

@@ -102,10 +102,10 @@ function CommandlinePre()
 
   vim.fn['ddc#custom#patch_buffer']('cmdlineSources', { 'cmdline', 'cmdline-history', 'necovim', 'oldfiles', 'around' })
 
-  vim.api.nvim_exec([[
+  vim.api.nvim_exec2([[
     autocmd User DDCCmdlineLeave ++once lua CommandlinePost()
     autocmd InsertEnter <buffer> ++once lua CommandlinePost()
-  ]], false)
+  ]], {})
 
   vim.fn['ddc#enable_cmdline_completion']()
 end
