@@ -67,5 +67,12 @@ M.config = function()
       },
     },
   })
+  vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+  }
+  require 'lspconfig'.denols.setup({
+    on_attach = custom_attach,
+  })
+
 end
 return M
