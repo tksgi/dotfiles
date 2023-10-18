@@ -1,0 +1,29 @@
+[plugins]
+repo = 'EdenEast/nightfox.nvim'
+hook_post_source = '''
+  colorscheme carbonfox
+'''
+
+[plugins]
+repo = 'vim-jp/vimdoc-ja'
+
+# comment
+[plugins]
+repo = 'lukas-reineke/indent-blankline.nvim'
+lua_post_source = '''
+require('ibl').setup({
+  exclude = {
+    filetypes = {
+      'lspinfo',
+      'checkhealth',
+      'help',
+      'man',
+      'gitcommit',
+      'TelescopePrompt',
+      'TelescopeResults',
+      'dashboard',
+    }
+  }
+})
+'''
+
