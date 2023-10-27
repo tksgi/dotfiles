@@ -1,11 +1,11 @@
 local M = {}
 M.config = function()
-  require('orgmode').setup_ts_grammar()
+  --require('orgmode').setup_ts_grammar()
   require 'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true, -- false will disable the whole extension
       disable = { "ruby" },
-      additional_vim_regex_highlighting = { 'org' },
+      -- additional_vim_regex_highlighting = { 'org' },
     },
     incremental_selection = {
       enable = true,

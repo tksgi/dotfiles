@@ -81,7 +81,7 @@ require("lazy").setup({
   },
   {
     'mvllow/modes.nvim',
-    tag = 'v0.2.0',
+    tag = 'v0.2.1',
     config = function()
       require('modes').setup({
         colors = {
@@ -274,23 +274,23 @@ require("lazy").setup({
   },
   { 'previm/previm',         ft = { 'markdown' } },
   { 'keith/rspec.vim',       ft = { 'ruby' } },
-  {
-    'nvim-orgmode/orgmode',
-    dependencies = { 'nvim-treesitter', { 'akinsho/org-bullets.nvim', config = true } },
-    config = function()
-      require('orgmode').setup({
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refille.org',
-      })
-    end,
-    run = function()
-      local dir_path = '~/orgfiles'
-      if vim.fn.empty(vim.fn.glob(dir_path)) > 0 then
-        vim.fn.system({ 'mkdir', '-p', dir_path })
-        vim.fn.system({ 'mkdir', '-p', dir_path })
-      end
-    end
-  },
+  -- {
+  --   'nvim-orgmode/orgmode',
+  --   dependencies = { 'nvim-treesitter', { 'akinsho/org-bullets.nvim', config = true } },
+  --   config = function()
+  --     require('orgmode').setup({
+  --       org_agenda_files = '~/orgfiles/**/*',
+  --       org_default_notes_file = '~/orgfiles/refille.org',
+  --     })
+  --   end,
+  --   run = function()
+  --     local dir_path = '~/orgfiles'
+  --     if vim.fn.empty(vim.fn.glob(dir_path)) > 0 then
+  --       vim.fn.system({ 'mkdir', '-p', dir_path })
+  --       vim.fn.system({ 'mkdir', '-p', dir_path })
+  --     end
+  --   end
+  -- },
 
   -- treesitter
   {

@@ -1,14 +1,16 @@
-[plugins]
+[[plugins]]
 repo = 'EdenEast/nightfox.nvim'
-hook_post_source = '''
-  colorscheme carbonfox
+lua_post_source = '''
+vim.cmd.colorscheme('carbonfox')
 '''
+lazy = false
 
-[plugins]
+[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
+lazy = false
+ 
 
-# comment
-[plugins]
+[[plugins]]
 repo = 'lukas-reineke/indent-blankline.nvim'
 lua_post_source = '''
 require('ibl').setup({
@@ -26,4 +28,492 @@ require('ibl').setup({
   }
 })
 '''
+lazy = false
 
+[[plugins]]
+repo = 'mbbill/undotree'
+lua_add = '''
+vim.keymap.set('n', '<F5>', '<cmd>UndotreeToggle<cr>', {})
+'''
+lazy = false
+
+[[plugins]]
+repo = 'chentoast/marks.nvim'
+lua_post_source = '''
+require'marks'.setup({})
+'''
+lazy = false
+
+[[plugins]]
+repo = 'godlygeek/tabular'
+on_cmd = 'Tabularize'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'simeji/winresizer'
+on_map = { n = '<c-e>' }
+
+
+[[plugins]]
+repo = 'Bakudankun/BackAndForward.vim'
+lua_post_source = '''
+vim.keymap.set('n', 'gb', '<cmd>Back<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>bb', '<cmd>Back<cr>')
+vim.keymap.set('n', '<leader>bf', '<cmd>Forward<cr>')
+'''
+
+[[plugins]]
+repo = 'numToStr/Comment.nvim'
+lua_post_source = '''
+require'Comment'.setup({})
+'''
+
+[[plugins]]
+repo = 'folke/todo-comments.nvim'
+depends = 'nvim_lua/plenary.nvim'
+
+[[plugins]]
+repo = 'nvim_lua/plenary.nvim'
+
+[[plugins]]
+repo = 'mvllow/modes.nvim'
+rev = 'v0.2.1'
+lua_post_source = '''
+require('modes').setup({
+  colors = {
+    copy = "#f5c359",
+    delete = "#c75c6a",
+    insert = "#78ccc5",
+    visual = "#9745be",
+  },
+  set_cursore = true,
+  set_cursorline = true,
+  set_number = true,
+})
+'''
+
+[[plugins]]
+repo = 'folke/which-key.nvim'
+lazy = false
+lua_post_source = '''
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+require("which-key").setup({})
+'''
+
+
+[[plugins]]
+repo = 'lambdalisue/guise.vim' # depends denops
+depends = 'denops'
+
+[[plugins]]
+repo = 'lambdalisue/gin.vim'
+lua_post_source = '''
+vim.g.gin_proxy_apply_without_confirm = 1
+'''
+
+# [[plugins]]
+# repo = 'NeogitOrg/neogit'
+# depends = ['plenary.nvim', 'telescope.nvim', 'sindrets/diffview.nvim']
+# lua_post_source = '''
+# require("neogit").setup({})
+# '''
+
+[[plugins]]
+repo = 'sindrets/diffview.nvim'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+lazy = false
+lua_post_source = '''
+vim.api.nvim_create_user_command(
+  'Fernr',
+  function(opts)
+    local path = #opts.args ~= 0 and opts.args or '.'     -- 三項演算子
+    vim.api.nvim_command('Fern ' .. path .. ' -reveal=%')
+  end,
+  { nargs = '?', complete = 'dir' }
+)
+
+vim.g['fern#renderer'] = 'nerdfont'
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'fern',
+  callback = function()
+    local opt = { buffer = true, silent = true }
+    vim.keymap.set('n', 'p', '<Plug>(fern-action-preview:toggle)', opt)
+    vim.keymap.set('n', '<C-p>', '<Plug>(fern-action-preview:auto:toggle)', opt)
+    vim.keymap.set('n', '<C-d>', '<Plug>(fern-action-preview:scroll:down:half)', opt)
+    vim.keymap.set('n', '<C-u>', '<Plug>(fern-action-preview:scroll:up:half)', opt)
+    vim.keymap.set('n', 'D', '<Plug>(fern-action-remove)', opt)
+  end
+})
+'''
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
+lazy = false
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'nvim-tree/nvim-web-devicons'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-mapping-git.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-mapping-quickfix.vim'
+
+[[plugins]]
+repo = 'yuki-yano/fern-preview.vim'
+
+[[plugins]]
+repo = 'folke/noice.nvim'
+# on_event = 'VeryLazy'
+lua_post_source = "require 'plugins.noice'.config()"
+depends = ['nui.nvim']
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
+
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+lua_post_source = "require 'plugins.notify'.config()"
+
+[[plugins]]
+repo = 'folke/trouble.nvim'
+depends = 'nvim-web-devicons'
+lua_post_source = "require 'trouble'.setup()"
+
+[[plugins]]
+repo = 'nvim-lualine/lualine.nvim'
+depends = [
+  'nvim-web-devicons',
+  'noice.nvim',
+]
+lua_post_source = '''
+require("lualine").setup({
+  tabline = {
+    lualine_a = {
+      { 'tabs', mode = 2, },
+    },
+    lualine_z = {
+      { function() return vim.api.nvim_exec('pwd', true) end },
+    }
+  },
+  winbar = {
+    lualine_c = {
+      { 'filename', path = 1, },
+    }
+  },
+  inactive_winbar = {
+    lualine_c = {
+      { 'filename', path = 1, },
+    }
+  },
+  extensions = { 'quickfix', 'fern', 'aerial', 'lazy' },
+})
+'''
+
+[[plugins]]
+repo = 'michaelb/sniprun'
+build = 'bash ./install.sh'
+lua_post_source = '''
+require 'sniprun'.setup({
+  display = { "Terminal" },
+})
+'''
+
+[[plugins]]
+repo = 't9md/vim-choosewin'
+lua_post_source = '''
+vim.api.nvim_exec(
+  [[
+  let g:choosewin_overlay_enable = 1
+  let g:choosewin_overlay_clear_multibyte = 1
+]], false
+)
+vim.keymap.set('n', '-', '<cmd>ChooseWin<cr>', {desc = 'ウィンドウを選択して移動' })
+'''
+
+[[plugins]]
+repo = 'kwkarlwang/bufresize.nvim'
+lua_post_source = '''
+vim.api.nvim_create_user_command("ResizeWin", require('bufresize').resize, {})
+'''
+
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+lazy = false
+lua_post_source = "require 'plugins.sandwich'.config()"
+
+[[plugins]]
+repo = 'NvChad/nvim-colorizer.lua'
+lua_post_source = '''
+require'nvim-colorizer'.setup()
+'''
+on_cmd = [
+  'ColorizerAttachToBuffer',
+  'ColorizerDetachFromBuffer',
+  'ColorizerReloadAllBuffers',
+  'ColorizerToggle',
+]
+
+[[plugins]]
+repo = 'kevinhwang91/nvim-bqf'
+on_ft = 'qf'
+
+[[plugins]]
+repo = 'ixru/nvim-markdown'
+on_ft = 'markdown'
+lua_post_source = '''
+vim.g.vim_markdown_no_default_key_mappings = 1
+'''
+
+[[plugins]]
+repo = 'previm/previm'
+on_cmd = 'PrevimOpen'
+
+[[plugins]]
+repo = 'keith/rspec.vim'
+on_ft = 'ruby'
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+build = ':TSUpdate'
+lua_post_source = '''
+require 'plugins.treesitter'.config()
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-context'
+depends = 'nvim-treesitter'
+
+[[plugins]]
+repo = 'haringsrob/nvim_context_vt'
+depends = 'nvim-treesitter'
+
+[[plugins]]
+repo = 'RRethy/vim-illuminate'
+depends = 'nvim-treesitter'
+
+[[plugins]]
+repo = 'RRethy/nvim-treesitter-endwise'
+depends = 'nvim-treesitter'
+
+[[plugins]]
+repo = 'stevearc/aerial.nvim'
+lua_post_source = '''
+require 'aerial'.setup({
+  on_attach = function(bufnr)
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+  end
+})
+
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>', { noremap = true })
+'''
+
+[[plugins]]
+repo = 'mfussenegger/nvim-lint'
+lua_post_source = '''
+require('lint').linters_by_ft = {
+  ruby = { 'rubocop', }
+}
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
+'''
+
+[[plugins]]
+repo = 'williamboman/mason.nvim'
+lua_post_source = '''
+require 'mason'.setup
+'''
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
+lua_post_source = '''
+require 'mason-lspconfig'.setup
+'''
+
+[[plugins]]
+repo = 'folke/neodev.nvim' # lua lsにneovimの補完設定を追加
+lua_post_source = '''
+require 'neodev'.setup
+'''
+
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+depends = [
+  'neodev.nvim',
+  "SmiteshP/nvim-navic"
+]
+lua_post_source = '''
+require 'plugins.lspconfig'.config()
+'''
+
+[[plugins]]
+repo = "SmiteshP/nvim-navic"
+
+
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+depends = [
+  'mason.nvim',
+  'jay-babu/mason-nvim-dap.nvim',
+]
+lua_post_source = '''
+local dap = require 'dap'
+dap.configurations.typescriptreact = {
+  {
+    type = "chrome",
+    request = "attach",
+    program = "${file}",
+    cwd = vim.fn.getcwd(),
+    sourceMaps = true,
+    protocol = "inspector",
+    port = 9222,
+    webRoot = "${workspaceFolder}"
+  }
+}
+'''
+
+[[plugins]]
+repo = 'jay-babu/mason-nvim-dap.nvim'
+
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+lazy = false
+depends = 'vim-denops/denops.vim'
+lua_post_source = "require 'plugins.skkeleton'.config()"
+build = "lua require 'plugins.skkeleton'.build()"
+
+[[plugins]]
+repo = "hrsh7th/nvim-cmp"
+on_event = [ "InsertEnter", "CmdlineEnter" ]
+depends = [
+  'hrsh7th/cmp-nvim-lsp',
+  "hrsh7th/cmp-buffer",
+  'hrsh7th/cmp-path',
+  'hrsh7th/cmp-cmdline',
+  'hrsh7th/cmp-nvim-lua',
+  'hrsh7th/cmp-nvim-lsp-document-symbol',
+  'petertriho/cmp-git',
+  'tzachar/cmp-tabnine',
+  'rinx/cmp-skkeleton',
+  "windwp/nvim-autopairs",
+]
+lua_post_source = "require 'plugins.cmp'.config()"
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = "hrsh7th/cmp-buffer"
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-path'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-cmdline'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lua'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'hrsh7th/cmp-nvim-lsp-document-symbol'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'petertriho/cmp-git'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'tzachar/cmp-tabnine'
+on_source = 'nvim-cmp'
+
+[[plugins]]
+repo = 'rinx/cmp-skkeleton'
+on_source = 'nvim-cmp'
+depends = 'skkeleton'
+
+[[plugins]]
+repo = "windwp/nvim-autopairs"
+on_source = 'nvim-cmp'
+lua_post_source = "require 'nvim-autopairs'.setup()"
+
+#TODO: snippet plugin
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+rev = '0.1.4'
+on_cmd = 'Telescope'
+lua_hook_add = '''
+vim.keymap.set('n', [[\T]], '<cmd>Telescope<cr>', {})
+vim.keymap.set('n', [[\ff]], '<cmd>Telescope find_files<cr>', {})
+vim.keymap.set('n', [[\lg]], '<cmd>Telescope live_grep<cr>', {})
+vim.keymap.set('n', [[\ls]], '<cmd>Telescope buffers<cr>', {})
+vim.keymap.set('n', [[\o]], '<cmd>Telescope oldfiles<cr>', {})
+vim.keymap.set('n', [[\ht]], '<cmd>Telescope help_tags<cr>', {})
+vim.keymap.set('n', [[\lr]], '<cmd>Telescope lsp_references<cr>', {})
+vim.keymap.set('n', [[\sp]], '<cmd>Telescope spell_suggest<cr>', {})
+vim.keymap.set('n', [[\u]], '<cmd>Telescope undo<cr>', {})
+'''
+lua_post_source = '''
+require 'plugins.telescope'.config()
+'''
+
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+depends = [
+  'denops.vim',
+  'Shougo/ddu-commands.vim',
+
+  # UI
+  'Shougo/ddu-ui-ff',
+  # 'Shougo/ddu-ui-filer',
+
+  # Source
+  'Shougo/ddu-source-action',
+  'Shougo/ddu-source-file',
+  'Shougo/ddu-source-file_rec',
+  'Shougo/ddu-source-file_old',
+  'Shougo/ddu-source-register',
+  'shun/ddu-source-buffer',
+  'shun/ddu-source-rg',
+  'uga-rosa/ddu-source-lsp',
+  'matsui54/ddu-vim-ui-select',
+  'matsui54/ddu-source-help',
+  '4513ECHO/ddu-source-ghq',
+  'mikanIchinose/ddu-source-markdown',
+  'kamecha/ddu-source-jumplist',
+
+  # Kind
+  'Shougo/ddu-kind-file',
+
+  # Filter
+  'Milly/ddu-filter-kensaku',
+  'yuki-yano/ddu-filter-fzf',
+]
+lua_post_source = '''
+require 'plugsins.ddu'.config()
+'''
