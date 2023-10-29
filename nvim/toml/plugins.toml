@@ -370,54 +370,37 @@ require 'plugins.lspconfig'.config()
 repo = "SmiteshP/nvim-navic"
 
 
-[[plugins]]
-repo = 'mfussenegger/nvim-dap'
-depends = [
-  'mason.nvim',
-  'jay-babu/mason-nvim-dap.nvim',
-]
-lua_post_source = '''
-local dap = require 'dap'
-dap.configurations.typescriptreact = {
-  {
-    type = "chrome",
-    request = "attach",
-    program = "${file}",
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = "inspector",
-    port = 9222,
-    webRoot = "${workspaceFolder}"
-  }
-}
-'''
-
-[[plugins]]
-repo = 'jay-babu/mason-nvim-dap.nvim'
+# [[plugins]]
+# repo = 'mfussenegger/nvim-dap'
+# depends = [
+#   'mason.nvim',
+#   'mason-nvim-dap.nvim',
+# ]
+# lua_post_source = '''
+# local dap = require 'dap'
+# dap.configurations.typescriptreact = {
+#   {
+#     type = "chrome",
+#     request = "attach",
+#     program = "${file}",
+#     cwd = vim.fn.getcwd(),
+#     sourceMaps = true,
+#     protocol = "inspector",
+#     port = 9222,
+#     webRoot = "${workspaceFolder}"
+#   }
+# }
+# '''
+# 
+# [[plugins]]
+# repo = 'jay-babu/mason-nvim-dap.nvim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 lazy = false
-depends = 'vim-denops/denops.vim'
+depends = 'denops.vim'
 lua_post_source = "require 'plugins.skkeleton'.config()"
 build = "lua require 'plugins.skkeleton'.build()"
-
-[[plugins]]
-repo = "hrsh7th/nvim-cmp"
-on_event = [ "InsertEnter", "CmdlineEnter" ]
-depends = [
-  'hrsh7th/cmp-nvim-lsp',
-  "hrsh7th/cmp-buffer",
-  'hrsh7th/cmp-path',
-  'hrsh7th/cmp-cmdline',
-  'hrsh7th/cmp-nvim-lua',
-  'hrsh7th/cmp-nvim-lsp-document-symbol',
-  'petertriho/cmp-git',
-  'tzachar/cmp-tabnine',
-  'rinx/cmp-skkeleton',
-  "windwp/nvim-autopairs",
-]
-lua_post_source = "require 'plugins.cmp'.config()"
 
 [[plugins]]
 repo = 'hrsh7th/cmp-nvim-lsp'
@@ -450,6 +433,7 @@ on_source = 'nvim-cmp'
 [[plugins]]
 repo = 'tzachar/cmp-tabnine'
 on_source = 'nvim-cmp'
+build = 'bash ./install.sh'
 
 [[plugins]]
 repo = 'rinx/cmp-skkeleton'
@@ -460,6 +444,23 @@ depends = 'skkeleton'
 repo = "windwp/nvim-autopairs"
 on_source = 'nvim-cmp'
 lua_post_source = "require 'nvim-autopairs'.setup()"
+
+[[plugins]]
+repo = "hrsh7th/nvim-cmp"
+on_event = [ "InsertEnter", "CmdlineEnter" ]
+depends = [
+  'cmp-nvim-lsp',
+  "cmp-buffer",
+  'cmp-path',
+  'cmp-cmdline',
+  'cmp-nvim-lua',
+  'cmp-nvim-lsp-document-symbol',
+  'cmp-git',
+  'cmp-tabnine',
+  'cmp-skkeleton',
+  "nvim-autopairs",
+]
+lua_post_source = "require 'plugins.cmp'.config()"
 
 #TODO: snippet plugin
 
@@ -486,34 +487,90 @@ require 'plugins.telescope'.config()
 repo = 'Shougo/ddu.vim'
 depends = [
   'denops.vim',
-  'Shougo/ddu-commands.vim',
+  'ddu-commands.vim',
 
   # UI
-  'Shougo/ddu-ui-ff',
-  # 'Shougo/ddu-ui-filer',
+  'ddu-ui-ff',
+  # 'ddu-ui-filer',
 
   # Source
-  'Shougo/ddu-source-action',
-  'Shougo/ddu-source-file',
-  'Shougo/ddu-source-file_rec',
-  'Shougo/ddu-source-file_old',
-  'Shougo/ddu-source-register',
-  'shun/ddu-source-buffer',
-  'shun/ddu-source-rg',
-  'uga-rosa/ddu-source-lsp',
-  'matsui54/ddu-vim-ui-select',
-  'matsui54/ddu-source-help',
-  '4513ECHO/ddu-source-ghq',
-  'mikanIchinose/ddu-source-markdown',
-  'kamecha/ddu-source-jumplist',
+  'ddu-source-action',
+  'ddu-source-file',
+  'ddu-source-file_rec',
+  'ddu-source-file_old',
+  'ddu-source-register',
+  'ddu-source-buffer',
+  'ddu-source-rg',
+  'ddu-source-lsp',
+  'ddu-vim-ui-select',
+  'ddu-source-help',
+  'ddu-source-ghq',
+  'ddu-source-markdown',
+  'ddu-source-jumplist',
 
   # Kind
-  'Shougo/ddu-kind-file',
+  'ddu-kind-file',
 
   # Filter
-  'Milly/ddu-filter-kensaku',
-  'yuki-yano/ddu-filter-fzf',
+  'ddu-filter-kensaku',
+  'ddu-filter-fzf',
 ]
 lua_post_source = '''
 require 'plugsins.ddu'.config()
 '''
+
+
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-ui-ff'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-action'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file_old'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-register'
+
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
+
+[[plugins]]
+repo = 'matsui54/ddu-vim-ui-select'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-help'
+
+[[plugins]]
+repo = '4513ECHO/ddu-source-ghq'
+
+[[plugins]]
+repo = 'mikanIchinose/ddu-source-markdown'
+
+[[plugins]]
+repo = 'kamecha/ddu-source-jumplist'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+
+[[plugins]]
+repo = 'Milly/ddu-filter-kensaku'
+
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+

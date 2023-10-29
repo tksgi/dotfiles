@@ -4,7 +4,7 @@ M.config = function()
   vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   local cmp = require 'cmp'
-  local luasnip = require 'luasnip'
+  -- local luasnip = require 'luasnip'
 
   cmp.event:on(
     'confirm_done',
@@ -31,7 +31,7 @@ M.config = function()
   cmp.setup {
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        -- require('luasnip').lsp_expand(args.body)
       end,
     },
     window = {
@@ -44,27 +44,27 @@ M.config = function()
       ['<CR>'] = cmp.mapping.confirm({ select = false }), -- <cr>で確定。未選択時は何もしない
       -- ['<C-f>'] = cmp.mapping.complete({ config = {sources = {name = 'path'}} }),
       -- ['<C-s>'] = cmp.mapping.complete({ config = {sources = {name = 'luasnip'}} }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback(fallback)
-        end
-      end, { "i", "s" }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback(fallback)
-        end
-      end, { "i", "s" }),
+      -- ['<Tab>'] = cmp.mapping(function(fallback)
+      --   if luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   else
+      --     fallback(fallback)
+      --   end
+      -- end, { "i", "s" }),
+      -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+      --   if luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   else
+      --     fallback(fallback)
+      --   end
+      -- end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
       {
         name = 'skkeleton',
         view = { entries = 'native' },
       },
-      { name = 'luasnip' },
+      -- { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
       -- { name = 'cmp_tabnine' },
@@ -82,7 +82,7 @@ M.config = function()
   cmp.setup.filetype('lua', {
     sources = cmp.config.sources({
       { name = 'nvim_lua' },
-      { name = 'luasnip' },
+      -- { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
       -- { name = 'cmp_tabnine' },
@@ -95,7 +95,7 @@ M.config = function()
       name = 'skkeleton',
       view = { entries = 'native' },
     },
-    { name = 'luasnip' },
+    -- { name = 'luasnip' },
     -- { name = 'cmp_tabnine' },
     buffer_source,
     { name = 'path' },
@@ -132,7 +132,7 @@ M.config = function()
   })
 
   -- vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
-  vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')
+  -- vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')
   vim.keymap.set('i', '<c-f>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "path"}} } })<cr>')
 end
 

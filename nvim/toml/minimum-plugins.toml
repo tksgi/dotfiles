@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+[[plugins]]
+repo = 'mfussenegger/nvim-lint'
