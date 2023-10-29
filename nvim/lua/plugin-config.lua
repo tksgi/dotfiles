@@ -301,7 +301,7 @@ require("lazy").setup({
       'RRethy/vim-illuminate',
       'RRethy/nvim-treesitter-endwise',
       -- "nvim-treesitter/nvim-treesitter-textobjects",
-      'orgmode'
+      -- 'orgmode'
     },
     build = ":TSUpdate",
     config = require 'plugins.treesitter'.config,
@@ -466,7 +466,7 @@ require("lazy").setup({
       { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
       { "windwp/nvim-autopairs",               config = true, },
       { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
-      { 'orgmode' },
+      -- { 'orgmode' },
     },
     config = require 'plugins.cmp'.config,
   },
