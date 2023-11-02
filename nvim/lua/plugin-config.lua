@@ -410,31 +410,50 @@ require("lazy").setup({
 
   -- builtin LSP
   { 'williamboman/mason.nvim',           config = true },
-  { 'williamboman/mason-lspconfig.nvim', config = true, lazy = true },
   { 'folke/neodev.nvim',                 config = true, lazy = true }, -- lua lsにneovimの補完設定を追加
   {
     'neovim/nvim-lspconfig',
     dependencies = {
       'neodev.nvim',
-      -- {
-      --   'jose-elias-alvarez/null-ls.nvim',
-      --   config = function()
-      --     local null_ls = require 'null-ls'
-      --
-      --     null_ls.setup({
-      --       sources = {
-      --         null_ls.builtins.diagnostics.rubocop.with({
-      --           method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-      --         }),
-      --         null_ls.builtins.formatting.prettier,
-      --       }
-      --     })
-      --   end,
-      --   dependencies = { 'plenary.nvim' },
-      -- },
       { "SmiteshP/nvim-navic", enabled = true },
+      { 'simrat39/rust-tools.nvim' },
     },
-    config = require 'plugins.lspconfig'.config,
+    -- config = require 'plugins.lspconfig'.config,
+  },
+  {
+    'williamboman/mason-lspconfig.nvim',
+    config = function ()
+      require("mason-lspconfig").setup()
+
+      require("mason-lspconfig").setup_handlers {
+        function(server_name)
+          require("lspconfig")[server_name].setup {
+            on_attach = require 'plugins.lspconfig'.custom_attach
+          }
+        end,
+        ['lua_ls'] = function()
+          require('lspconfig').lua_ls.setup({
+            settings = {
+              Lua = {
+                completion = {
+                  callSnippet = "Replace"
+                }
+              }
+            }
+          })
+        end,
+        ['tsserver'] = function()
+          require('lspconfig').tsserver.setup {
+            autostart = false
+          }
+        end,
+        ['denols'] = function()
+          require('lspconfig').denols.setup {
+            autostart = false
+          }
+        end,
+      }
+    end
   },
   -- dap
   {
@@ -447,7 +466,7 @@ require("lazy").setup({
       local dap = require 'dap'
       dap.configurations.typescriptreact = {
         {
-          type = "chrome",
+          type = "chromium",
           request = "attach",
           program = "${file}",
           cwd = vim.fn.getcwd(),
@@ -512,11 +531,11 @@ require("lazy").setup({
         run_on_every_keystroke = true,
         snippet_placeholder = '..',
         ignored_file_types = {
-          -- default is not to ignore
-          -- uncomment to ignore in lua:
-          -- lua = true
-        },
-        show_prediction_strength = false
+        -- default is not to ignore
+        -- uncomment to ignore in lua:
+        -- lua = true
+      },
+      show_prediction_strength = false
       })
     end
   },
