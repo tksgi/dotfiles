@@ -196,6 +196,7 @@ require("lazy").setup({
       { 'nvim-tree/nvim-web-devicons' },
       { 'lambdalisue/nerdfont.vim' },
       { 'lambdalisue/fern-renderer-nerdfont.vim' },
+      { 'lambdalisue/glyph-palette.vim' },
       { 'lambdalisue/fern-git-status.vim' },
       { 'lambdalisue/fern-mapping-git.vim' },
       { 'lambdalisue/fern-bookmark.vim' },
@@ -240,7 +241,7 @@ require("lazy").setup({
           },
           lualine_z = {
             { function() return vim.api.nvim_exec('pwd', true) end },
-          }
+          },
         },
         winbar = {
           lualine_c = {
@@ -251,6 +252,29 @@ require("lazy").setup({
           lualine_c = {
             { 'filename', path = 1, },
           }
+        },
+        sections = {
+          lualine_x = {
+            {
+              require("noice").api.status.message.get_hl,
+              cond = require("noice").api.status.message.has,
+            },
+            {
+              require("noice").api.status.command.get,
+              cond = require("noice").api.status.command.has,
+              color = { fg = "#ff9e64" },
+            },
+            {
+              require("noice").api.status.mode.get,
+              cond = require("noice").api.status.mode.has,
+              color = { fg = "#ff9e64" },
+            },
+            {
+              require("noice").api.status.search.get,
+              cond = require("noice").api.status.search.has,
+              color = { fg = "#ff9e64" },
+            },
+          },
         },
         extensions = { 'quickfix', 'fern', 'aerial', 'lazy' },
       })
