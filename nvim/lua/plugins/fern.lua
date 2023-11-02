@@ -20,6 +20,17 @@ M.config = function()
       vim.keymap.set('n', '<C-d>', '<Plug>(fern-action-preview:scroll:down:half)', opt)
       vim.keymap.set('n', '<C-u>', '<Plug>(fern-action-preview:scroll:up:half)', opt)
       vim.keymap.set('n', 'D', '<Plug>(fern-action-remove)', opt)
+
+  vim.api.nvim_exec2(
+        [[
+        augroup my-glyph-palette
+          autocmd! *
+          autocmd FileType fern call glyph_palette#apply()
+          autocmd FileType nerdtree,startify call glyph_palette#apply()
+        augroup END
+
+        ]], {}
+      )
     end
   })
 end

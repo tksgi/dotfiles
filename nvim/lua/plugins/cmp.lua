@@ -67,7 +67,7 @@ M.config = function()
       { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
-      -- { name = 'cmp_tabnine' },
+      { name = 'cmp_tabnine' },
       buffer_source,
       { name = 'path' },
     }),
@@ -85,7 +85,7 @@ M.config = function()
       { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
-      -- { name = 'cmp_tabnine' },
+      { name = 'cmp_tabnine' },
       buffer_source,
     })
   })
@@ -96,7 +96,7 @@ M.config = function()
       view = { entries = 'native' },
     },
     { name = 'luasnip' },
-    -- { name = 'cmp_tabnine' },
+    { name = 'cmp_tabnine' },
     buffer_source,
     { name = 'path' },
   })
@@ -131,7 +131,7 @@ M.config = function()
     })
   })
 
-  -- vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
+  vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
   vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')
   vim.keymap.set('i', '<c-f>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "path"}} } })<cr>')
 end

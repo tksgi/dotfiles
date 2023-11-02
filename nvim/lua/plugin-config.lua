@@ -501,7 +501,6 @@ require("lazy").setup({
     'tzachar/cmp-tabnine',
     build = './install.sh',
     lazy = true,
-    enabled = false,
     config = function()
       local tabnine = require('cmp_tabnine.config')
 
@@ -532,7 +531,7 @@ require("lazy").setup({
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
       { 'petertriho/cmp-git' },
-      { 'tzachar/cmp-tabnine',                 enabled = false },
+      { 'tzachar/cmp-tabnine' },
       { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
       { "windwp/nvim-autopairs",               config = true, },
       { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
@@ -589,7 +588,7 @@ require("lazy").setup({
       -- { 'Shougo/ddu-ui-filer' },
 
       -- Source
-      { 'Shougo/ddu-source-action' },
+      -- { 'Shougo/ddu-source-action' },
       { 'Shougo/ddu-source-file' },
       { 'Shougo/ddu-source-file_rec' },
       { 'Shougo/ddu-source-file_old' },
