@@ -174,6 +174,9 @@ require("lazy").setup({
   {
     'lambdalisue/gin.vim',
     dependencies = { 'vim-denops/denops.vim' },
+    config = function()
+      vim.g.gin_proxy_apply_without_confirm = 1
+    end
   },
   {
     'NeogitOrg/neogit',
