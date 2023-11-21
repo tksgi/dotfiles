@@ -1,4 +1,5 @@
-vim.g.completion_plugin = 'cmp' -- set cmp or ddc
+vim.g.completion_plugin = 'cmp'
+-- vim.g.completion_plugin = 'ddc'
 
 
 -- plugins with lazy.nvim
