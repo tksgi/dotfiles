@@ -1,7 +1,10 @@
-local custom_attach = function(client, bufnr)
-  require("nvim-navic").attach(client, bufnr)
+local build = function()
+  vim.fn.system({ 'go', 'install', 'github.com/mattn/efm-langserver@latest' })
+end
 
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+local lsp_buf_config = function(ev)
+
+  local bufopts = { noremap = true, silent = true, buffer = ev.buf }
   -- helpのexampleキーマップ
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -15,62 +18,66 @@ local custom_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>=', vim.lsp.buf.format, bufopts)
 
   -- Create Command
-  vim.api.nvim_buf_create_user_command(bufnr, "LspDeclaration", vim.lsp.buf.declaration, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspDefinition", vim.lsp.buf.definition, {})
-  -- vim.api.nvim_buf_create_user_command(bufnr, "LspPeekDefinition", vim.lsp.buf.peek_definition, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "Lsphover", vim.lsp.buf.hover, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspImpletentation", vim.lsp.buf.implementation, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspSignatureHelp", vim.lsp.buf.signature_help, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspTypeDefinition", vim.lsp.buf.type_definition, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspReferences", vim.lsp.buf.references, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", function() vim.lsp.buf.code_action() end, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", function() vim.lsp.buf.format({}) end, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspShowLineDiagnostics", vim.diagnostic.open_float, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspAddWorkspaceFolder",
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspDeclaration", vim.lsp.buf.declaration, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspDefinition", vim.lsp.buf.definition, {})
+  -- vim.api.nvim_buf_create_user_command(ev.buf, "LspPeekDefinition", vim.lsp.buf.peek_definition, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "Lsphover", vim.lsp.buf.hover, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspImpletentation", vim.lsp.buf.implementation, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspSignatureHelp", vim.lsp.buf.signature_help, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspTypeDefinition", vim.lsp.buf.type_definition, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspReferences", vim.lsp.buf.references, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspCodeAction", function() vim.lsp.buf.code_action() end, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspRename", vim.lsp.buf.rename, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspFormat", function() vim.lsp.buf.format({}) end, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspShowLineDiagnostics", vim.diagnostic.open_float, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspAddWorkspaceFolder",
     function() vim.lsp.buf.add_workspace_folder() end, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspRemoveWorkspaceFolder", vim.lsp.buf.remove_workspace_folder, {})
-  vim.api.nvim_buf_create_user_command(bufnr, "LspListWorkspaceFolder",
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspRemoveWorkspaceFolder", vim.lsp.buf.remove_workspace_folder, {})
+  vim.api.nvim_buf_create_user_command(ev.buf, "LspListWorkspaceFolder",
     function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {})
 end
 
 local config = function()
-  -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-  require 'lspconfig'.vimls.setup {
-    on_attach = custom_attach,
-    -- capabilities = capabilities
+  local  lspconfig = require('lspconfig')
+  lspconfig.util.default_config = vim.tbl_extend(
+"force",
+      lspconfig.util.default_config,
+      {
+        on_attach = function(client, bufnr)
+          require("nvim-navic").attach(client, bufnr)
+        end
+      }
+  )
+  lspconfig.vimls.setup { }
+  lspconfig.tsserver.setup {
+    -- autostart = false,
   }
-  require 'lspconfig'.tsserver.setup {
-    on_attach = custom_attach,
-    -- capabilities = capabilities
-  }
-  require 'lspconfig'.gopls.setup {
-    on_attach = custom_attach,
-    -- capabilities = capabilities
-  }
-  require 'lspconfig'.yamlls.setup {
-    on_attach = custom_attach,
-    -- capabilities = capabilities
-  }
-  require 'lspconfig'.dockerls.setup {
-    on_attach = custom_attach,
-    -- capabilities = capabilities
-  }
-  require 'lspconfig'.lua_ls.setup({
-    on_attach = custom_attach,
-    -- capabilities = capabilities,
+  lspconfig.gopls.setup { }
+  lspconfig.yamlls.setup { }
+  lspconfig.dockerls.setup { }
+  lspconfig.lua_ls.setup({
     settings = {
       Lua = {
         completion = {
           callSnippet = "Replace",
         },
+        hint = { enable = true },
+        format = { enable = true },
+        runtime = { checkThirdParty = true },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
       },
     },
   })
-  -- require 'lspconfig'.ruby_ls.setup({
-  --   on_attach = custom_attach,
-  -- })
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = lsp_buf_config,
+  })
+
+  vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 end
 
 ---@type LazySpec
@@ -81,6 +88,7 @@ local spec = {
     { "SmiteshP/nvim-navic",     enabled = true },
     { 'simrat39/rust-tools.nvim' },
   },
+  build = build,
   config = config,
 }
 return spec
