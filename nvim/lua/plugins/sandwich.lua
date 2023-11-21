@@ -1,18 +1,20 @@
 local M = {}
+M.init = function()
+  -- デフォルトマッピングを無効化してZから初まるマッピングに変更
+  vim.g['sandwich_no_default_key_mappings'] = 1
+end
 M.config = function()
-  -- デフォルトマッピングを無効化してzから初まるマッピングに変更
-  vim.g.sandwich_no_default_key_mappings = 1
   -- add
-  vim.keymap.set('n', 'za', '<Plug>(sandwich-add)')
-  vim.keymap.set('x', 'za', '<Plug>(sandwich-add)')
-  vim.keymap.set('o', 'za', '<Plug>(sandwich-add)')
+  vim.keymap.set('n', 'Za', '<Plug>(sandwich-add)')
+  vim.keymap.set('x', 'Za', '<Plug>(sandwich-add)')
+  vim.keymap.set('o', 'Za', '<Plug>(sandwich-add)')
   -- delete
-  vim.keymap.set('n', 'zd', '<Plug>(sandwich-delete)')
-  vim.keymap.set('x', 'zd', '<Plug>(sandwich-delete)')
-  vim.keymap.set('o', 'zdb', '<Plug>(sandwich-delete-auto)')
+  vim.keymap.set('n', 'Zd', '<Plug>(sandwich-delete)')
+  vim.keymap.set('x', 'Zd', '<Plug>(sandwich-delete)')
+  vim.keymap.set('o', 'Zdb', '<Plug>(sandwich-delete-auto)')
   -- replace
-  vim.keymap.set('n', 'zr', '<Plug>(sandwich-replace)')
-  vim.keymap.set('x', 'zr', '<Plug>(sandwich-replace)')
-  vim.keymap.set('o', 'zrb', '<Plug>(sandwich-replace-auto)')
+  vim.keymap.set('n', 'Zr', '<Plug>(sandwich-replace)')
+  vim.keymap.set('x', 'Zr', '<Plug>(sandwich-replace)')
+  vim.keymap.set('o', 'Zrb', '<Plug>(sandwich-replace-auto)')
 end
 return M

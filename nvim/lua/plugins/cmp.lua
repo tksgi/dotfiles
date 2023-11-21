@@ -2,14 +2,14 @@ local M = {}
 
 M.config = function()
   vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
 
-  cmp.event:on(
-    'confirm_done',
-    cmp_autopairs.on_confirm_done()
-  )
+  -- cmp.event:on(
+  --   'confirm_done',
+  --   cmp_autopairs.on_confirm_done()
+  -- )
   local buffer_source = {
     name = 'buffer',
     option = {
@@ -67,7 +67,7 @@ M.config = function()
       { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
-      { name = 'cmp_tabnine' },
+      -- { name = 'cmp_tabnine' },
       buffer_source,
       { name = 'path' },
     }),
@@ -85,7 +85,7 @@ M.config = function()
       { name = 'luasnip' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
-      { name = 'cmp_tabnine' },
+      -- { name = 'cmp_tabnine' },
       buffer_source,
     })
   })
@@ -96,40 +96,40 @@ M.config = function()
       view = { entries = 'native' },
     },
     { name = 'luasnip' },
-    { name = 'cmp_tabnine' },
+    -- { name = 'cmp_tabnine' },
     buffer_source,
     { name = 'path' },
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' },
-      {
-        name = 'cmdline_history',
-        option = { history_type = '/' }
-      }
-    }
-  })
+  -- cmp.setup.cmdline('/', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = {
+  --     { name = 'buffer' },
+  --     {
+  --       name = 'cmdline_history',
+  --       option = { history_type = '/' }
+  --     }
+  --   }
+  -- })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'cmdline' },
-      {
-        name = 'path',
-        option = {
-          trailing_slash = true,
-        }
-      },
-      {
-        name = 'cmdline_history',
-        option = { history_type = ':' }
-      }
-    })
-  })
+  -- cmp.setup.cmdline(':', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = cmp.config.sources({
+  --     { name = 'cmdline' },
+  --     {
+  --       name = 'path',
+  --       option = {
+  --         trailing_slash = true,
+  --       }
+  --     },
+  --     {
+  --       name = 'cmdline_history',
+  --       option = { history_type = ':' }
+  --     }
+  --   })
+  -- })
 
   vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
   vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')

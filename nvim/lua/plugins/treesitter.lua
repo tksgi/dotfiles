@@ -5,7 +5,7 @@ M.config = function()
     highlight = {
       enable = true,     -- false will disable the whole extension
       disable = { "ruby" },
-      additional_vim_regex_highlighting = { 'org' },
+      additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
       enable = true,

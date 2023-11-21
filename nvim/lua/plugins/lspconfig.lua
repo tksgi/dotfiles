@@ -68,8 +68,8 @@ M.config = function()
       },
     },
   })
-  require 'lspconfig'.ruby_ls.setup({
-    on_attach = custom_attach,
-  })
+  -- require 'lspconfig'.ruby_ls.setup({
+  --   on_attach = custom_attach,
+  -- })
 end
 return M

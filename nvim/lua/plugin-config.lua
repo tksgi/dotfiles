@@ -107,6 +107,11 @@ require("lazy").setup({
   {
     'chentoast/marks.nvim',
     config = true,
+    options = {
+      builtin_marks = { "'", "<", ">", "." },
+      default_mappings = true,
+      signs = true,
+    }
   },
   { 'godlygeek/tabular',
     cmd = { 'Tabularize' },
@@ -217,6 +222,10 @@ require("lazy").setup({
     config = require 'plugins.noice'.config,
   },
   {
+    'stevearc/dressing.nvim',
+    config = true,
+  },
+  {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
     config = require 'plugins.notify'.config,
@@ -234,52 +243,15 @@ require("lazy").setup({
       'nvim-web-devicons',
       'noice.nvim',
     },
-    config = function()
-      require("lualine").setup({
-        tabline = {
-          lualine_a = {
-            { 'tabs', mode = 2, },
-          },
-          lualine_z = {
-            { function() return vim.api.nvim_exec('pwd', true) end },
-          },
-        },
-        winbar = {
-          lualine_c = {
-            { 'filename', path = 1, },
-          }
-        },
-        inactive_winbar = {
-          lualine_c = {
-            { 'filename', path = 1, },
-          }
-        },
-        sections = {
-          lualine_x = {
-            {
-              require("noice").api.status.message.get_hl,
-              cond = require("noice").api.status.message.has,
-            },
-            {
-              require("noice").api.status.command.get,
-              cond = require("noice").api.status.command.has,
-              color = { fg = "#ff9e64" },
-            },
-            {
-              require("noice").api.status.mode.get,
-              cond = require("noice").api.status.mode.has,
-              color = { fg = "#ff9e64" },
-            },
-            {
-              require("noice").api.status.search.get,
-              cond = require("noice").api.status.search.has,
-              color = { fg = "#ff9e64" },
-            },
-          },
-        },
-        extensions = { 'quickfix', 'fern', 'aerial', 'lazy' },
-      })
-    end,
+    config = require('plugins/lualine').config,
+  },
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    init = require('plugins/barbar').init,
+    config = true,
   },
   {
     'michaelb/sniprun',
@@ -290,19 +262,50 @@ require("lazy").setup({
       })
     end
   },
+  -- {
+  --   't9md/vim-choosewin',
+  --   keys = {
+  --     { '-', '<cmd>ChooseWin<cr>', desc = 'ウィンドウを選択して移動' }
+  --   },
+  --   config = function()
+  --     vim.api.nvim_exec(
+  --       [[
+  --       let g:choosewin_overlay_enable = 1
+  --       let g:choosewin_overlay_clear_multibyte = 1
+  --     ]], false
+  --     )
+  --   end
+  -- },
   {
-    't9md/vim-choosewin',
-    keys = {
-      { '-', '<cmd>ChooseWin<cr>', desc = 'ウィンドウを選択して移動' }
-    },
+    's1n7ax/nvim-window-picker',
+    name = 'window_picker',
+    event = 'VeryLazy',
+    version = '2.*',
     config = function()
-      vim.api.nvim_exec(
-        [[
-        let g:choosewin_overlay_enable = 1
-        let g:choosewin_overlay_clear_multibyte = 1
-      ]], false
-      )
-    end
+      require('window-picker').setup({
+        -- hint = 'floating-big-letter',
+        selection_chars = '1234567890ABC',
+        -- picker_config = {
+        --   use_winbar = 'always'
+        -- },
+        filter_rules = {
+          include_current_win = true,
+          bo = {
+            buftype = {},
+          }
+        },
+      })
+    end,
+    init = function()
+      vim.api.nvim_create_user_command("PickWindow", function()
+        local winid = require('window-picker').pick_window()
+
+        if winid then
+          vim.api.nvim_set_current_win(winid)
+        end
+      end, {})
+      vim.keymap.set('n', '-', '<cmd>PickWindow<cr>', { silent = true })
+    end,
   },
   {
     'kwkarlwang/bufresize.nvim',
@@ -324,7 +327,14 @@ require("lazy").setup({
   {
     'machakann/vim-sandwich',
     lazy = false,
-    config = require 'plugins.sandwich'.config,
+    init = require'plugins.sandwich'.init,
+    config = require'plugins.sandwich'.config,
+  },
+  {
+    'hrsh7th/nvim-insx',
+    config = function()
+      require('insx.preset.standard').setup({ fast_wrap = { enabled = true } })
+    end,
   },
   {
     'NvChad/nvim-colorizer.lua',
@@ -335,6 +345,19 @@ require("lazy").setup({
       'ColorizerReloadAllBuffers',
       'ColorizerToggle',
     }
+  },
+  {
+    'bkad/CamelCaseMotion',
+    config = function()
+      vim.keymap.set('', 'w', '<Plug>CamelCaseMotion_w', { silent = true })
+      vim.keymap.set('', 'b', '<Plug>CamelCaseMotion_b', { silent = true })
+      vim.keymap.set('', 'e', '<Plug>CamelCaseMotion_e', { silent = true })
+      vim.keymap.set('', 'ge', '<Plug>CamelCaseMotion_ge', { silent = true })
+      vim.keymap.del('s', 'w')
+      vim.keymap.del('s', 'b')
+      vim.keymap.del('s', 'e')
+      vim.keymap.del('s', 'ge')
+    end
   },
 
   -- filetype plugin
@@ -553,7 +576,7 @@ require("lazy").setup({
       { 'petertriho/cmp-git' },
       { 'tzachar/cmp-tabnine' },
       { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
-      { "windwp/nvim-autopairs",               config = true, },
+      -- { "windwp/nvim-autopairs",               config = true, },
       { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
       { 'orgmode' },
     },
@@ -581,7 +604,6 @@ require("lazy").setup({
     cmd = { "Telescope" },
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-packer.nvim' },
       { 'nvim-telescope/telescope-symbols.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
       -- { 'nvim-telescope/telescope-command-palette.nvim' },
@@ -608,7 +630,7 @@ require("lazy").setup({
       -- { 'Shougo/ddu-ui-filer' },
 
       -- Source
-      -- { 'Shougo/ddu-source-action' },
+      { 'Shougo/ddu-source-action' },
       { 'Shougo/ddu-source-file' },
       { 'Shougo/ddu-source-file_rec' },
       { 'Shougo/ddu-source-file_old' },
@@ -616,7 +638,7 @@ require("lazy").setup({
       { 'shun/ddu-source-buffer' },
       { 'shun/ddu-source-rg' },
       { 'uga-rosa/ddu-source-lsp' },
-      { 'matsui54/ddu-vim-ui-select' },
+      -- { 'matsui54/ddu-vim-ui-select' },
       { 'matsui54/ddu-source-help' },
       { '4513ECHO/ddu-source-ghq' },
       { 'mikanIchinose/ddu-source-markdown' },
@@ -630,6 +652,29 @@ require("lazy").setup({
       { 'yuki-yano/ddu-filter-fzf' },
     },
     config = require('plugins.ddu').config,
+  },
+
+  {
+    'Shougo/deol.nvim',
+    init = function()
+      vim.g['deol#custom_map'] = {
+        edit = 'e',
+        start_insert = 'i',
+        start_insert_first = 'I',
+        start_append = 'a',
+        start_append_last = 'A',
+        execute_line = '<CR>',
+        previous_prompt = '<C-p>',
+        next_prompt = '<C-n>',
+        paste_prompt = '<C-y>',
+        bg = '<C-z>',
+        quit = 'q',
+      }
+    end
+  },
+  {
+    'stevearc/overseer.nvim',
+    config = true,
   }
 }, {
   custom_keys = {
