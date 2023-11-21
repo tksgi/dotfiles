@@ -70,7 +70,7 @@ local spec = {
     { "benfowler/telescope-luasnip.nvim" },
     { "xiyaowong/telescope-emoji.nvim" },
     { 'folke/trouble.nvim' },
-    { "princejoogie/dir-telescope.nvim",           confog = true, }
+    { "princejoogie/dir-telescope.nvim",           config = true, }
   },
   keys = keys,
   config = config,

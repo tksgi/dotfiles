@@ -2,7 +2,7 @@
 local spec = {
   'chentoast/marks.nvim',
   config = true,
-  options = {
+  opts = {
     builtin_marks = { "'", "<", ">", "." },
     default_mappings = true,
     signs = true,

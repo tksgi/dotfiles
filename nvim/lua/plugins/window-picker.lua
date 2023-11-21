@@ -32,6 +32,6 @@ local spec = {
   event = 'VeryLazy',
   version = '2.*',
   init = init,
-  confing = config,
+  config = config,
 }
 return spec
