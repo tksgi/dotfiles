@@ -1,5 +1,4 @@
-local M = {}
-M.config = function()
+local config = function()
   require("noice").setup({
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -48,8 +47,19 @@ M.config = function()
     }
   })
   vim.keymap.set('n', '<C-n>', function()
-    require 'notify'.dismiss({})
+    require 'notify'.dismiss({ pending = true, silent = true })
     require 'noice'.cmd('dismiss')
   end, {})
 end
-return M
+
+---@type LazySpec
+local spec = {
+  'folke/noice.nvim',
+  event = "VeryLazy",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    'nvim-notify'
+  },
+  config = config,
+}
+return spec

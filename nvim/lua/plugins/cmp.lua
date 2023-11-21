@@ -1,6 +1,4 @@
-local M = {}
-
-M.config = function()
+local config = function()
   vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
   -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   local cmp = require 'cmp'
@@ -136,4 +134,47 @@ M.config = function()
   vim.keymap.set('i', '<c-f>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "path"}} } })<cr>')
 end
 
-return M
+---@type LazySpec
+local spec = {
+  "hrsh7th/nvim-cmp",
+  enabled = vim.g.completion_plugin == 'cmp',
+  event = { "InsertEnter", "CmdlineEnter", },
+  dependencies = {
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { "hrsh7th/cmp-buffer" },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/cmp-nvim-lua' },
+    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+    { 'petertriho/cmp-git' },
+    { 'tzachar/cmp-tabnine' },
+    { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
+    -- { "windwp/nvim-autopairs",               config = true, },
+    { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
+    { 'orgmode' },
+    {
+      'tzachar/cmp-tabnine',
+      build = './install.sh',
+      lazy = true,
+      config = function()
+        local tabnine = require('cmp_tabnine.config')
+
+        tabnine:setup({
+          max_lines = 1000,
+          max_num_results = 20,
+          sort = true,
+          run_on_every_keystroke = true,
+          snippet_placeholder = '..',
+          ignored_file_types = {
+            -- default is not to ignore
+            -- uncomment to ignore in lua:
+            -- lua = true
+          },
+          show_prediction_strength = false
+        })
+      end
+    },
+  },
+  config = config,
+}
+return spec

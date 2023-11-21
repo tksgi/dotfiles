@@ -1,5 +1,4 @@
-local M = {}
-M.init = function()
+local init = function()
   vim.api.nvim_create_user_command(
     'Fernr',
     function(opts)
@@ -9,7 +8,7 @@ M.init = function()
     { nargs = '?', complete = 'dir' }
   )
 end
-M.config = function()
+local config = function()
   vim.g['fern#renderer'] = 'nerdfont'
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'fern',
@@ -21,12 +20,12 @@ M.config = function()
       vim.keymap.set('n', '<C-u>', '<Plug>(fern-action-preview:scroll:up:half)', opt)
       vim.keymap.set('n', 'D', '<Plug>(fern-action-remove)', opt)
 
-  vim.api.nvim_exec2(
+      vim.api.nvim_exec2(
         [[
         augroup my-glyph-palette
-          autocmd! *
-          autocmd FileType fern call glyph_palette#apply()
-          autocmd FileType nerdtree,startify call glyph_palette#apply()
+        autocmd! *
+        autocmd FileType fern call glyph_palette#apply()
+        autocmd FileType nerdtree,startify call glyph_palette#apply()
         augroup END
 
         ]], {}
@@ -35,4 +34,25 @@ M.config = function()
   })
 end
 
-return M
+
+---@type LazySpec
+local spec = {
+  'lambdalisue/fern.vim',
+  lazy = false,
+  dependencies = {
+    { 'lambdalisue/fern-hijack.vim',           lazy = false },
+    { 'ryanoasis/vim-devicons' },
+    { 'nvim-tree/nvim-web-devicons' },
+    { 'lambdalisue/nerdfont.vim' },
+    { 'lambdalisue/fern-renderer-nerdfont.vim' },
+    { 'lambdalisue/glyph-palette.vim' },
+    { 'lambdalisue/fern-git-status.vim' },
+    { 'lambdalisue/fern-mapping-git.vim' },
+    { 'lambdalisue/fern-bookmark.vim' },
+    { 'lambdalisue/fern-mapping-quickfix.vim' },
+    { 'yuki-yano/fern-preview.vim' },
+  },
+  init = init,
+  config = config,
+}
+return spec

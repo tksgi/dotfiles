@@ -1,9 +1,8 @@
-local M = {}
-M.init = function()
-  -- デフォルトマッピングを無効化してZから初まるマッピングに変更
+local init = function()
+  -- デフォルトマッピングを無効化してZから始まるマッピングに変更
   vim.g['sandwich_no_default_key_mappings'] = 1
 end
-M.config = function()
+local config = function()
   -- add
   vim.keymap.set('n', 'Za', '<Plug>(sandwich-add)')
   vim.keymap.set('x', 'Za', '<Plug>(sandwich-add)')
@@ -17,4 +16,12 @@ M.config = function()
   vim.keymap.set('x', 'Zr', '<Plug>(sandwich-replace)')
   vim.keymap.set('o', 'Zrb', '<Plug>(sandwich-replace-auto)')
 end
-return M
+
+---@type LazySpec
+local spec = {
+  'machakann/vim-sandwich',
+  lazy = false,
+  init = init,
+  config = config,
+}
+return spec

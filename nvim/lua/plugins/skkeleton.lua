@@ -1,6 +1,4 @@
-local M = {}
-
-M.config = function()
+local config = function()
   -- local init_pre = vim.api.nvim_create_augroup('skkeleton-initialize-pre', { clear = false })
   -- vim.api.nvim_create_autocmd('User', {
   --   group = init_pre,
@@ -30,10 +28,19 @@ M.config = function()
     false)
 end
 
-M.build = function()
+local build = function()
   local dic_path = vim.fn.stdpath('data') .. '/skk_dictionary'
   if vim.fn.empty(vim.fn.glob(dic_path)) > 0 then
     vim.fn.system({ 'git', 'clone', 'https://github.com/skk-dev/dict.git', dic_path })
   end
 end
-return M
+
+---@type LazySpec
+local spec = {
+  'vim-skk/skkeleton',
+  lazy = false,
+  dependencies = { 'vim-denops/denops.vim' },
+  config = config,
+  build = build,
+}
+return spec

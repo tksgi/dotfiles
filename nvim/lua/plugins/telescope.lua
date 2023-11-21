@@ -1,6 +1,4 @@
-local M = {}
-
-M.keys = {
+local keys = {
   { '\\T',   '<cmd>Telescope<cr>',                desc = 'Telescope show default pickers' },
   { '\\ff',  '<cmd>Telescope find_files<cr>',     desc = 'Telescope find_files' },
   { '\\lg',  '<cmd>Telescope live_grep<cr>',      desc = 'Telescope live_grep' },
@@ -17,7 +15,7 @@ M.keys = {
   { '\\fb',  '<cmd>Telescope file_browser<cr>',   desc = 'Telescope file_browser' },
 }
 
-M.config = function()
+local config = function()
   local trouble = require("trouble.providers.telescope")
 
   require('telescope').setup({
@@ -56,4 +54,25 @@ M.config = function()
   require "telescope".load_extension("dir")
 end
 
-return M
+---@type LazySpec
+local spec = {
+  'nvim-telescope/telescope.nvim',
+  tag = '0.1.4',
+  cmd = { "Telescope" },
+  dependencies = {
+    { 'nvim-lua/plenary.nvim' },
+    { 'nvim-telescope/telescope-symbols.nvim' },
+    { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
+    -- { 'nvim-telescope/telescope-command-palette.nvim' },
+    { 'debugloop/telescope-undo.nvim' },
+    { "nvim-telescope/telescope-file-browser.nvim" },
+    { "nvim-telescope/telescope-ghq.nvim" },
+    { "benfowler/telescope-luasnip.nvim" },
+    { "xiyaowong/telescope-emoji.nvim" },
+    { 'folke/trouble.nvim' },
+    { "princejoogie/dir-telescope.nvim",           confog = true, }
+  },
+  keys = keys,
+  config = config,
+}
+return spec

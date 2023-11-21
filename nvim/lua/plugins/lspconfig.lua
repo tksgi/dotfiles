@@ -1,5 +1,4 @@
-local M = {}
-M.custom_attach = function(client, bufnr)
+local custom_attach = function(client, bufnr)
   require("nvim-navic").attach(client, bufnr)
 
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -13,6 +12,7 @@ M.custom_attach = function(client, bufnr)
   vim.keymap.set('n', '<c-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>=', vim.lsp.buf.format, bufopts)
 
   -- Create Command
   vim.api.nvim_buf_create_user_command(bufnr, "LspDeclaration", vim.lsp.buf.declaration, {})
@@ -34,31 +34,31 @@ M.custom_attach = function(client, bufnr)
     function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, {})
 end
 
-M.config = function()
+local config = function()
   -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
   require 'lspconfig'.vimls.setup {
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities
   }
   require 'lspconfig'.tsserver.setup {
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities
   }
   require 'lspconfig'.gopls.setup {
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities
   }
   require 'lspconfig'.yamlls.setup {
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities
   }
   require 'lspconfig'.dockerls.setup {
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities
   }
   require 'lspconfig'.lua_ls.setup({
-    on_attach = M.custom_attach,
+    on_attach = custom_attach,
     -- capabilities = capabilities,
     settings = {
       Lua = {
@@ -72,4 +72,15 @@ M.config = function()
   --   on_attach = custom_attach,
   -- })
 end
-return M
+
+---@type LazySpec
+local spec = {
+  'neovim/nvim-lspconfig',
+  dependencies = {
+    'neodev.nvim',
+    { "SmiteshP/nvim-navic",     enabled = true },
+    { 'simrat39/rust-tools.nvim' },
+  },
+  config = config,
+}
+return spec

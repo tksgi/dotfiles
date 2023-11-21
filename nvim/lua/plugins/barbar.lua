@@ -1,6 +1,4 @@
-local M = {}
-
-M.init = function()
+local init = function()
   vim.g.barbar_auto_setup = false
 
   local map = vim.api.nvim_set_keymap
@@ -48,4 +46,13 @@ M.init = function()
   -- :BarbarDisable - very bad command, should never be used
 end
 
-return M
+---@type LazySpec
+local spec = {
+  'romgrk/barbar.nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+  },
+  init = init,
+  config = true,
+}
+return spec

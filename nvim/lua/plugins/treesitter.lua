@@ -1,9 +1,8 @@
-local M = {}
-M.config = function()
+local config = function()
   require('orgmode').setup_ts_grammar()
   require 'nvim-treesitter.configs'.setup {
     highlight = {
-      enable = true,     -- false will disable the whole extension
+      enable = true, -- false will disable the whole extension
       disable = { "ruby" },
       additional_vim_regex_highlighting = false,
     },
@@ -39,4 +38,19 @@ M.config = function()
   --   end
   -- })
 end
-return M
+
+---@type LazySpec
+local spec = {
+  'nvim-treesitter/nvim-treesitter',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-context',
+    { 'haringsrob/nvim_context_vt', enabled = false },
+    'RRethy/vim-illuminate',
+    'RRethy/nvim-treesitter-endwise',
+    -- "nvim-treesitter/nvim-treesitter-textobjects",
+    'orgmode'
+  },
+  build = ":TSUpdate",
+  config = config,
+}
+return spec

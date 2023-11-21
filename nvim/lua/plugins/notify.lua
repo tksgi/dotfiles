@@ -1,6 +1,5 @@
-local M = {}
 
-M.config = function()
+local config = function()
   vim.notify = require("notify")
 
   vim.notify.setup({
@@ -8,7 +7,7 @@ M.config = function()
     top_down = false,
   })
 
-  vim.api.nvim_create_user_command('NotifyDismiss', function() require 'notify'.dismiss({}) end, {})
+  vim.api.nvim_create_user_command('NotifyDismiss', function() require 'notify'.dismiss({ pending = true, silent = true }) end, {})
 
   -- function Notify_output(command_string, opts)
   --   local command = {}
@@ -42,4 +41,11 @@ M.config = function()
   --   })
   -- end
 end
-return M
+
+---@type LazySpec
+local spec = {
+  "rcarriga/nvim-notify",
+  event = "VeryLazy",
+  config = config,
+}
+return spec
