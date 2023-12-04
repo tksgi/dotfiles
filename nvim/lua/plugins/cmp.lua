@@ -39,7 +39,8 @@ local config = function()
     mapping = cmp.mapping.preset.insert({
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- <cr>で確定。未選択時は何もしない
+      ['<C-y>'] = cmp.mapping.confirm({ select = false }), -- <cr>で確定。未選択時は何もしない
+      ['<CR>'] = cmp.mapping.confirm({ select = false }),  -- <cr>で確定。未選択時は何もしない
       -- ['<C-f>'] = cmp.mapping.complete({ config = {sources = {name = 'path'}} }),
       -- ['<C-s>'] = cmp.mapping.complete({ config = {sources = {name = 'luasnip'}} }),
       ['<Tab>'] = cmp.mapping(function(fallback)
@@ -129,9 +130,41 @@ local config = function()
   --   })
   -- })
 
-  vim.keymap.set('i', '<c-t>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "cmp_tabnine"}} } })<cr>')
-  vim.keymap.set('i', '<c-s>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "luasnip"}} } })<cr>')
-  vim.keymap.set('i', '<c-f>', '<cmd>lua require"cmp".complete({ config = { sources = {{name = "path"}} } })<cr>')
+  vim.keymap.set(
+    'i', '<c-c>t',
+    function() require "cmp".complete({ config = { sources = { { name = "cmp_tabnine" } } } }) end,
+    { desc = 'tabnine補完', noremap = true }
+  )
+  vim.keymap.set('i', '<c-c>s',
+    function() require "cmp".complete({ config = { sources = { { name = "luasnip" } } } }) end,
+    { desc = 'snippet補完', noremap = true })
+  -- vim.keymap.set('i', '<c-c>l',
+    -- function() require "cmp".complete({ config = { sources = { { name = "look" } } } }) end,
+    -- { desc = 'lookの補完', noremap = true })
+  vim.keymap.set('i', '<c-c><c-l>',
+    function() require "cmp".complete({ config = { sources = { { name = "buffer-lines" } } } }) end,
+    { desc = 'buffer-lineの補完', noremap = true })
+  vim.keymap.set('i', '<c-c><c-f>',
+    function()
+      require "cmp".complete({ config = { sources = { { name = "path" } } } })
+    end,
+    { desc = 'pathの補完', noremap = true })
+
+  vim.keymap.set('i', '<c-c><c-j>',
+    function()
+      require "cmp".complete({
+        config = {
+          sources = {
+            {
+              name = "skkeleton",
+              view = { entries = 'native' },
+            }
+          }
+        }
+      })
+    end,
+    { desc = 'skkeletonの補完', noremap = true })
+
 end
 
 ---@type LazySpec
@@ -147,10 +180,11 @@ local spec = {
     { 'hrsh7th/cmp-nvim-lua' },
     { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
     { 'petertriho/cmp-git' },
-    { 'tzachar/cmp-tabnine' },
-    { 'rinx/cmp-skkeleton',                  dependencies = { 'skkeleton' } },
+    -- { 'https://github.com/octaltree/cmp-look' },
+    { 'https://github.com/amarakon/nvim-cmp-buffer-lines' },
+    { 'uga-rosa/cmp-skkeleton',                               dependencies = { 'skkeleton' } },
     -- { "windwp/nvim-autopairs",               config = true, },
-    { 'saadparwaiz1/cmp_luasnip',            dependencies = { 'LuaSnip' } },
+    { 'saadparwaiz1/cmp_luasnip',                         dependencies = { 'LuaSnip' } },
     { 'orgmode' },
     {
       'tzachar/cmp-tabnine',
