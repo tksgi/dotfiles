@@ -32,5 +32,3 @@
     diffFilter = delta --color-only
 [delta]
   features = side-by-side line-numbers decorations
-[credential]
-	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
