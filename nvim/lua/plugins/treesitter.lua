@@ -1,5 +1,4 @@
 local config = function()
-  require('orgmode').setup_ts_grammar()
   require 'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true, -- false will disable the whole extension
