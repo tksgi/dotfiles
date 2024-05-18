@@ -94,6 +94,17 @@ local config = function()
   vim.fn['ddc#custom#patch_global']('sourceOptions', sourceOptions)
   -- vim.fn['ddc#custom#patch_filetype']({ 'zsh' }, 'sources', { 'zsh' })
 
+  local sourceParams = {}
+  sourceParams['lsp'] = {
+    snippetEngine = vim.fn['denops#callback#register'](function(body)
+      vim.fn['vsnip#anonymous'](body)
+    end),
+    enableResolveItem = true,
+    enableAdditionalTextEdit = true,
+  }
+  vim.fn['ddc#custom#patch_global']('sourceParams', sourceParams)
+
+
   function CommandlinePre()
     vim.keymap.set('c', '<Tab>', function() vim.fn['pum#map#insert_relative']('+1') end, { remap = true })
     vim.keymap.set('c', '<S-Tab>', function() vim.fn['pum#map#insert_relative']('-1') end, { remap = true })
@@ -398,8 +409,7 @@ local spec = {
     { 'Shougo/pum.vim' },
     { 'Shougo/ddc-ui-pum' },
     { 'Shougo/neco-vim' },
-    { 'Shougo/ddc-source-nvim-lsp' },
-    { 'uga-rosa/ddc-nvim-lsp-setup', config = true },
+    { 'Shougo/ddc-source-lsp' },
     { 'Shougo/ddc-zsh' },
     { 'Shougo/ddc-cmdline-history' },
     { 'Shougo/ddc-source-around' },

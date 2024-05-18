@@ -39,16 +39,24 @@ end
 
 local config = function()
   local  lspconfig = require('lspconfig')
-  lspconfig.util.default_config = vim.tbl_extend(
-"force",
-      lspconfig.util.default_config,
-      {
-        on_attach = function(client, bufnr)
-          require("nvim-navic").attach(client, bufnr)
-          require("lsp-inlayhints").on_attach(client, bufnr)
-        end
-      }
+  local default_config = vim.tbl_extend(
+    "force",
+    lspconfig.util.default_config,
+    {
+      on_attach = function(client, bufnr)
+        require("nvim-navic").attach(client, bufnr)
+        require("lsp-inlayhints").on_attach(client, bufnr)
+      end,
+    }
   )
+
+  if vim.g.completion_plugin == 'ddc' then
+    local capabilities = require("ddc_source_lsp").make_client_capabilities()
+    default_config['capabilities'] = capabilities
+  end
+
+  lspconfig.util.default_config = default_config
+
   lspconfig.vimls.setup { }
   lspconfig.tsserver.setup {
     -- autostart = false,
@@ -116,6 +124,10 @@ local spec = {
     { "SmiteshP/nvim-navic",     enabled = true },
     { 'simrat39/rust-tools.nvim' },
     { 'https://github.com/lvimuser/lsp-inlayhints.nvim', config = true },
+    {
+      'Shougo/ddc-source-lsp',
+      enabled = vim.g.completion_plugin == 'ddc',
+    },
   },
   build = build,
   config = config,
