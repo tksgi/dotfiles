@@ -8,6 +8,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 mise/apt-install-dependencies.sh
 curl https://mise.run | sh
 ~/.local/bin/mise --version
+ln -sf mise/.default-* $HOME/
 ~/.local/bin/mise install
 
 # zsh
