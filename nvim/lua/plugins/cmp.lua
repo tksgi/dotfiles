@@ -130,17 +130,17 @@ local config = function()
   --   })
   -- })
 
-  vim.keymap.set(
-    'i', '<c-c>t',
-    function() require "cmp".complete({ config = { sources = { { name = "cmp_tabnine" } } } }) end,
-    { desc = 'tabnine補完', noremap = true }
-  )
+  -- vim.keymap.set(
+  --   'i', '<c-c>t',
+  --   function() require "cmp".complete({ config = { sources = { { name = "cmp_tabnine" } } } }) end,
+  --   { desc = 'tabnine補完', noremap = true }
+  -- )
   vim.keymap.set('i', '<c-c>s',
     function() require "cmp".complete({ config = { sources = { { name = "luasnip" } } } }) end,
     { desc = 'snippet補完', noremap = true })
-  -- vim.keymap.set('i', '<c-c>l',
-    -- function() require "cmp".complete({ config = { sources = { { name = "look" } } } }) end,
-    -- { desc = 'lookの補完', noremap = true })
+  vim.keymap.set('i', '<c-c>l',
+    function() require "cmp".complete({ config = { sources = { { name = "look" } } } }) end,
+    { desc = 'lookの補完', noremap = true })
   vim.keymap.set('i', '<c-c><c-l>',
     function() require "cmp".complete({ config = { sources = { { name = "buffer-lines" } } } }) end,
     { desc = 'buffer-lineの補完', noremap = true })
@@ -186,28 +186,28 @@ local spec = {
     -- { "windwp/nvim-autopairs",               config = true, },
     { 'saadparwaiz1/cmp_luasnip',                         dependencies = { 'LuaSnip' } },
     { 'orgmode' },
-    {
-      'tzachar/cmp-tabnine',
-      build = './install.sh',
-      lazy = true,
-      config = function()
-        local tabnine = require('cmp_tabnine.config')
-
-        tabnine:setup({
-          max_lines = 1000,
-          max_num_results = 20,
-          sort = true,
-          run_on_every_keystroke = true,
-          snippet_placeholder = '..',
-          ignored_file_types = {
-            -- default is not to ignore
-            -- uncomment to ignore in lua:
-            -- lua = true
-          },
-          show_prediction_strength = false
-        })
-      end
-    },
+    -- {
+    --   'tzachar/cmp-tabnine',
+    --   build = './install.sh',
+    --   lazy = true,
+    --   config = function()
+    --     local tabnine = require('cmp_tabnine.config')
+    --
+    --     tabnine:setup({
+    --       max_lines = 1000,
+    --       max_num_results = 20,
+    --       sort = true,
+    --       run_on_every_keystroke = true,
+    --       snippet_placeholder = '..',
+    --       ignored_file_types = {
+    --         -- default is not to ignore
+    --         -- uncomment to ignore in lua:
+    --         -- lua = true
+    --       },
+    --       show_prediction_strength = false
+    --     })
+    --   end
+    -- },
   },
   config = config,
 }

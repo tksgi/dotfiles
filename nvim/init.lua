@@ -107,8 +107,8 @@ vim.api.nvim_exec(
 )
 
 vim.api.nvim_del_keymap('n', 'Y')
-vim.api.nvim_set_keymap("n", "<F1>", '<cmd>e ~/.config/nvim/init.lua<cr>', { noremap = true, desc = '<F1>でinit.luaを開く' })
-vim.api.nvim_set_keymap("n", "<F2>", '<cmd>e ~/.config/nvim/lua/<cr>', { noremap = true, desc = '<F2>でluaディレクトリを開く' })
+vim.api.nvim_set_keymap("n", "<F1>", '<cmd>e ~/ghq/github.com/tksgi/dotfiles/nvim/init.lua<cr>', { noremap = true, desc = '<F1>でinit.luaを開く' })
+vim.api.nvim_set_keymap("n", "<F2>", '<cmd>e ~/ghq/github.com/tksgi/dotfiles/nvim/lua/<cr>', { noremap = true, desc = '<F2>でluaディレクトリを開く' })
 
 
 -- Neovide用の設定

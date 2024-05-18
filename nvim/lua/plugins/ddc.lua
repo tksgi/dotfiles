@@ -418,7 +418,7 @@ local spec = {
     -- { 'LumaKernel/ddc-tabnine' },
     { 'LumaKernel/ddc-source-file' },
     --{'delphinus/ddc-treesitter'},
-    { 'octaltree/cmp-look' }, -- complete english word
+    { 'https://github.com/octaltree/cmp-look' }, -- complete english word
   },
   config = config,
 }

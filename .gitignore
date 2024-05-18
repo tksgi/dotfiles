@@ -1,3 +1,4 @@
 nvim/.netrwhist
+nvim/lua/.luarc.json
 nvim/lua/test.lua
 nvim/lazy-lock.json
