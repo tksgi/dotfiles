@@ -1,5 +1,5 @@
 sudo apt update
-sudo apt install -y git curl zsh vim build-essential
+sudo apt install -y git curl zsh vim build-essential language-pack-ja-base language-pack-ja
 
 # rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
