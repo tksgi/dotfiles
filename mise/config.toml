@@ -15,6 +15,7 @@ fzf = "latest"
 # tmux = "latest"
 deno = "latest"
 node = "latest"
+jq = "latest"
 # sqlite = "latest"
 
 [settings]
