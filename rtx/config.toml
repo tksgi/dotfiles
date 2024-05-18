@@ -1,5 +1,0 @@
-[tools]
-neovim = "0.9.0"
-
-[settings]
-experimental = true

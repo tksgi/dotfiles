@@ -1,0 +1,20 @@
+[tools]
+neovim = "latest"
+bat = "latest"
+direnv = "latest"
+fd = "latest"
+delta = "latest"
+golang = "latest"
+ghq = "latest"
+github-cli = "latest"
+python = ["latest", "2.7.18"]
+ripgrep = "latest"
+ruby = "latest"
+exa = "latest"
+fzf = "latest"
+# tmux = "latest"
+deno = "latest"
+# sqlite = "latest"
+
+[settings]
+experimental = true
