@@ -1,3 +1,22 @@
+*
+!*/
+
+## ホワイトリストを設定
+!/.bashrc
+!/.gitconfig
+!/.gitignore
+!/.gitignore_global
+!/.tmux.conf
+!/aa/*
+!/aarandom.zsh
+!/mise/**
+!/nvim/**
+!/vim/**
+!/wezterm/**
+!/zeno/**
+!/zsh/**
+
+## 個別のブラックリストを設定
 nvim/.netrwhist
 nvim/lua/.luarc.json
 nvim/lua/test.lua
