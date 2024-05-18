@@ -1,5 +1,5 @@
 sudo apt update
-sudo apt install -y git zsh vim
+sudo apt install -y git curl zsh vim build-essential
 
 # rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -11,7 +11,7 @@ curl https://mise.run | sh
 ~/.local/bin/mise install
 
 # zsh
-cat zsh/.zshenv >> $HOME/
+cat zsh/.zshenv >> $HOME/.zshenv
 cp zsh/.zshrc $HOME/
 
 # git

@@ -3,10 +3,10 @@ export LC_CTYPE=ja_JP.UTF-8
 export LANG=ja_JP.UTF-8
 
 # 共通設定
-source $HOME/dotfiles/mainconf.zsh
+source $HOME/dotfiles/zsh/mainconf.zsh
 
 # alias
-source $HOME/dotfiles/alias.zsh
+source $HOME/dotfiles/zsh/alias.zsh
 
 # 補完
 source $HOME/zeno.zsh/zeno.zsh
