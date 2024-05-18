@@ -2,15 +2,11 @@
 export LC_CTYPE=ja_JP.UTF-8
 export LANG=ja_JP.UTF-8
 
-# asdf
-# . $HOME/.asdf/asdf.sh
-# fpath=(${ASDF_DIR}/completions $fpath)
-
 # 共通設定
-source $HOME/mainconf.zsh
+source $HOME/dotfiles/mainconf.zsh
 
 # alias
-source $HOME/alias.zsh
+source $HOME/dotfiles/alias.zsh
 
 # 補完
 source $HOME/zeno.zsh/zeno.zsh
@@ -34,6 +30,4 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey '^g' zeno-ghq-cd
 fi
 
-
-. "$HOME/.cargo/env"
-eval "$(rtx activate zsh)"
+eval "$(mise activate zsh)"

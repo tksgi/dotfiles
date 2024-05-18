@@ -2,6 +2,8 @@
 !*/
 
 ## ホワイトリストを設定
+!/README.md
+!/install_script.sh
 !/.bashrc
 !/.gitconfig
 !/.gitignore
