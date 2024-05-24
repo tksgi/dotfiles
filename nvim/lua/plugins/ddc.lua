@@ -1,5 +1,6 @@
 local config = function()
-  vim.fn['ddc#custom#patch_global']('ui', 'pum')
+  -- vim.fn['ddc#custom#patch_global']('ui', 'pum')
+  vim.fn['ddc#custom#patch_global']('ui', 'native')
   vim.fn['ddc#custom#patch_global']('autoCompleteEvents', {
     'InsertEnter',
     'TextrChangedI',
@@ -7,7 +8,7 @@ local config = function()
     -- 'CmdlineChanged'
   })
   vim.g.ddc_default_sources = {
-    { name = 'nvim-lsp', },
+    { name = 'lsp', },
     { name = 'skkeleton', },
     { name = 'around', },
     { name = 'buffer', },
@@ -19,56 +20,56 @@ local config = function()
       sorters = { 'sorter_rank' },
       converters = { 'converter_fuzzy' },
     },
-    zsh = {
-      mark = 'Z',
-      maxItems = 10,
-    },
-    skkeleton = {
-      mark = 'skk',
-      matchers = { 'skkeleton' },
-      maxItems = 10,
-    },
-    buffer = {
-      mark = 'buffer',
-      maxItems = 5,
-    },
-    file = {
-      mark = 'F',
-      isVolatile = true,
-      forceCompletionPattern = [[\S/\S*]],
-      maxItems = 5,
-    },
-    necovim = {
-      mark = 'necovim',
-      maxItems = 10,
-    },
-    tabnine = {
-      mark = 'TN',
-      maxItems = 10,
-      isVolatile = true,
-    },
-    oldfiles = {
-      mark = 'oldfiles',
-      maxItems = 5,
-    },
-    around = {
-      mark = 'A',
-      maxItems = 5,
-    },
-    line = {
-      mark = 'line',
-      maxItems = 5,
-    },
-    cmdline = {
-      mark = 'cmd',
-      maxItems = 10,
-    },
-    look = {
-      converters = { 'loud' },
-      matchers = {},
-      mark = 'l',
-      isVolatile = true
-    }
+  }
+  sourceOptions['zsh'] = {
+    mark = 'Z',
+    maxItems = 10,
+  }
+  sourceOptions['sskeleton'] = {
+    mark = 'skk',
+    matchers = { 'skkeleton' },
+    maxItems = 10,
+  }
+  sourceOptions['buffer'] = {
+    mark = 'buffer',
+    maxItems = 5,
+  }
+  sourceOptions['file'] = {
+    mark = 'F',
+    isVolatile = true,
+    forceCompletionPattern = [[\S/\S*]],
+    maxItems = 5,
+  }
+  sourceOptions['necovim'] = {
+    mark = 'necovim',
+    maxItems = 10,
+  }
+  sourceOptions['tabnine'] = {
+    mark = 'TN',
+    maxItems = 10,
+    isVolatile = true,
+  }
+  sourceOptions['oldfiles'] = {
+    mark = 'oldfiles',
+    maxItems = 5,
+  }
+  sourceOptions['around'] = {
+    mark = 'A',
+    maxItems = 5,
+  }
+  sourceOptions['line'] = {
+    mark = 'line',
+    maxItems = 5,
+  }
+  sourceOptions['cmdline'] = {
+    mark = 'cmd',
+    maxItems = 10,
+  }
+  sourceOptions['look'] = {
+    converters = { 'loud' },
+    matchers = {},
+    mark = 'l',
+    isVolatile = true
   }
   sourceOptions['nvim-lsp'] = {
     mark = 'lsp',
@@ -146,67 +147,67 @@ local config = function()
 
   -- vim.keymap.set('n', ':', CommandlinePre, { remap = true })
   vim.keymap.set('n', ';', '<cmd>lua CommandlinePre<cr>:', { noremap = true })
-  vim.keymap.set('i', '<Tab>', function() vim.fn['pum#map#insert_relative']('+1') end, { noremap = true })
-  vim.keymap.set('i', '<S-Tab>', function() vim.fn['pum#map#insert_relative']('-1') end, { noremap = true })
-  vim.keymap.set('i', '<C-n>', function() vim.fn['pum#map#insert_relative']('+1') end, { noremap = true })
-  vim.keymap.set('i', '<C-p>', function() vim.fn['pum#map#insert_relative']('-1') end, { noremap = true })
-  vim.keymap.set('i', '<C-y>', function() vim.fn['pum#map#confirm']() end, { noremap = true })
-  vim.keymap.set('i', '<C-e>', function() vim.fn['pum#map#cancel']() end, { noremap = true })
+  -- vim.keymap.set('i', '<Tab>', function() vim.fn['pum#map#insert_relative']('+1') end, { noremap = true })
+  -- vim.keymap.set('i', '<S-Tab>', function() vim.fn['pum#map#insert_relative']('-1') end, { noremap = true })
+  -- vim.keymap.set('i', '<C-n>', function() vim.fn['pum#map#insert_relative']('+1') end, { noremap = true })
+  -- vim.keymap.set('i', '<C-p>', function() vim.fn['pum#map#insert_relative']('-1') end, { noremap = true })
+  -- vim.keymap.set('i', '<C-y>', function() vim.fn['pum#map#confirm']() end, { noremap = true })
+  -- vim.keymap.set('i', '<C-e>', function() vim.fn['pum#map#cancel']() end, { noremap = true })
 
 
-  vim.keymap.set('i', '<C-x><C-o>',
-    function() vim.fn['ddc#custom#patch_buffer']('sources', vim.g.ddc_default_sources) end,
-    { noremap = true })
-  vim.keymap.set('i', '<C-x><C-f>',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'file', },
-        -- { name = 'git-file', },
-      })
-    end,
-    { noremap = true })
-  vim.keymap.set('i', '<C-x>s',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'look', },
-      })
-    end,
-    { noremap = true })
-  vim.keymap.set('i', '<C-x><C-]>',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'nvim-lsp', },
-        -- { name = 'treesitter' },
-      })
-    end,
-    { noremap = true })
-  vim.keymap.set('i', '<C-x><C-l>',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'line' }
-      })
-    end,
-    { noremap = true })
-  vim.keymap.set('i', '<C-x><C-v>',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'cmdline', },
-        { name = 'cmdline-history', },
-      })
-    end, { noremap = true })
-  vim.keymap.set('i', '<C-x><C-i>',
-    function()
-      print('called')
-      vim.fn['ddc#custom#patch_buffer']('sources', {
-        { name = 'buffer', },
-        { name = 'around-history' },
-      })
-    end, { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-o>',
+  --   function() vim.fn['ddc#custom#patch_buffer']('sources', vim.g.ddc_default_sources) end,
+  --   { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-f>',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'file', },
+  --       -- { name = 'git-file', },
+  --     })
+  --   end,
+  --   { noremap = true })
+  -- vim.keymap.set('i', '<C-x>s',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'look', },
+  --     })
+  --   end,
+  --   { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-]>',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'nvim-lsp', },
+  --       -- { name = 'treesitter' },
+  --     })
+  --   end,
+  --   { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-l>',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'line' }
+  --     })
+  --   end,
+  --   { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-v>',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'cmdline', },
+  --       { name = 'cmdline-history', },
+  --     })
+  --   end, { noremap = true })
+  -- vim.keymap.set('i', '<C-x><C-i>',
+  --   function()
+  --     print('called')
+  --     vim.fn['ddc#custom#patch_buffer']('sources', {
+  --       { name = 'buffer', },
+  --       { name = 'around-history' },
+  --     })
+  --   end, { noremap = true })
 
   vim.fn['pum#set_option']('border', 'double')
   vim.fn['ddc#enable']()
@@ -408,6 +409,7 @@ local spec = {
     { 'denops.vim' },
     { 'Shougo/pum.vim' },
     { 'Shougo/ddc-ui-pum' },
+    { 'Shougo/ddc-ui-native' },
     { 'Shougo/neco-vim' },
     { 'Shougo/ddc-source-lsp' },
     { 'Shougo/ddc-zsh' },
