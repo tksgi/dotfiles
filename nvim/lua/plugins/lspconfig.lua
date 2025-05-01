@@ -45,12 +45,11 @@ local config = function()
       {
         on_attach = function(client, bufnr)
           require("nvim-navic").attach(client, bufnr)
-          require("lsp-inlayhints").on_attach(client, bufnr)
         end
       }
   )
   lspconfig.vimls.setup { }
-  lspconfig.tsserver.setup {
+  lspconfig.ts_ls.setup {
     -- autostart = false,
     settings = {
       typescript = {
@@ -115,7 +114,6 @@ local spec = {
     'neodev.nvim',
     { "SmiteshP/nvim-navic",     enabled = true },
     { 'simrat39/rust-tools.nvim' },
-    { 'https://github.com/lvimuser/lsp-inlayhints.nvim', config = true },
   },
   build = build,
   config = config,
