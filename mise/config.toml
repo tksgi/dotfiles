@@ -1,5 +1,4 @@
 [tools]
-neovim = "latest"
 bat = "latest"
 direnv = "latest"
 fd = "latest"
@@ -16,6 +15,9 @@ fzf = "latest"
 deno = "latest"
 node = "latest"
 jq = "latest"
+gcloud = "latest"
+awscli = "latest"
+neovim = "latest"
 # sqlite = "latest"
 
 [settings]
