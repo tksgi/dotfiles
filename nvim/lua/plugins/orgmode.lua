@@ -1,11 +1,11 @@
 local config = function()
   require('orgmode').setup({
-    org_agenda_files = '~/orgfiles/**/*',
-    org_default_notes_file = '~/orgfiles/refille.org',
+    org_agenda_files = '$HOME/orgfiles/**/*',
+    org_default_notes_file = '$HOME/orgfiles/refille.org',
   })
 end
 local build = function()
-  local dir_path = '~/orgfiles'
+  local dir_path = '$HOME/orgfiles'
   if vim.fn.empty(vim.fn.glob(dir_path)) > 0 then
     vim.fn.system({ 'mkdir', '-p', dir_path })
     vim.fn.system({ 'mkdir', '-p', dir_path })

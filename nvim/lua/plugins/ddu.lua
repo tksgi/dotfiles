@@ -200,5 +200,6 @@ local spec = {
   'Shougo/ddu.vim',
   dependencies = dependencies,
   config = config,
+  enabled = false,
 }
 return spec

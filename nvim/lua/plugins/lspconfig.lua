@@ -58,7 +58,7 @@ local config = function()
   lspconfig.util.default_config = default_config
 
   lspconfig.vimls.setup { }
-  lspconfig.tsserver.setup {
+  lspconfig.ts_ls.setup {
     -- autostart = false,
     settings = {
       typescript = {
