@@ -5,8 +5,8 @@ local config = function()
   })
 end
 local build = function()
-  local dir_path = '$HOME/orgfiles'
-  if vim.fn.empty(vim.fn.glob(dir_path)) > 0 then
+  local dir_path = vim.fn.glob('$HOME') .. '/orgfiles'
+  if vim.fn.isdirectory(dir_path) == 0 then
     vim.fn.system({ 'mkdir', '-p', dir_path })
     vim.fn.system({ 'mkdir', '-p', dir_path })
   end
