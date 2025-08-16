@@ -1,14 +1,15 @@
 ---@type LazySpec
 local spec = {
   "CopilotC-Nvim/CopilotChat.nvim",
-  version = "v2.10.1",
   event = "VeryLazy",
+  branch = "main",
   dependencies = {
     'github/copilot.vim',
     "plenary.nvim",
   },
   opts = {
-    debug = true
+    debug = true,
+    model = 'claude-sonnet-4',
   },
 }
 return spec

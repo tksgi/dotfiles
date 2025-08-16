@@ -45,7 +45,6 @@ local config = function()
     {
       on_attach = function(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
-        require("lsp-inlayhints").on_attach(client, bufnr)
       end,
     }
   )
@@ -59,33 +58,33 @@ local config = function()
 
   lspconfig.vimls.setup { }
   lspconfig.ts_ls.setup {
-    -- autostart = false,
-    settings = {
-      typescript = {
-        inlayHints = {
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        }
-      },
-      javascript = {
-        inlayHints = {
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
-        }
-      }
-    }
+    -- -- autostart = false,
+    -- settings = {
+    --   typescript = {
+    --     inlayHints = {
+    --       includeInlayParameterNameHints = 'all',
+    --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+    --       includeInlayFunctionParameterTypeHints = true,
+    --       includeInlayVariableTypeHints = true,
+    --       includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+    --       includeInlayPropertyDeclarationTypeHints = true,
+    --       includeInlayFunctionLikeReturnTypeHints = true,
+    --       includeInlayEnumMemberValueHints = true,
+    --     }
+    --   },
+    --   javascript = {
+    --     inlayHints = {
+    --       includeInlayParameterNameHints = 'all',
+    --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+    --       includeInlayFunctionParameterTypeHints = true,
+    --       includeInlayVariableTypeHints = true,
+    --       includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+    --       includeInlayPropertyDeclarationTypeHints = true,
+    --       includeInlayFunctionLikeReturnTypeHints = true,
+    --       includeInlayEnumMemberValueHints = true,
+    --     }
+    --   }
+    -- }
   }
 
   lspconfig.gopls.setup { }
@@ -123,7 +122,7 @@ local spec = {
     'neodev.nvim',
     { "SmiteshP/nvim-navic",     enabled = true },
     { 'simrat39/rust-tools.nvim' },
-    { 'https://github.com/lvimuser/lsp-inlayhints.nvim', config = true },
+    -- { 'https://github.com/lvimuser/lsp-inlayhints.nvim', config = true },
     {
       'Shougo/ddc-source-lsp',
       enabled = vim.g.completion_plugin == 'ddc',
