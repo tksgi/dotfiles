@@ -1,7 +1,17 @@
 ---@type LazySpec
 local spec = {
-  'https://github.com/MeanderingProgrammer/markdown.nvim',
-  as = 'render-markdown',
-  config = true,
+  'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+  },
+  ---@module 'render-markdown'
+  ---@type render.md.UserConfig
+  opts = {
+    completions = {
+      lsp = {
+        enabled = true,
+      },
+    }
+  },
 }
 return spec
