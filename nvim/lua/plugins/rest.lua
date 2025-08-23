@@ -1,6 +1,7 @@
 ---@type LazySpec
 local spec = {
   'https://github.com/rest-nvim/rest.nvim',
+  enabled = false,
   dependencies = {{
     "vhyrro/luarocks.nvim",
     priority = 1000,
