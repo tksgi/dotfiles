@@ -32,8 +32,9 @@ vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
 vim.opt.listchars:append 'tab:▸-'
+vim.opt.laststatus = 3
 
-vim.api.nvim_exec('autocmd QuickFixCmdPost *grep* cwindow', false)
+vim.api.nvim_exec2('autocmd QuickFixCmdPost *grep* cwindow', {})
 
 -- ESC連打でハイライト解除
 vim.api.nvim_set_keymap("n", "<Esc><Esc>", '<CMD>nohlsearch<CR>', { silent = true })
@@ -48,11 +49,11 @@ vim.api.nvim_set_keymap("t", "<C-w>l", '<C-\\><C-n><C-w>l', { noremap = true, de
 
 -- vim.keymap.set("c", "P<TAB>", function() return vim.fn.expand('%:h') end, { desc = 'current dirのパスを展開' })
 -- vim.keymap.set("c", "%<TAB>", function() return vim.fn.expand('%') end, { desc = 'current fileのパスを展開' })
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
   cmap <expr> P<TAB> expand('%:h')
   cmap <expr> %<TAB> expand('%')
-  ]], false
+  ]], {}
 )
 
 
@@ -86,7 +87,7 @@ vim.api.nvim_create_user_command("Ter", function() Ter() end, {})
 
 
 -- Terminal内でenter押したタイミングでbuffer名をupdate
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     function! s:set_title(prompt_pattern, max_length) abort
         let path = nvim_buf_get_name(0)
@@ -103,7 +104,7 @@ vim.api.nvim_exec(
     endfunction
 
     tnoremap <CR> <Cmd>call <SID>set_title('^\$ ', 24)<CR><CR>
-  ]], false
+  ]], {}
 )
 
 vim.api.nvim_del_keymap('n', 'Y')

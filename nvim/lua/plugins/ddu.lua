@@ -130,7 +130,7 @@ local config = function()
   --     })
   --   end
   -- )
-  vim.api.nvim_exec([[
+  vim.api.nvim_exec2([[
     call ddu#custom#action('kind', 'file', 'grep',
         \ { args -> GrepAction(args) })
     function GrepAction(args)
@@ -150,7 +150,7 @@ local config = function()
           \   ],
           \ })
     endfunction
-  ]], false)
+  ]], {})
 
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "ddu-ff",

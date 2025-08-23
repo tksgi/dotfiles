@@ -12,7 +12,7 @@ local spec = {
   }},
   ft = "http",
   config = function()
-    require("rest-nvim").setup()
+    vim.g.rest_nvim.setup()
   end
 }
 return spec

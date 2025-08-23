@@ -1,4 +1,4 @@
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
     noremap <buffer> p  <CR>zz<C-w>p
     noremap <buffer> <C-o>  :<C-u>colder<CR>
@@ -47,5 +47,5 @@ vim.api.nvim_exec(
       call setqflist(qf, 'r')
       execute a:firstline
     endfunction
-  ]], false
+  ]], {}
 )

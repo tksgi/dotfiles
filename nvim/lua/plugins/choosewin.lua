@@ -1,9 +1,9 @@
 local config = function()
-  vim.api.nvim_exec(
+  vim.api.nvim_exec2(
     [[
         let g:choosewin_overlay_enable = 1
         let g:choosewin_overlay_clear_multibyte = 1
-      ]], false
+      ]], {}
   )
 end
 

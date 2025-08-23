@@ -11,7 +11,7 @@ local config = function()
   -- })
   vim.keymap.set('i', '<C-j>', '<Plug>(skkeleton-enable)', {})
   vim.keymap.set('c', '<C-j>', '<Plug>(skkeleton-enable)', {})
-  vim.api.nvim_exec(
+  vim.api.nvim_exec2(
     [[
              function! s:skkeleton_init() abort
                let dic_path = stdpath("data") . "/skk_dictionary/"
@@ -25,8 +25,8 @@ local config = function()
              autocmd!
              autocmd User skkeleton-initialize-pre call s:skkeleton_init()
              augroup END
-             ]],
-    false)
+             ]], {}
+  )
 end
 
 local build = function()
