@@ -99,6 +99,17 @@ local config = function()
     buffer_source,
     { name = 'path' },
   })
+  cmp.setup.filetype('codecompanion', {
+    sources = {
+
+      {
+        name = 'skkeleton',
+        view = { entries = 'native' },
+      },
+      { name = 'path' },
+      { name = 'codecompanion' },
+    }
+  })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   -- cmp.setup.cmdline('/', {
