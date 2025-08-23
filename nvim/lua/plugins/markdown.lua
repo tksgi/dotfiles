@@ -4,6 +4,7 @@ local spec = {
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
   },
+  ft = { 'markdown', 'codecompanion' },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {

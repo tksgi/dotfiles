@@ -43,20 +43,20 @@ local config = function()
       ['<CR>'] = cmp.mapping.confirm({ select = false }),  -- <cr>で確定。未選択時は何もしない
       -- ['<C-f>'] = cmp.mapping.complete({ config = {sources = {name = 'path'}} }),
       -- ['<C-s>'] = cmp.mapping.complete({ config = {sources = {name = 'luasnip'}} }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback(fallback)
-        end
-      end, { "i", "s" }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback(fallback)
-        end
-      end, { "i", "s" }),
+      -- ['<Tab>'] = cmp.mapping(function(fallback)
+      --   if luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   else
+      --     fallback(fallback)
+      --   end
+      -- end, { "i", "s" }),
+      -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+      --   if luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   else
+      --     fallback(fallback)
+      --   end
+      -- end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
       {

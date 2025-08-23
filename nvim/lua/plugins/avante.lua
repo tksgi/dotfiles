@@ -3,7 +3,7 @@ local spec = {
   'yetone/avante.nvim',
   build = 'make',
   event = 'VeryLazy',
-  enabled = false,
+  -- enabled = false,
   dependencies = {
     'github/copilot.vim',
     "plenary.nvim",
