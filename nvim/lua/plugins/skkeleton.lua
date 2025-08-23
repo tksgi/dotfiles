@@ -17,6 +17,7 @@ local config = function()
                let dic_path = stdpath("data") . "/skk_dictionary/"
                call skkeleton#config({
                \ 'globalDictionaries': [dic_path . "SKK-JISYO.L", dic_path . "SKK-JISYO.jinmei", dic_path . "SKK-JISYO.geo", dic_path . "SKK-JISYO.emoji"],
+               \ 'sources': ['skk_dictionary', 'google_japanese_input'],
                \ })
              endfunction
 
