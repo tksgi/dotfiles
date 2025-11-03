@@ -6,6 +6,7 @@ local spec = {
   },
   build = "npm install -g mcp-hub@latest",   -- Installs `mcp-hub` node binary globally
   opts = {
+    auto_approve = true,
     global_env = {
       ALLOWED_DIRECTORY = vim.fn.getcwd(),
       DEFAULT_MINIMUM_TOKENS = "100",
