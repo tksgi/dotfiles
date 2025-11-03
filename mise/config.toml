@@ -18,6 +18,7 @@ jq = "latest"
 gcloud = "latest"
 awscli = "latest"
 neovim = "latest"
+terraform = "latest"
 # sqlite = "latest"
 
 [settings]
