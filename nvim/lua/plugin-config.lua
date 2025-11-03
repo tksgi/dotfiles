@@ -1,4 +1,5 @@
-vim.g.completion_plugin = 'cmp'
+vim.g.completion_plugin = 'blink'
+-- vim.g.completion_plugin = 'cmp'
 -- vim.g.completion_plugin = 'ddc'
 
 
