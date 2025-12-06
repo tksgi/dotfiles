@@ -1,4 +1,3 @@
-
 ---@type LazySpec
 local spec = {
   'saghen/blink.cmp',
@@ -27,12 +26,13 @@ local spec = {
     keymap = {
       preset = 'default',
       ['<C-n>'] = { 'show', 'select_next' },
-      ['<C-c><C-f>'] = {
-        function(cmp) cmp.show({ providers = 'path' }) end
+      ['<C-b><C-f>'] = {
+        function(cmp) cmp.show({ providers = { 'path' } }) end
       },
-      ['<C-c><C-b>'] = {
-        function(cmp) cmp.show({ providers = 'buffer' }) end
-      }
+      ['<C-b><C-b>'] = {
+        function(cmp) cmp.show({ providers = { 'buffer' } }) end
+      },
+      ['<Space>'] = {},
     },
     signature = { enabled = true },
     sources = {
