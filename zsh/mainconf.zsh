@@ -15,12 +15,6 @@ setopt share_history
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit -u
-# if [ -e ~/.cache/zsh-completions ]; then
-#   fpath=(~/.cache/zsh-completions $fpath)
-# else
-#   git clone git://github.com/zsh-users/zsh-completions.git ~/.cache/zsh-completions
-#   fpath=(~/.cache/zsh-completions $fpath)
-# fi
 #移動フォルダの履歴を記録(cd -[TAB])
 setopt auto_pushd
 # 補完で小文字でも大文字にマッチさせる
@@ -41,41 +35,38 @@ setopt prompt_subst
 zstyle ':vcs_info:*' formats '[%F{green}%b%f]'    
 zstyle ':vcs_info:*' actionformats '%F{green}%b%f(%F{red}%a%f)' 
 precmd() { vcs_info }
-# PROMPT="Dir: %F{red}%~%f
-# %F{white}% %D %* %f $ "
-# RPROMPT='${vcs_info_msg_0_}'
-# RPROMPT2='${vcs_info_msg_0_}'
 
 # 時刻を表示したい
 export PREV_COMMAND_END_TIME
 export NEXT_COMMAND_BGN_TIME
 
 function show_command_end_time() {
-  PREV_COMMAND_END_TIME=`date "+%H:%M:%S"`
-  PROMPT="%F{blue}${HOST}%f
+  PREV_COMMAND_END_TIME=$(date "+%H:%M:%S")
+  # ✅ 重要：シングルクォートに変更して変数展開を遅延させる
+  PROMPT='%F{blue}${HOST}%f
 Dir: %F{red}%~%f ${vcs_info_msg_0_}
 ${PREV_COMMAND_END_TIME} - __:__:__
-%F{red}$%f "
+%F{red}$%f '
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd show_command_end_time
 
 show_command_begin_time() {
-  NEXT_COMMAND_BGN_TIME=`date "+%H:%M:%S"`
-  PROMPT="%F{blue}${HOST}%f
+  NEXT_COMMAND_BGN_TIME=$(date "+%H:%M:%S")
+  # ✅ 重要：シングルクォートに変更
+  PROMPT='%F{blue}${HOST}%f
 Dir: %F{red}%~%f ${vcs_info_msg_0_}
-${PREV_COMMAND_END_TIME} - ${NEXT_COMMAND_BGN_TIME} 
-$ "
+${PREV_COMMAND_END_TIME} - ${NEXT_COMMAND_BGN_TIME}
+%F{red}$%f '
   zle .accept-line
-  zle .reset-prompt
+  # ✅ 重要：reset-promptをコメントアウト（Neovimターミナルで問題を起こす可能性）
+  # zle .reset-prompt
 }
 zle -N accept-line show_command_begin_time
 
 export CLICOLOR=1
 export LSCOLORS=DxGxcxdxCxegedabagacad
 
-#viライクな設定
-# bindkey -v
 # emacsモード(デフォルトだと$EDITORを見てしまうので明示的に設定)
 bindkey -e
 
@@ -97,7 +88,5 @@ export CLICOLOR=true
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-
 # pathの重複を避ける
 typeset -U path PATH
-
