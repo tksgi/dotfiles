@@ -34,19 +34,39 @@ local spec = {
       },
       ['<Space>'] = {},
     },
+    cmdline = {
+      completion = {
+        menu = {
+          auto_show = false
+        }
+      }
+    },
     signature = { enabled = true },
     sources = {
       default = function(_ctx)
         if require("blink-cmp-skkeleton").is_enabled() then
           return { "skkeleton" }
         else
-          return { "lsp", "path", "snippets", "buffer" }
+          return { "lsp", "path", "snippets", "buffer", "dictionary" }
         end
       end,
       providers = {
         skkeleton = {
           name = "skkeleton",
           module = "blink-cmp-skkeleton",
+        },
+        dictionary = {
+          module = 'blink-cmp-dictionary',
+          name = 'Dict',
+          min_keyword_length = 3,
+          max_items = 8,
+          opts = {
+            dictionary_files = function()
+              if vim.bo.filetype == 'lilypond' then -- Add lilypond words to sources
+                return vim.fn.glob(vim.fn.expand('$LILYDICTPATH') .. '/*', true, true)
+              end
+            end,
+          }
         },
       },
     }
@@ -66,6 +86,7 @@ local spec = {
     "Xantibody/blink-cmp-skkeleton",
     "vim-skk/skkeleton",
     "vim-denops/denops.vim",
+    'Kaiser-Yang/blink-cmp-dictionary',
   },
 }
 return spec
